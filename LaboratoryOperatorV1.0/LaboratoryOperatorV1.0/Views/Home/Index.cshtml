@@ -1,0 +1,44 @@
+﻿@model LaboratoryOperatorV1._0.Models.CustomIndex
+
+
+<div id="app">
+    <v-app id="inspire">
+        <v-layout>
+            <v-flex xs12 sm6 offset-sm3 v-for="n in 2" :key="n">
+                <v-card>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="purple">View</v-btn>
+                    </v-card-actions>
+                    <v-card-title primary-title>
+                        <div>
+                            <h3 class="headline mb-0">{{ Header }}</h3>
+                            <div> {{ card_text }} </div>
+                        </div>
+                    </v-card-title>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-app>
+</div>
+
+
+
+
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                Header: 'Lab 7 Kirchoffs law',
+                card_text: 'This lab requires People to say hi'
+            }
+        }
+    })
+
+
+</script>
+
+

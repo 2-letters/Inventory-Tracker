@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {},
+  "vuetify": "0.17.6",
+
+  "stylus": "0.54.5",
+
+  "stylus-loader": "3.0.1"
+}

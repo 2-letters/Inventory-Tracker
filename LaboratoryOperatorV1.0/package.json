@@ -1,0 +1,8 @@
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "vue": "^2.5.18",
+    "vuetify": "^1.5.14"
+  }
+}
