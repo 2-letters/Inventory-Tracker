@@ -2,14 +2,41 @@
 
 
 <script>
-    var model =  @Html.Raw(Json.Encode(Model))  
+    var model =  @Html.Raw(Json.Encode(Model))
 </script>
+
+@*<template>
+        <div id="show-Labs">
+            <h1>All lab assignments</h1>
+            <input type="text" v-model="search" placeholder="search Labs" />
+            <div v-for="lab in labs" class="single-lab">
+                <h2>{{lab.LabName | to-uppercase}}</h2>
+                <h2>{{lab.description | to-uppercase}}</h2>
+            </div>
+        </div>
+    </template>*@
 
 
 <div id="app">
     <v-app id="inspire">
+
+        <v-card>
+            <v-card-title>
+                Search Labs
+                <v-spacer></v-spacer>
+                <v-text-field v-model="search"
+                              append-icon="search"
+                              label="search"
+                              single-line
+                              hide-details>
+
+                </v-text-field>
+            </v-card-title>
+
+        </v-card>
+
         <v-layout>
-            <v-flex xs12 sm6 md4 lg3 v-for="lab in Assignments" :key="n">
+            <v-flex xs12 sm6 md4 lg3 v-for="lab in Assignments" :key="n" :search="search">
                 <v-card>
                     <v-card-actions>
                         <v-spacer></v-spacer>
