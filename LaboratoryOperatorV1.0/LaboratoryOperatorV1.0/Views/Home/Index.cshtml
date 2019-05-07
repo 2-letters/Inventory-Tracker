@@ -1,10 +1,15 @@
 ﻿@model LaboratoryOperatorV1._0.Models.CustomIndex
 
 
+<script>
+    var model =  @Html.Raw(Json.Encode(Model))  
+</script>
+
+
 <div id="app">
     <v-app id="inspire">
         <v-layout>
-            <v-flex xs12 sm6 offset-sm3 v-for="n in 2" :key="n">
+            <v-flex xs12 sm6 md4 lg3 v-for="lab in Assignments" :key="n">
                 <v-card>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -12,8 +17,8 @@
                     </v-card-actions>
                     <v-card-title primary-title>
                         <div>
-                            <h3 class="headline mb-0">{{ Header }}</h3>
-                            <div> {{ card_text }} </div>
+                            <h3 class="headline mb-0">{{ lab.LabName }}</h3>
+                            <div> {{ lab.description }} </div>
                         </div>
                     </v-card-title>
                 </v-card>
@@ -21,24 +26,5 @@
         </v-layout>
     </v-app>
 </div>
-
-
-
-
-
-
-<script>
-    new Vue({
-        el: '#app',
-        data() {
-            return {
-                Header: 'Lab 7 Kirchoffs law',
-                card_text: 'This lab requires People to say hi'
-            }
-        }
-    })
-
-
-</script>
 
 
