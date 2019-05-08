@@ -1,5 +1,13 @@
 ﻿var x = model;
 
+class Assignment {
+    constructor(LabName, Description) {
+        this.LabName = LabName;
+        this.Description = Description;
+    }
+}
+
+
 
 new Vue({
     el: '#app',
@@ -10,14 +18,22 @@ new Vue({
         description: model.description,
         two: 2,
         search: '',
-        Assignments: [
-            { LabName: 'Lab 1: introduction', description: 'This is an introductory course' },
-            { LabName: 'Lab 2: Krichoffs law', description: 'Here we will test Kirchoff' },
-            { LabName: 'Lab 3: Intro to radiation', description: 'This is an introductory course' },
-            { LabName: 'Lab 4: Spectometer Lab', description: 'This is an introductory course' },
-            { LabName: 'Lab 5: Refraction of the indexes', description: 'This is an introductory course' },
+        AssignmentList: [
+            new Assignment('Lab 1: introduction', 'This is an introductory course'),
+            new Assignment('Lab 2: Krichoffs law', 'Here we will test Kirchoff'),
+            new Assignment('Lab 3: Intro to radiation', 'TThis is an introductory course'),
+            new Assignment('Lab 4: Spectometer Lab', 'This is an introductory course'),
+            new Assignment('Lab 5: Refraction of the indexes', 'This is an introductory course'),
         ]
+    },
+    computed: {
+        filteredList() {
+            return this.AssignmentList.filter(post => {
+                return post.LabName.toLowerCase().includes(this.search.toLowerCase())
+            })
+        }
     }
+    
 })
 
 

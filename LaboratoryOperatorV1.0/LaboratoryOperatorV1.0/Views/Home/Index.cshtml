@@ -40,7 +40,7 @@
         </v-card>
         <v-container>
             <v-layout row wrap>
-                <v-flex xs12 sm6 md4 lg3 v-for="lab in Assignments" :key="n" :search="search">
+                <v-flex xs12 sm6 md4 lg3 v-for="lab in filteredList" :key="n" :search="search">
 
 
                     <v-card flat class="text-xs-center ma-3">
@@ -51,10 +51,10 @@
                         </v-card-actions>
                         <v-card-title primary-title>
                             <div class=" heading"><h3>{{ lab.LabName }}</h3></div>
-
-                            <div class="sub-heading"> {{ lab.description }} </div>
-
                         </v-card-title>
+                            <div class="sub-heading"> {{ lab.Description }} </div>
+
+                      
 
                     </v-card>
 
