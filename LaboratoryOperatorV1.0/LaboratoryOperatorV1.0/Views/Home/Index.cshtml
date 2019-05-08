@@ -22,11 +22,15 @@
 
         <v-card>
             <v-card-title>
-                Search Labs
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn flat color="purple">Add New Lab</v-btn>
+                </v-card-actions>
+
                 <v-spacer></v-spacer>
-                <v-text-field v-model="search"
+                <v-text-field v-model="search "
                               append-icon="search"
-                              label="search"
+                              label="search labs"
                               single-line
                               hide-details>
 
@@ -34,23 +38,30 @@
             </v-card-title>
 
         </v-card>
+        <v-container>
+            <v-layout row wrap>
+                <v-flex xs12 sm6 md4 lg3 v-for="lab in Assignments" :key="n" :search="search">
 
-        <v-layout>
-            <v-flex xs12 sm6 md4 lg3 v-for="lab in Assignments" :key="n" :search="search">
-                <v-card>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn flat color="purple">View</v-btn>
-                    </v-card-actions>
-                    <v-card-title primary-title>
-                        <div>
-                            <h3 class="headline mb-0">{{ lab.LabName }}</h3>
-                            <div> {{ lab.description }} </div>
-                        </div>
-                    </v-card-title>
-                </v-card>
-            </v-flex>
-        </v-layout>
+
+                    <v-card flat class="text-xs-center ma-3">
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn flat color="purple">View</v-btn>
+                        </v-card-actions>
+                        <v-card-title primary-title>
+                            <div class=" heading"><h3>{{ lab.LabName }}</h3></div>
+
+                            <div class="sub-heading"> {{ lab.description }} </div>
+
+                        </v-card-title>
+
+                    </v-card>
+
+
+                </v-flex>
+            </v-layout>
+        </v-container>
     </v-app>
 </div>
 
