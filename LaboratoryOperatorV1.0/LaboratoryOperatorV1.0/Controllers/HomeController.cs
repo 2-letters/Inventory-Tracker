@@ -13,14 +13,18 @@ namespace LaboratoryOperatorV1._0.Controllers
         public ActionResult Index()
         {
           
-            var model = new CustomIndex
-            {
-                description = "Lab 7 is about Kirchoff's rule Students will try to jump around",
-                Name = "Lab 7: Kirchoff's rule",
-            };
+     
 
-            return View(model);
+            return View();
         }
+
+
+        public ActionResult ViewLabs()
+        {
+            return View();
+        }
+
+
 
         public ActionResult About()
         {

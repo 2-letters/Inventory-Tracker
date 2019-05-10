@@ -1,20 +1,11 @@
 ﻿@model LaboratoryOperatorV1._0.Models.CustomIndex
 
 
-<script>
-    var model =  @Html.Raw(Json.Encode(Model))
-</script>
+@*<script>
+        var model =  @Html.Raw(Json.Encode(Model))
+    </script>*@
 
-@*<template>
-        <div id="show-Labs">
-            <h1>All lab assignments</h1>
-            <input type="text" v-model="search" placeholder="search Labs" />
-            <div v-for="lab in labs" class="single-lab">
-                <h2>{{lab.LabName | to-uppercase}}</h2>
-                <h2>{{lab.description | to-uppercase}}</h2>
-            </div>
-        </div>
-    </template>*@
+
 
 
 <div id="app">
@@ -24,7 +15,7 @@
             <v-card-title>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn flat color="purple" href="/Home/About" >Add New Lab</v-btn>
+                    <v-btn flat color="purple" href="/Home/ViewLabs">Add New Lab</v-btn>
                 </v-card-actions>
 
                 <v-spacer></v-spacer>
@@ -52,9 +43,9 @@
                         <v-card-title primary-title>
                             <div class=" heading"><h3>{{ lab.LabName }}</h3></div>
                         </v-card-title>
-                            <div class="sub-heading"> {{ lab.Description }} </div>
+                        <div class="sub-heading"> {{ lab.Description }} </div>
 
-                      
+
 
                     </v-card>
 
@@ -64,5 +55,7 @@
         </v-container>
     </v-app>
 </div>
+
+@Scripts.Render("~/Scripts/LabIndex.js")
 
 

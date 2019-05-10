@@ -1,0 +1,40 @@
+﻿<div id="app">
+    <v-app id="inspire">
+        <v-card>
+            <v-card-title>
+                Lab Equipment
+                <v-spacer></v-spacer>
+                <v-text-field v-model="search"
+                              append-icon="search"
+                              label="Search"
+                              single-line
+                              hide-details></v-text-field>
+            </v-card-title>
+            <v-data-table :headers="Headers"
+                          :items="items"
+                          :search="search"
+                          item-key="equipment"
+                          hide-actions
+                          expand
+                          class="elevation-1">
+                <template slot="items" scope="props">
+                    <td class="text-xs">{{ props.item.equipment }}</td>
+                    <td class="text-xs">{{ props.item.location }}</td>
+                    <td class="text-xs">{{ props.item.qty }}  </td>
+                    <td class="text-xs">
+                        <button v-on:click="decrement">
+                            <v-icon color="pink">remove</v-icon>
+                        </button>
+                        <button v-on:click="increment()">
+                            <v-icon color="green">add</v-icon>
+                        </button>
+                    </td>
+
+                </template>
+            </v-data-table>
+        </v-card>
+
+    </v-app>
+
+</div>
+<script src="~/Scripts/ViewLabs.js"></script>

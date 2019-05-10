@@ -1,4 +1,4 @@
-﻿var x = model;
+﻿//var x = model;
 
 class Assignment {
     constructor(LabName, Description) {
@@ -12,11 +12,6 @@ class Assignment {
 new Vue({
     el: '#app',
     data: {
-        search: '',
-        model: model,
-        name: model.Name,
-        description: model.description,
-        two: 2,
         search: '',
         AssignmentList: [
             new Assignment('Lab 1: introduction', 'This is an introductory course'),
