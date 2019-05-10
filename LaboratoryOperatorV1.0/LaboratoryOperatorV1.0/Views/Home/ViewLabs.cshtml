@@ -1,40 +1,96 @@
 ﻿<div id="app">
+        <v-app id="inspire">
+            <v-card>
+                <v-card-title>
+                    Lab Equipment
+                    <v-spacer></v-spacer>
+                    <v-text-field v-model="search"
+                                  append-icon="search"
+                                  label="Search"
+                                  single-line
+                                  hide-details></v-text-field>
+                </v-card-title>
+                <v-data-table :headers="Headers"
+                              :items="items"
+                              :search="search"
+                              item-key="equipment"
+                              hide-actions
+                              expand
+                              class="elevation-1">
+                    <template slot="items" scope="props">
+                        <td class="text-xs">{{ props.item.equipment }}</td>
+                        <td class="text-xs">{{ props.item.location }}</td>
+                        <td class="text-xs">{{ props.item.qty }}  </td>
+                        <td class="text-xs">
+                            <button v-on:click="decrement">
+                                <v-icon color="pink">remove</v-icon>
+                            </button>
+                            <button v-on:click="increment()">
+                                <v-icon color="green">add</v-icon>
+                            </button>
+                        </td>
+
+                    </template>
+                </v-data-table>
+            </v-card>
+
+        </v-app>
+
+    </div>
+
+@*<div id="app">
     <v-app id="inspire">
-        <v-card>
-            <v-card-title>
-                Lab Equipment
-                <v-spacer></v-spacer>
-                <v-text-field v-model="search"
-                              append-icon="search"
-                              label="Search"
-                              single-line
-                              hide-details></v-text-field>
-            </v-card-title>
-            <v-data-table :headers="Headers"
-                          :items="items"
-                          :search="search"
-                          item-key="equipment"
-                          hide-actions
-                          expand
-                          class="elevation-1">
-                <template slot="items" scope="props">
-                    <td class="text-xs">{{ props.item.equipment }}</td>
-                    <td class="text-xs">{{ props.item.location }}</td>
-                    <td class="text-xs">{{ props.item.qty }}  </td>
-                    <td class="text-xs">
-                        <button v-on:click="decrement">
-                            <v-icon color="pink">remove</v-icon>
-                        </button>
-                        <button v-on:click="increment()">
-                            <v-icon color="green">add</v-icon>
-                        </button>
-                    </td>
+        <v-data-table :headers="Headers"
+                      :items="items"
+                      :search="search"
+                      item-key="equipment">
+
+            <v-data-table>
+                <template v-slot:top>
+                    <v-toolbar-title>New Lab</v-toolbar-title>
+                    <v-divider class="mx-3"
+                               inset
+                               vertical></v-divider>
+                    <v-spacer></v-spacer>
+
+                    <v-card>
+                        <v-card-title>
+                            <span class="headline">{{formTitle}}</span>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-container grid-list-md>
+                                <v-layout wrap>
+                                    <v-flex xs12 sm6 md4>
+                                        <v-text-field v-model="editedItem.Equipment" label="Equipment"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12 sm6 md4>
+                                        <v-text-field v-model="editedItem.location" label="Location"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12 sm6 md4>
+                                        <v-text-field v-model="editedItem.qty" label="Quatnity"></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                            </v-container>
+                        </v-card-text>
+
+                    </v-card>
+
 
                 </template>
+                <template v-slot:item.action="{ item }">
+                    <v-icon small
+                            class="mr-2"
+                            v-on:click="subtract(item)">
+                        subtract
+                    </v-icon>
+                    <v-icon small
+                            v-on:click="increment(item)">
+                        increment
+                    </v-icon>
+                </template>
             </v-data-table>
-        </v-card>
 
     </v-app>
+</div>*@
 
-</div>
 <script src="~/Scripts/ViewLabs.js"></script>
