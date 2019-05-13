@@ -11,10 +11,9 @@ Channel channel = new Channel(FirestoreClient.DefaultEndpoint.ToString(), channe
 FirestoreClient firestoreClient = FirestoreClient.Create(channel);
 FirestoreDb db = FirestoreDb.Create("laboratory-2letter", client: firestoreClient);
 
-// Create a document with a random ID in the "users" collection.
+// Create a document with a random ID in the "labItems" collection.
 CollectionReference collection = db.Collection("labItems");
 
-// Query the collection for all documents where doc.Born < 1900.
 Query query = collection;
 QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
 foreach (DocumentSnapshot queryResult in querySnapshot.Documents)
