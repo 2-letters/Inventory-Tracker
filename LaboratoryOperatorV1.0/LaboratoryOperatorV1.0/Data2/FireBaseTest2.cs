@@ -37,7 +37,10 @@ namespace LaboratoryOperatorV1._0.Data
             FirestoreClient firestoreClient = FirestoreClient.Create(channel);
             db = FirestoreDb.Create("laboratory-2letter", client: firestoreClient);
         }
-
+        /// <summary>
+        /// returning the query snpshot and using that as the model to read data from
+        /// </summary>
+        /// <returns></returns>
          public async Task<IReadOnlyList<DocumentSnapshot>> GetAllItems() {
             // Create a document with a random ID in the "users" collection.
             CollectionReference collection = db.Collection("labItems");
@@ -49,6 +52,35 @@ namespace LaboratoryOperatorV1._0.Data
            
             return querySnapshot;
         }
+
+        public async Task<List<labItems>> GetAllItemsMethod2()
+        {
+            // Create a document with a random ID in the "users" collection.
+            CollectionReference collection = db.Collection("labItems");
+
+            // Query the collection for all documents where doc.Born < 1900.
+            Query query = collection;
+            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+
+            List<labItems> Brotherhood = new List<labItems>();
+         
+            foreach(DocumentSnapshot queryResult in querySnapshot)
+            {
+                Brotherhood.Add(new labItems
+                {
+                    itemName = queryResult.GetValue<string>("itemName"),
+                    description = queryResult.GetValue<string>("description"),
+                    pictureUrl = queryResult.GetValue<string>("pictureUrl"),
+                    quantity = queryResult.GetValue<int>("quantity")
+                });
+                
+               
+            }
+            return Brotherhood;
+        }
+
+
+        
 
         public  async Task<List<labItems>> GetLabItems()
         {

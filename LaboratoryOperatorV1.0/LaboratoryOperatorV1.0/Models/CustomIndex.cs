@@ -9,7 +9,7 @@ namespace LaboratoryOperatorV1._0.Models
     public class labItems
     {
         public string pictureUrl { get; set; }
-        public List<string> itemName { get; set; }
+        public string itemName { get; set; }
         public string description { get; set; }
         public int quantity { get; set; }
 

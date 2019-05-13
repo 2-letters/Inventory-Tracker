@@ -15,14 +15,19 @@ namespace LaboratoryOperatorV1._0.Controllers
 
         public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
         {
-            
+
             //path used
             //model.documentSnapshot.Documents
-            var model = new DataAll
-            {
-                documentSnapshot = await _client.GetAllItems()
-            };
+            //var model = new DataAll
+            //{
+            //    documentSnapshot = await _client.GetAllItems()
+            //};
 
+
+            var model = new listIndex
+            {
+                IndexList = await _client.GetAllItemsMethod2()
+            };
 
             return View();
         }
