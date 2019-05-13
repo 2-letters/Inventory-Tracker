@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "laboratory-2letter",
+  "private_key_id": "836fc4d08141ca3654ddaab355940f04f20a11c1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCha1iN9UsfYssJ\neUebj5YiTM5mBFPB2rc7bf5yAmckKVZa3pEHHRhIX3UOAbJJZ+Llg2UdUxrczAGs\nKXHEzjKKmLL7jSEsJY7C+/8li8nuO/XwEw+C4g7iAZnUkbVVrQcdef1BE3sfowOV\nEBn9ZPaNXEue3VGbCjTn7TCpwrCphykSp0NbyyiyERSmtkBk6zD5qta4Q7DeBfAg\nD9zhNOhg6Bw9TeCKoFdA/GG8kZCM/1rEII1883tsZ0K7oQ2Jq+2iV3nd76u59+nc\nKKXm35vMApGpjRtJpUwHhqt6wFgG2r+lutw/TNV5FK4JHRwumQWiVOFUlhzAvoae\nxRA0mIaLAgMBAAECggEAGZKGhHLUVGQT02vlxsTAHa36UtojpMXwGleqJEiyK13r\nItk4s55N3wVUZ4QoSQ3OudqPlc45JrqhFzO3pNyf0CoxzL1GgJZwn/5JJRsYwge4\nxjBW2D7U6cQkKTNuPWT8iBRv5TPfYRszsZVL8MNidfGlv0TDrWK4D/gZKgPAdhLF\nfE/ZP36lKYpH00p4S1ZQu6RKySUO8YHimSjPImx1EWt803UrJxPe9YpH6fFe7E8I\n81N6mDSVvVvIDmqNQ7sC2054sMw9dBa8XOwSIr7lHWPXs76ehvtOzlczGnpgWSVt\nLQIP4tnF4ib4gYpawv13CD8KsHAQgOglLSNDor6cgQKBgQDbSQCnJXuELC3W65it\np34wYKt0g4+4DNNchX1oe92pAVovus5CnSNu1bBRr+N32NJPDluc7LcIoQfVL0XB\nAXGFVN8wWawRi15TKuNpcL9Pog8EEqFrUNICMm0lGe5lgitE5Mr3RrNIjzfk3YSt\nMJRCs9IDikmaL7EliZIOActUgQKBgQC8chktSOSHgnY2NXSlmEoyioxMqEYMpupN\n/xA/Ljr9sLxb6S6kGSFIM3GBWsxg4eQOFJ0bxSIN+U7ZKIfWTsulh7axnIDkoBdE\nE2G88/MOOym1qslCewrYeAHt/oz2MQ4OKpkndePJWXA64zTP9ZFqgcXGPlDG8NpW\nYxd/QgVlCwKBgDLCKTaHhJnJqCqxijvYI2uLVOS5d1EBFwO5mpfO5DY0q+2Ubh4Z\nRZRoPlIKRrr9I2FNT4N5f7ytmaSNNrZAYUidprQIbb355rGVoeJMSNxkBNnKfjbb\nFGGRzpXh9L7mbKGb3Cd05BcNn8CITifQsODnwtsy7WqVU4n+2CIJ5EkBAoGABh2x\n4X1fJWK/kWzUt1ck+VTzzr0bYOe97QAdN9+5PGiTBGyh/eNu6Bf7VBZtUaujKi3T\nF4ajX067F2MwXW07QMkRzdvldwYXGzeB0Y8dUVXsOaAsXgL+TB5A+cdsLcVTznPl\neplh5jQH53FeUm2G5a0GjTOSjZJdk7Ytmgy7fhcCgYAHgrVKPXA1+koIPO7L5WS+\ngwv37GhUQUl9oyewloAxHOLFX8FyEI1uKFptFhIwNQlVrjOgdMcPe8xhYWKgpcNH\nSK7f8q928X7FjA/aknH/nmJ4mH7tJWUj02RJbuJsqcJe98dETeQ1IuhZaVVy6KX8\nraZ661AZy3B32NczmjhRww==\n-----END PRIVATE KEY-----\n",
+  "client_email": "rudsonvarona@laboratory-2letter.iam.gserviceaccount.com",
+  "client_id": "114500042196184487277",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rudsonvarona%40laboratory-2letter.iam.gserviceaccount.com"
+}

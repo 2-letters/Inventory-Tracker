@@ -31,7 +31,7 @@ namespace LaboratoryOperatorV1._0.Data
             client = new FireSharp.FirebaseClient(config);
 
 
-            FirebaseResponse response = await client.GetTaskAsync("labItems/set");
+            FirebaseResponse response = await client.GetTaskAsync("labItems/");
             labItems todo = response.ResultAs<labItems>(); //The response will contain the data being retreived
         }
 
