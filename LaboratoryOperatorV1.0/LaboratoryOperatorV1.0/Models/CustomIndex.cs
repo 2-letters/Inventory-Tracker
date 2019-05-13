@@ -5,18 +5,22 @@ using System.Web;
 
 namespace LaboratoryOperatorV1._0.Models
 {
-    public class CustomIndex
+    public class labItems
     {
-        public int LabAssignment { get; set; }
-        public string Name { get; set; }
+        public int pictureUrl { get; set; }
+        public string itemName { get; set; }
         public string description { get; set; }
+        public int quantity { get; set; }
 
     }
 
     public class listIndex
     {
-        public List<CustomIndex> IndexList {get; set;}
+        public List<labItems> IndexList {get; set;}
     }
+
+
+
 }
 
 

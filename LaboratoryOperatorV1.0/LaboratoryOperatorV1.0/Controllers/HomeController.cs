@@ -4,12 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LaboratoryOperatorV1._0.Models;
-
+using LaboratoryOperatorV1._0.Data;
 
 namespace LaboratoryOperatorV1._0.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly firebaseTest _client = new firebaseTest();
+
         public ActionResult Index()
         {
           
@@ -19,8 +22,10 @@ namespace LaboratoryOperatorV1._0.Controllers
         }
 
 
-        public ActionResult ViewLabs()
+        public async System.Threading.Tasks.Task<ActionResult> ViewLabsAsync()
         {
+            //await _client.FireBaseConnectAsync();
+
             return View();
         }
 
