@@ -41,7 +41,7 @@ namespace LaboratoryOperatorV1._0.Data
         /// returning the query snpshot and using that as the model to read data from
         /// </summary>
         /// <returns></returns>
-         public async Task<IReadOnlyList<DocumentSnapshot>> GetAllItems() {
+         public async Task<IReadOnlyList<DocumentSnapshot>> GetSnapshotInstance() {
             // Create a document with a random ID in the "users" collection.
             CollectionReference collection = db.Collection("labItems");
 
@@ -53,6 +53,11 @@ namespace LaboratoryOperatorV1._0.Data
             return querySnapshot;
         }
 
+
+        /// <summary>
+        /// get all items
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<labItems>> GetAllItemsMethod2()
         {
             // Create a document with a random ID in the "users" collection.
@@ -80,11 +85,9 @@ namespace LaboratoryOperatorV1._0.Data
         }
 
 
-        
 
-        public  async Task<List<labItems>> GetLabItems()
+        public async Task<List<labItems>> GetAllLabsForUsers()
         {
-            
             // Create a document with a random ID in the "users" collection.
             CollectionReference collection = db.Collection("labItems");
 
@@ -92,20 +95,38 @@ namespace LaboratoryOperatorV1._0.Data
             Query query = collection;
             QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
 
-            List<labItems> Items = new List<labItems>();
+            List<labItems> Brotherhood = new List<labItems>();
 
-            foreach (DocumentSnapshot queryResult in querySnapshot.Documents)
+            foreach (DocumentSnapshot queryResult in querySnapshot)
             {
-                //Items.Add(queryResult.GetValue<labItems>("itemName"));
-                //Items.Add(queryResult.GetValue<labItems>("description"));
-                //Items.Add(queryResult.GetValue<labItems>("pictureUrl"));
+                Brotherhood.Add(new labItems
+                {
+                    itemName = queryResult.GetValue<string>("itemName"),
+                    description = queryResult.GetValue<string>("description"),
+                    pictureUrl = queryResult.GetValue<string>("pictureUrl"),
+                    quantity = queryResult.GetValue<int>("quantity")
+                });
+
+
             }
-
-            return Items;
-
+            return Brotherhood;
         }
 
-       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
