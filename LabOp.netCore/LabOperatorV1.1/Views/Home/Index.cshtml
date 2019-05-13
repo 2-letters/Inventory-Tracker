@@ -1,0 +1,62 @@
+﻿@*<script>
+        var model =  @Html.Raw(Json.Encode(Model))
+    </script>*@
+
+
+
+
+<div id="app">
+    <v-app id="inspire">
+
+        <v-card>
+            <v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn flat color="purple" href="/Home/ViewLabs">Add New Lab</v-btn>
+                </v-card-actions>
+
+                <v-spacer></v-spacer>
+                <v-text-field v-model="search "
+                              append-icon="search"
+                              label="search labs"
+                              single-line
+                              hide-details>
+
+                </v-text-field>
+            </v-card-title>
+
+        </v-card>
+        <v-container>
+            <v-layout row wrap>
+                <v-flex xs12 sm6 md4 lg3 v-for="lab in filteredList" :key="n" :search="search">
+
+
+                    <v-card flat class="text-xs-center ma-3">
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn flat color="purple">View</v-btn>
+                        </v-card-actions>
+                        <v-card-title primary-title>
+                            <div class=" heading"><h3>{{ lab.LabName }}</h3></div>
+                        </v-card-title>
+                        <div class="sub-heading"> {{ lab.Description }} </div>
+
+
+
+                    </v-card>
+
+
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-app>
+</div>
+
+@section Scripts{
+    <script src="~/js/admin/LabIndex.js"></script>
+}
+
+
+
+
