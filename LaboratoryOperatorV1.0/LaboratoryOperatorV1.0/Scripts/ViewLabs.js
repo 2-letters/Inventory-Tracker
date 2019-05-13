@@ -7,7 +7,7 @@
                 { text: 'Equipment', value: 'equipment' },
                 { text: 'Location', value: 'location' },
                 { text: 'Qty', value: 'qty' },
-                {text: 'Add or Remove', value: 'addo'}
+                {text: 'Add or Remove', value: 'addo', sortable: false, disabled:true}
             ],
             items: [
                 { equipment: 'vernier-caliber', location: 'thatcher south room 3535  drawer 20', qty: 88 },
@@ -26,6 +26,9 @@
         increment() {
             var x = this.items[0].qty;
             this.items[0].qty++;
+        },
+        decrement() {
+            return;
         }
     }
 })

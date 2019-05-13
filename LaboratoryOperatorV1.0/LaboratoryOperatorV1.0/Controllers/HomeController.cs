@@ -13,11 +13,15 @@ namespace LaboratoryOperatorV1._0.Controllers
 
         private readonly firebaseTest _client = new firebaseTest();
 
-        public ActionResult Index()
+        public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
         {
-            _client.AuthExplicit("laboratory-2letter", @"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\
-            LaboratoryOperatorV1.0\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
-
+            
+            //path used
+            //model.documentSnapshot.Documents
+            var model = new DataAll
+            {
+                documentSnapshot = await _client.GetAllItems()
+            };
 
 
             return View();

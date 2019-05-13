@@ -25,7 +25,7 @@
                             <td class="text-xs">{{ props.item.location }}</td>
                             <td class="text-xs">{{ props.item.qty }}  </td>
                             <td class="text-xs">
-                                <button v-on:click="decrement">
+                                <button v-on:click="decrement()">
                                     <v-icon color="pink">remove</v-icon>
                                 </button>
                                 <button v-on:click="increment()">

@@ -13,75 +13,67 @@ using LaboratoryOperatorV1._0.Models;
 using Google.Cloud.Firestore;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
+using Grpc.Core;
+using Grpc.Auth;
+using Google.Cloud.Firestore.V1;
+using LaboratoryOperatorV1._0.Models;
+using Newtonsoft.Json;
 
 namespace LaboratoryOperatorV1._0.Data
 {
     public class firebaseTest
     {
 
-        IFirebaseConfig config = new FirebaseConfig
+        private FirestoreDb db;
+        /// <summary>
+        /// firebaseTest authenticates the database to connect to Google API
+        /// </summary>
+        public firebaseTest()
         {
-            AuthSecret = "TmhsTfTPPZFeHiM6D4z8YY0vt2H4BnG4IXOJoFjB",
-            BasePath = "https://laboratory-2letter.firebaseio.com"
-        };
-
-        IFirebaseClient client ;
-
-
-
-
-        public async Task FireBaseConnectAsync()
-        {
-
-            FirestoreDb db = FirestoreDb.Create("laboratory-2letter");
-
-            //client = new FireSharp.FirebaseClient(config);
-
-
-            //FirebaseResponse response = await client.GetTaskAsync("labItems");
-            //labItems todo = response.ResultAs<labItems>(); //The response will contain the data being retreived
-            //var x = todo;
-
-            CollectionReference usersRef = db.Collection("labItems");
-            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
-         
-
-
+            GoogleCredential credential = GoogleCredential
+            .FromFile(@"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
+            ChannelCredentials channelCredentials = credential.ToChannelCredentials();
+            Channel channel = new Channel(FirestoreClient.DefaultEndpoint.ToString(), channelCredentials);
+            FirestoreClient firestoreClient = FirestoreClient.Create(channel);
+            db = FirestoreDb.Create("laboratory-2letter", client: firestoreClient);
         }
 
+         public async Task<IReadOnlyList<DocumentSnapshot>> GetAllItems() {
+            // Create a document with a random ID in the "users" collection.
+            CollectionReference collection = db.Collection("labItems");
 
+            // Query the collection for all documents where doc.Born < 1900.
+            Query query = collection;
+            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
 
-        // Some APIs, like Storage, accept a credential in their Create()
-        // method.
-        public object AuthExplicit(string projectId, string jsonPath)
+           
+            return querySnapshot;
+        }
+
+        public  async Task<List<labItems>> GetLabItems()
         {
-            // Explicitly use service account credentials by specifying 
-            // the private key file.
-            var credential = GoogleCredential.FromFile(jsonPath);
-            var storage = StorageClient.Create(credential);
-            // Make an authenticated API request.
-            var buckets = storage.ListBuckets(projectId);
-            foreach (var bucket in buckets)
+            
+            // Create a document with a random ID in the "users" collection.
+            CollectionReference collection = db.Collection("labItems");
+
+            // Query the collection for all documents where doc.Born < 1900.
+            Query query = collection;
+            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+
+            List<labItems> Items = new List<labItems>();
+
+            foreach (DocumentSnapshot queryResult in querySnapshot.Documents)
             {
-                Console.WriteLine(bucket.Name);
+                //Items.Add(queryResult.GetValue<labItems>("itemName"));
+                //Items.Add(queryResult.GetValue<labItems>("description"));
+                //Items.Add(queryResult.GetValue<labItems>("pictureUrl"));
             }
-            return null;
+
+            return Items;
+
         }
 
-        public object AuthImplicit(string projectId)
-        {
-            // If you don't specify credentials when constructing the client, the
-            // client library will look for credentials in the environment.
-            var credential = GoogleCredential.GetApplicationDefault();
-            var storage = StorageClient.Create(credential);
-            // Make an authenticated API request.
-            var buckets = storage.ListBuckets(projectId);
-            foreach (var bucket in buckets)
-            {
-                Console.WriteLine(bucket.Name);
-            }
-            return null;
-        }
+       
 
 
 
