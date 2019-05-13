@@ -15,8 +15,10 @@ namespace LaboratoryOperatorV1._0.Controllers
 
         public ActionResult Index()
         {
-          
-     
+            _client.AuthExplicit("laboratory-2letter", @"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\
+            LaboratoryOperatorV1.0\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
+
+
 
             return View();
         }
@@ -25,6 +27,7 @@ namespace LaboratoryOperatorV1._0.Controllers
         public async System.Threading.Tasks.Task<ActionResult> ViewLabsAsync()
         {
             //await _client.FireBaseConnectAsync();
+           
 
             return View();
         }

@@ -10,7 +10,9 @@ using Firebase;
 using FireSharp.Interfaces;
 using FireSharp.Response;
 using LaboratoryOperatorV1._0.Models;
-
+using Google.Cloud.Firestore;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Storage.V1;
 
 namespace LaboratoryOperatorV1._0.Data
 {
@@ -26,18 +28,46 @@ namespace LaboratoryOperatorV1._0.Data
         IFirebaseClient client ;
 
 
+
+
         public async Task FireBaseConnectAsync()
         {
-            client = new FireSharp.FirebaseClient(config);
+
+            FirestoreDb db = FirestoreDb.Create("laboratory-2letter");
+
+            //client = new FireSharp.FirebaseClient(config);
 
 
-            FirebaseResponse response = await client.GetTaskAsync("labItems");
-            labItems todo = response.ResultAs<labItems>(); //The response will contain the data being retreived
-            var x = todo;
+            //FirebaseResponse response = await client.GetTaskAsync("labItems");
+            //labItems todo = response.ResultAs<labItems>(); //The response will contain the data being retreived
+            //var x = todo;
+
+            CollectionReference usersRef = db.Collection("labItems");
+            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
+         
+
+
         }
 
-        
 
+
+        // Some APIs, like Storage, accept a credential in their Create()
+        // method.
+        public object AuthExplicit(string projectId, string jsonPath)
+        {
+            // Explicitly use service account credentials by specifying 
+            // the private key file.
+            var credential = GoogleCredential.FromFile(jsonPath);
+            var storage = StorageClient.Create(credential);
+            // Make an authenticated API request.
+            var buckets = storage.ListBuckets(projectId);
+            foreach (var bucket in buckets)
+            {
+                Console.WriteLine(bucket.Name);
+            }
+            return null;
+        }
+      
 
 
 

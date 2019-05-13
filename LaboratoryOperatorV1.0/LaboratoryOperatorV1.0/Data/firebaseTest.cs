@@ -10,6 +10,8 @@ using Firebase;
 using FireSharp.Interfaces;
 using FireSharp.Response;
 using LaboratoryOperatorV1._0.Models;
+using Google.cloud.Firestore;
+
 
 
 namespace LaboratoryOperatorV1._0.Data
@@ -24,10 +26,19 @@ namespace LaboratoryOperatorV1._0.Data
         };
 
         IFirebaseClient client;
+        public static Task<FirestoreDb> CreateAsync(string projectId = null, FirestoreClient client = null)
+        {
+
+        }
+
+
 
 
         public async Task FireBaseConnectAsync()
         {
+            FirestoreDb db = FirestoreDb.Create(project);
+
+
             client = new FireSharp.FirebaseClient(config);
 
 
