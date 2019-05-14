@@ -23,12 +23,8 @@ namespace LaboratoryOperatorV1._0.Controllers
             //    documentSnapshot = await _client.GetAllItems()
             //};
 
-
-            var model = new listIndex
-            {
-                IndexList = await _client.GetAllItemsMethod2()
-            };
-
+            await _client.GetAllLabsForUsersAsync();
+          
             return View();
         }
 
@@ -36,9 +32,13 @@ namespace LaboratoryOperatorV1._0.Controllers
         public async System.Threading.Tasks.Task<ActionResult> ViewLabsAsync()
         {
             //await _client.FireBaseConnectAsync();
-           
 
-            return View();
+            var model = new listIndex
+            {
+                IndexList = await _client.GetAllItemsMethod2()
+            };
+
+            return View(model);
         }
 
 

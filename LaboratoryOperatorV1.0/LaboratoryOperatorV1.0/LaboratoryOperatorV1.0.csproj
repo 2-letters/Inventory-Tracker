@@ -225,6 +225,8 @@
     </Compile>
     <Compile Include="Models\CustomIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\LabsForUsers.cs" />
+    <Compile Include="ViewModels\Users.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
