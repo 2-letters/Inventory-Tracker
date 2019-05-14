@@ -1,7 +1,16 @@
-﻿<div id="app">
+﻿@model LaboratoryOperatorV1._0.Models.listIndex
+
+
+<script>
+        var model =  @Html.Raw(Json.Encode(Model))
+</script>
+
+
+
+<div id="app">
     <v-app id="inspire">
         <v-container grid-list-md text-xs-center>
-            <v-flex xs12 >
+            <v-flex xs12>
                 <v-card>
 
                     <v-card-title>

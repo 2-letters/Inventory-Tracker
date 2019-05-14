@@ -35,7 +35,7 @@ namespace LaboratoryOperatorV1._0.Data
             //from work desktop => @"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json"
             //from home desktop => @"C:\Users\rjvar\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json"
             GoogleCredential credential = GoogleCredential
-            .FromFile(@"C:\Users\rjvar\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
+            .FromFile(@"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
             ChannelCredentials channelCredentials = credential.ToChannelCredentials();
             Channel channel = new Channel(FirestoreClient.DefaultEndpoint.ToString(), channelCredentials);
             FirestoreClient firestoreClient = FirestoreClient.Create(channel);
@@ -80,9 +80,9 @@ namespace LaboratoryOperatorV1._0.Data
                     itemName = queryResult.GetValue<string>("itemName"),
                     description = queryResult.GetValue<string>("description"),
                     pictureUrl = queryResult.GetValue<string>("pictureUrl"),
-                    quantity = queryResult.GetValue<int>("quantity")
+                    quantity = queryResult.GetValue<int>("quantity"),
+                    location = queryResult.GetValue<string>("location")
                 });
-                
                
             }
             return Brotherhood;
@@ -90,84 +90,44 @@ namespace LaboratoryOperatorV1._0.Data
 
 
         /// <summary>
-        /// return all labs for registered user
+        /// return all labs for registered user online
         /// for now we are Using Rudson Varona
         /// </summary>
         /// <returns></returns>
-        public async Task GetAllLabsForUsersAsync()
+        public async Task<List<LabsForUsers>> GetAllLabsForUsersAsync()
         {
 
-            CollectionReference collection = db.Collection("users/uY4N6WXX7Ij9syuL5Eb6/labs");
-            
-            Query query = collection;
-
+            //CollectionReference collection = db.Collection("users").WhereEqualTo("FirstName","Rudson");
+            //change the Rudson upon Login
+            Query query = db.Collection("users").WhereEqualTo("FirstName", "Rudson");
             QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+            var id = querySnapshot.Documents[0].Id.ToString();
+
+           
+
+
+      
+            CollectionReference collection = db.Collection("users").Document(id).Collection("labs");
+            Query query2 = collection;
+            QuerySnapshot labsSnapshot = await query2.GetSnapshotAsync();
 
             List<LabsForUsers> LabsForUser = new List<LabsForUsers>();
 
-            foreach (DocumentSnapshot queryResult in querySnapshot)
+
+
+            foreach (DocumentSnapshot queryResult in labsSnapshot)
             {
                 LabsForUser.Add(new LabsForUsers
                 {
                     labName = queryResult.GetValue<string>("labName"),
-                    description = queryResult.GetValue<string>("description")
+                    description = queryResult.GetValue<string>("description"),
+                    id = queryResult.Id
+
                 });
-
-
             }
 
-            
 
-
-            //Query allLabs = db.Collection("users/uY4N6WXX7Ij9syuL5Eb6/labs");
-            //QuerySnapshot allLabsQuerySnapshot = await allLabs.GetSnapshotAsync();
-
-            //List<LabsForUsers> LabsForUser = new List<LabsForUsers>();
-
-            //foreach (DocumentSnapshot documentSnapshot in allLabsQuerySnapshot.Documents)
-            //{
-            //    if (documentSnapshot.Exists)
-            //    {
-            //        Console.WriteLine("Document data for {0} document:", documentSnapshot.Id);
-            //        Dictionary<string, object> labs = documentSnapshot.ToDictionary();
-            //        foreach (KeyValuePair<string, object> pair in labs)
-            //        {
-            //            Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
-
-            //            LabsForUser.Add(
-            //               new LabsForUsers
-            //               {
-            //                   labName = documentSnapshot.GetValue<string>("labName"),
-            //                   description = documentSnapshot.GetValue<string>("description")
-            //               });
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("Document {0} does not exist!", documentSnapshot.Id);
-            //    }
-            //    //LabsForUser.Add(
-            //    //   new LabsForUsers
-            //    //   {
-            //    //       labName = documentSnapshot.GetValue<string>("labName"),
-            //    //       description = documentSnapshot.GetValue<string>("description")
-            //    //   });
-            //}
-
-
-
-            //QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
-            ////DocumentReference documentRef = db.Collection("users/labs");
-
-            //DocumentReference usersRef = db.Collection("users").Document("uY4N6WXX7Ij9syuL5Eb6").Collection("labs").Document("HNE4yRT70WGt9P4Eiexo");
-           
-
-
-            //IList<CollectionReference> subcollections = await usersRef.ListCollectionsAsync().ToList();
-            
-
-       
+            return LabsForUser;
         }
 
 

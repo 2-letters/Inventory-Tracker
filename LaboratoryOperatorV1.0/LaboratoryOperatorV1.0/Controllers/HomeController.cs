@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using LaboratoryOperatorV1._0.Models;
 using LaboratoryOperatorV1._0.Data;
+using LaboratoryOperatorV1._0.ViewModels;
 
 namespace LaboratoryOperatorV1._0.Controllers
 {
@@ -15,17 +16,12 @@ namespace LaboratoryOperatorV1._0.Controllers
 
         public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
         {
-
-            //path used
-            //model.documentSnapshot.Documents
-            //var model = new DataAll
-            //{
-            //    documentSnapshot = await _client.GetAllItems()
-            //};
-
-            await _client.GetAllLabsForUsersAsync();
-          
-            return View();
+            var model = new LabsForUsersList
+            {
+                LabsForUsers = await _client.GetAllLabsForUsersAsync()
+            };
+            
+            return View(model);
         }
 
 
