@@ -46,17 +46,107 @@
                     </v-data-table>
                 </v-card>
             </v-flex>
+            <br />
 
-            <v-flex xs4 offset-8>
-                <v-card flat class="text-xs-center ma-3">
+            @*<v-flex >
+                    <v-card flat class="text-xs-center ma-3">
+                        <form>
 
-                    <v-card-title primary-title>
-                        <div class=" heading"><h3>Name of Lab</h3></div>
-                    </v-card-title>
-                    <div class="sub-heading"> Description</div>
-                    <v-spacer></v-spacer>
+                            <div class="field">
+                                <div class="control">
+                                    <span>Lab Name</span>
+
+                                    <br />
+                                    <input class="input" type="text"  placeholder="enter lab name" />
+                                </div>
+                            </div>
+
+
+                            <div class="sub-heading">
+                                <div class="field">
+                                    <div class="control">
+                                        <span>description</span>
+                                        <br />
+                                        <textarea placeholder="enter description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <v-spacer></v-spacer>
+
+                            <input class="button is-primary margin-bottom" type="submit" />
+                        </form>
+
+                    </v-card>
+                </v-flex>*@
+            <v-flex xs4>
+                <v-card>
+                    <form>
+                        <v-app>
+                            <div>
+                                <div>
+                                    <label for="name">Name:</label>
+                                    <br />
+                                    <input type="text" id="container" placeholder="name">
+                                </div>
+
+                                <div>
+                                    <label for="review">Review:</label>
+                                    <br />
+                                    <textarea id="review" placeholder="description"></textarea>
+                                </div>
+
+
+                                <div>
+                                    <br />
+                                    <input type="submit" style="background-color:#22d015;" value="Submit">
+                                </div>
+
+                            </div>
+                        </v-app>
+                    </form>
                 </v-card>
+
             </v-flex>
+            <v-flex xs6>
+                <v-card>
+                    <v-card-title>
+                        Added Lab Equipment
+                        <v-spacer></v-spacer>
+                        <v-text-field v-model="searchAdded"
+                                      append-icon="search"
+                                      label="Search"
+                                      single-line
+                                      hide-details></v-text-field>
+                    </v-card-title>
+                    <v-data-table :headers="Headers2"
+                                  :items="items2"
+                                  :search="search2"
+                                  item-key="equipment2"
+                                  hide-actions
+                                  expand
+                                  class="elevation-1">
+                        <template slot="items" scope="props">
+                            <td class="text-xs">{{ props.item.equipment }}</td>
+                            <td class="text-xs">{{ props.item.location }}</td>
+                            <td class="text-xs">{{ props.item.qty }}  </td>
+                            <td class="text-xs">
+                                <button v-on:click="decrement()">
+                                    <v-icon color="pink">remove</v-icon>
+                                </button>
+                                <button v-on:click="increment()">
+                                    <v-icon color="green">add</v-icon>
+                                </button>
+                            </td>
+
+                        </template>
+                    </v-data-table>
+                </v-card>
+
+            </v-flex>
+
+
+
+
         </v-container>
 
     </v-app>
