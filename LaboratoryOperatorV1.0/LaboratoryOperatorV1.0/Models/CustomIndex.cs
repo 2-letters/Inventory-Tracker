@@ -13,6 +13,7 @@ namespace LaboratoryOperatorV1._0.Models
         public string description { get; set; }
         public string location { get; set; }
         public int quantity { get; set; }
+        public string id { get; set; }
 
     }
 

@@ -37,7 +37,7 @@
                                 <button v-on:click="decrement()">
                                     <v-icon color="pink">remove</v-icon>
                                 </button>
-                                <button v-on:click="increment()">
+                                <button v-on:click="increment(props.item.id)">
                                     <v-icon color="green">add</v-icon>
                                 </button>
                             </td>
@@ -51,18 +51,18 @@
             <v-layout>
                 <v-flex xs4>
                     <form>
-                        <v-card height="60%">
+                        <v-card >
 
-                            <v-app>
+                           
                                 <div>
                                     <div>
-                                        <label for="name">Name:</label>
+                                        <label class="name">Name:</label>
                                         <br />
                                         <input type="text" id="container" placeholder="name">
                                     </div>
 
                                     <div>
-                                        <label for="review">Review:</label>
+                                        <label for="review">Description:</label>
                                         <br />
                                         <textarea id="review" placeholder="description"></textarea>
                                     </div>
@@ -74,7 +74,7 @@
                                     </div>
 
                                 </div>
-                            </v-app>
+                       
 
                         </v-card>
                     </form>
@@ -91,22 +91,22 @@
                                           single-line
                                           hide-details></v-text-field>
                         </v-card-title>
-                        <v-data-table :headers="Headers2"
-                                      :items="items2"
-                                      :search="search2"
-                                      item-key="equipment2"
+                        <v-data-table :headers="HeadersAdded"
+                                      :items="itemsAdded"
+                                      :search="searchAdded"
+                                      item-key="equipmentAdded"
                                       hide-actions
                                       expand
                                       class="elevation-1">
-                            <template slot="AddedItems" scope="props">
-                                <td class="text-xs">placeholder</td>
-                                <td class="text-xs">placeholder</td>
-                                <td class="text-xs">placeholder  </td>
+                            <template slot="items" scope="props">
+                                <td class="text-xs">{{props.item.equipmentAdded}}</td>
+                                <td class="text-xs">{{props.item.locationAdded}}</td>
+                                <td class="text-xs">{{props.item.qtyAdded}}  </td>
                                 <td class="text-xs">
-                                    <button v-on:click="decrementAddedItems()">
+                                    <button v-on:click="decrementItemsAdded()">
                                         <v-icon color="pink">remove</v-icon>
                                     </button>
-                                    <button v-on:click="incrementAddedItems()">
+                                    <button v-on:click="incrementItemsAdded()">
                                         <v-icon color="green">add</v-icon>
                                     </button>
                                 </td>

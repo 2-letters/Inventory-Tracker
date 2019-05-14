@@ -81,7 +81,8 @@ namespace LaboratoryOperatorV1._0.Data
                     description = queryResult.GetValue<string>("description"),
                     pictureUrl = queryResult.GetValue<string>("pictureUrl"),
                     quantity = queryResult.GetValue<int>("quantity"),
-                    location = queryResult.GetValue<string>("location")
+                    location = queryResult.GetValue<string>("location"),
+                    id = queryResult.Id
                 });
                
             }
