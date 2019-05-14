@@ -27,23 +27,39 @@ new Vue({
     mounted() {
         for (var i = 0; i < model.IndexList.length; i++)
         {
-            this.items.push({ equipment: model.IndexList[i].itemName, location: model.IndexList[i].location, qty: model.IndexList[i].quantity, id: model.IndexList[i].id })
+            this.items.push({ equipment: model.IndexList[i].itemName, location: model.IndexList[i].location, qty: model.IndexList[i].quantity, id: model.IndexList[i].id, i: i })
             //this.itemsAdded.push({ equipmentAdded: model.IndexList[i].itemName, locationAdded: model.IndexList[i].location, qtyAdded: model.IndexList[i].quantity, id: model.IndexList[i].id })
 
         }
     },
 
     methods: {
+
+        //increment onto next app if not found and decrement current index of object
         increment: function (id) {
+          
+
+            var isAdded = this.itemsAdded.some(e => e.id === id);
+
             var result = this.items.filter(obj => {
                 return obj.id === id
             })
 
-            this.itemsAdded.push({ equipmentAdded: result[0].equipment, locationAdded: result[0].location, qtyAdded: result[0].qty, id: result[0].id });
 
+            if (isAdded === false) {
+               
 
-            var x = this.items[0].qty;
-            this.items[0].qty++;
+                this.itemsAdded.push({ equipmentAdded: result[0].equipment, locationAdded: result[0].location, qtyAdded: 1, id: result[0].id });
+
+            }
+            else
+            {
+                var index = this.itemsAdded.map(function (e) { return e.id;} ).indexOf(id);
+                this.itemsAdded[index].qtyAdded++;
+            }
+           
+         
+            this.items[result[0].i].qty--;
         },
         decrement() {
             return;
