@@ -47,76 +47,78 @@
                 </v-card>
             </v-flex>
             <br />
+            <form>
+                <v-layout>
+                    <v-flex xs4>
 
-            <v-layout>
-                <v-flex xs4>
-                    <form>
-                        <v-card >
+                        <v-card>
 
-                           
+
+                            <div>
                                 <div>
-                                    <div>
-                                        <label class="name">Name:</label>
-                                        <br />
-                                        <input type="text" id="container" placeholder="name">
-                                    </div>
-
-                                    <div>
-                                        <label for="review">Description:</label>
-                                        <br />
-                                        <textarea id="review" placeholder="description"></textarea>
-                                    </div>
-
-
-                                    <div>
-                                        <br />
-                                        <input type="submit" style="background-color:#22d015;" value="Submit">
-                                    </div>
-
+                                    <label class="name">Name:</label>
+                                    <br />
+                                    <input type="text" id="labName" placeholder="name">
                                 </div>
-                       
+
+                                <div>
+                                    <label for="review">Description:</label>
+                                    <br />
+                                    <textarea id="labDescription" placeholder="description"></textarea>
+                                </div>
+
+
+                                <div>
+                                    <br />
+                                    <input type="submit" style="background-color:#22d015;" v-on:click="submitData()" value="Submit">
+                                </div>
+
+                            </div>
+
 
                         </v-card>
-                    </form>
 
-                </v-flex>
-                <v-flex xs8>
-                    <v-card>
-                        <v-card-title>
-                            Added Lab Equipment
-                            <v-spacer></v-spacer>
-                            <v-text-field v-model="searchAdded"
-                                          append-icon="search"
-                                          label="Search"
-                                          single-line
-                                          hide-details></v-text-field>
-                        </v-card-title>
-                        <v-data-table :headers="HeadersAdded"
-                                      :items="itemsAdded"
-                                      :search="searchAdded"
-                                      item-key="equipmentAdded"
-                                      hide-actions
-                                      expand
-                                      class="elevation-1">
-                            <template slot="items" scope="props">
-                                <td class="text-xs">{{props.item.equipmentAdded}}</td>
-                                <td class="text-xs">{{props.item.locationAdded}}</td>
-                                <td class="text-xs">{{props.item.qtyAdded}}  </td>
-                                <td class="text-xs">
-                                    <button v-on:click="decrementItemsAdded()">
-                                        <v-icon color="pink">remove</v-icon>
-                                    </button>
-                                    <button v-on:click="incrementItemsAdded()">
-                                        <v-icon color="green">add</v-icon>
-                                    </button>
-                                </td>
 
-                            </template>
-                        </v-data-table>
-                    </v-card>
+                    </v-flex>
+                    <v-flex xs8>
+                        <v-card>
+                            <v-card-title>
+                                Added Lab Equipment
+                                <v-spacer></v-spacer>
+                                <v-text-field v-model="searchAdded"
+                                              append-icon="search"
+                                              label="Search"
+                                              single-line
+                                              hide-details></v-text-field>
+                            </v-card-title>
+                            <v-data-table :headers="HeadersAdded"
+                                          :items="itemsAdded"
+                                          :search="searchAdded"
+                                          item-key="equipmentAdded"
+                                          hide-actions
+                                          expand
+                                          class="elevation-1">
+                                <template slot="items" scope="props">
+                                    <td class="text-xs">{{props.item.equipmentAdded}}</td>
+                                    <td class="text-xs">{{props.item.locationAdded}}</td>
+                                    <td class="text-xs">{{props.item.qtyAdded}}  </td>
+                                    <td class="text-xs">
+                                        <button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
+                                            <v-icon color="pink">remove</v-icon>
+                                        </button>
+                                        <button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
+                                            <v-icon color="green">add</v-icon>
+                                        </button>
+                                    </td>
 
-                </v-flex>
-            </v-layout>
+                                </template>
+                            </v-data-table>
+                        </v-card>
+
+                    </v-flex>
+
+                </v-layout>
+            </form>
 
 
 

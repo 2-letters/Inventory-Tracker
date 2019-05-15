@@ -37,6 +37,19 @@ namespace LaboratoryOperatorV1._0.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async System.Threading.Tasks.Task<ActionResult> PushNewLab(string labName, string labDescription, List<labItems> itemsInLab)
+        {
+            //await _client.FireBaseConnectAsync();
+
+            await _client.pushNewLabAsync(labName, labDescription, itemsInLab);
+
+            return View();
+        }
+
+
+
+
 
 
         public ActionResult About()

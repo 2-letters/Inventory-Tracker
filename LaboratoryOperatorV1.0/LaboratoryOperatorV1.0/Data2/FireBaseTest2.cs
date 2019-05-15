@@ -35,7 +35,7 @@ namespace LaboratoryOperatorV1._0.Data
             //from work desktop => @"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json"
             //from home desktop => @"C:\Users\rjvar\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json"
             GoogleCredential credential = GoogleCredential
-            .FromFile(@"C:\Users\rjvar\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
+            .FromFile(@"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
             ChannelCredentials channelCredentials = credential.ToChannelCredentials();
             Channel channel = new Channel(FirestoreClient.DefaultEndpoint.ToString(), channelCredentials);
             FirestoreClient firestoreClient = FirestoreClient.Create(channel);
@@ -45,7 +45,8 @@ namespace LaboratoryOperatorV1._0.Data
         /// returning the query snpshot and using that as the model to read data from
         /// </summary>
         /// <returns></returns>
-         public async Task<IReadOnlyList<DocumentSnapshot>> GetSnapshotInstance() {
+        public async Task<IReadOnlyList<DocumentSnapshot>> GetSnapshotInstance()
+        {
             // Create a document with a random ID in the "users" collection.
             CollectionReference collection = db.Collection("labItems");
 
@@ -53,7 +54,7 @@ namespace LaboratoryOperatorV1._0.Data
             Query query = collection;
             QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
 
-           
+
             return querySnapshot;
         }
 
@@ -64,16 +65,16 @@ namespace LaboratoryOperatorV1._0.Data
         /// <returns></returns>
         public async Task<List<labItems>> GetAllItemsMethod2()
         {
-           
+
             CollectionReference collection = db.Collection("labItems");
 
-            
+
             Query query = collection;
             QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
 
             List<labItems> Brotherhood = new List<labItems>();
-         
-            foreach(DocumentSnapshot queryResult in querySnapshot)
+
+            foreach (DocumentSnapshot queryResult in querySnapshot)
             {
                 Brotherhood.Add(new labItems
                 {
@@ -84,7 +85,7 @@ namespace LaboratoryOperatorV1._0.Data
                     location = queryResult.GetValue<string>("location"),
                     id = queryResult.Id
                 });
-               
+
             }
             return Brotherhood;
         }
@@ -103,17 +104,17 @@ namespace LaboratoryOperatorV1._0.Data
             Query query = db.Collection("users").WhereEqualTo("FirstName", "Rudson");
 
             //CollectionReference collection = db.Collection("users");
-            
+
             //Query query = collection;
 
 
             QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
             var id = querySnapshot.Documents[0].Id.ToString();
 
-           
 
 
-      
+
+
             CollectionReference collection = db.Collection("users").Document(id).Collection("labs");
             Query query2 = collection;
             QuerySnapshot labsSnapshot = await query2.GetSnapshotAsync();
@@ -135,6 +136,25 @@ namespace LaboratoryOperatorV1._0.Data
 
 
             return LabsForUser;
+        }
+        public async Task pushNewLabAsync(string labName, string labDescription, List<labItems> itemsInLab)
+        {
+            //get id of Rudson Varona
+            Query query = db.Collection("users").WhereEqualTo("FirstName", "Rudson");
+
+            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+            var id = querySnapshot.Documents[0].Id.ToString();
+
+
+
+            Dictionary<string, object> labs = new Dictionary<string, object>
+            {   
+                  { "description", labDescription },
+                  { "labName", labName }
+            };
+            DocumentReference addedDocRef = await db.Collection("users").Document(id).Collection("labs").AddAsync(labs);
+
+
         }
 
 
