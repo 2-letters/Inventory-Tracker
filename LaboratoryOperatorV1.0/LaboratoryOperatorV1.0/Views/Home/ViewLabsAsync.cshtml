@@ -34,10 +34,10 @@
                             <td class="text-xs">{{ props.item.location }}</td>
                             <td class="text-xs">{{ props.item.qty }}  </td>
                             <td class="text-xs">
-                                <button v-on:click="decrement()">
+                                <button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
                                     <v-icon color="pink">remove</v-icon>
                                 </button>
-                                <button v-on:click="increment(props.item.id)">
+                                <button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
                                     <v-icon color="green">add</v-icon>
                                 </button>
                             </td>

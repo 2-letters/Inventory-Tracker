@@ -35,7 +35,7 @@ namespace LaboratoryOperatorV1._0.Data
             //from work desktop => @"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json"
             //from home desktop => @"C:\Users\rjvar\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json"
             GoogleCredential credential = GoogleCredential
-            .FromFile(@"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
+            .FromFile(@"C:\Users\rjvar\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
             ChannelCredentials channelCredentials = credential.ToChannelCredentials();
             Channel channel = new Channel(FirestoreClient.DefaultEndpoint.ToString(), channelCredentials);
             FirestoreClient firestoreClient = FirestoreClient.Create(channel);
@@ -101,6 +101,12 @@ namespace LaboratoryOperatorV1._0.Data
             //CollectionReference collection = db.Collection("users").WhereEqualTo("FirstName","Rudson");
             //change the Rudson upon Login
             Query query = db.Collection("users").WhereEqualTo("FirstName", "Rudson");
+
+            //CollectionReference collection = db.Collection("users");
+            
+            //Query query = collection;
+
+
             QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
             var id = querySnapshot.Documents[0].Id.ToString();
 
