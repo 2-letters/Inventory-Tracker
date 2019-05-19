@@ -182,6 +182,7 @@ namespace LaboratoryOperatorV1._0.Data
                 Dictionary<string, object> itemsInDocument = new Dictionary<string, object>
                 {
                   { "itemName", item.itemName },
+                  { "location", item.location},
                   { "Qty", item.quantity }
                 };
 

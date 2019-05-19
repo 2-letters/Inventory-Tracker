@@ -13,6 +13,7 @@ new Vue({
                 { text: 'Equipment', value: 'equipment' },
                 { text: 'Location', value: 'location' },
                 { text: 'Qty', value: 'qty' },
+                { text: 'Picture', value: 'pictureUrl',  sortable: false, disabled: true },
                 { text: 'Add or Remove', value: 'addo', sortable: false, disabled: true }
             ],
             HeadersAdded: [
@@ -29,7 +30,7 @@ new Vue({
 
     mounted() {
         for (var i = 0; i < model.IndexList.length; i++) {
-            this.items.push({ equipment: model.IndexList[i].itemName, location: model.IndexList[i].location, qty: model.IndexList[i].quantity, id: model.IndexList[i].id, i: i })
+            this.items.push({ equipment: model.IndexList[i].itemName, location: model.IndexList[i].location, qty: model.IndexList[i].quantity, id: model.IndexList[i].id, i: i, pictureUrl: model.IndexList[i].pictureUrl })
             //this.itemsAdded.push({ equipmentAdded: model.IndexList[i].itemName, locationAdded: model.IndexList[i].location, qtyAdded: model.IndexList[i].quantity, id: model.IndexList[i].id })
 
         }
