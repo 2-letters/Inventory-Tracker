@@ -34,15 +34,17 @@
                 <v-flex xs12 sm6 md4 lg3 v-for="lab in filteredList" :key="n" :search="search">
 
 
-                    <v-card flat class="text-xs-center ma-3">
+                    <v-card flat class="text-md-center ma-3">
 
                         <v-card-actions>
+
+                            <v-card-title primary-title>
+                                <div class=" heading "><h3>{{ lab.LabName }}</h3></div>
+                            </v-card-title>
                             <v-spacer></v-spacer>
                             <v-btn flat color="purple">View</v-btn>
                         </v-card-actions>
-                        <v-card-title primary-title>
-                            <div class=" heading"><h3>{{ lab.LabName }}</h3></div>
-                        </v-card-title>
+                       
                         <div class="sub-heading"> {{ lab.Description }} </div>
 
 

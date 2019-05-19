@@ -33,7 +33,7 @@
                             <td class="text-xs">{{ props.item.equipment }}</td>
                             <td class="text-xs">{{ props.item.location }}</td>
                             <td class="text-xs">{{ props.item.qty }}  </td>
-                            <td class="text-xs"> <a     v-bind:href="props.item.pictureUrl">View</a></td>
+                            <td class="text-xs"> <a v-bind:href="props.item.pictureUrl">View</a></td>
                             <td class="text-xs">
                                 <button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
                                     <v-icon color="pink">remove</v-icon>
@@ -104,15 +104,14 @@
                                     <td class="text-xs">{{props.item.itemName}}</td>
                                     <td class="text-xs">{{props.item.location}}</td>
                                     <td class="text-xs">{{props.item.quantity}}  </td>
-                                    <td class="text-xs">
-                                        <button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
-                                            <v-icon color="pink">remove</v-icon>
-                                        </button>
-                                        <button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
-                                            <v-icon color="green">add</v-icon>
-                                        </button>
-                                    </td>
-                                    <td class="text-xs"> Picture</td>
+                                    @*<td class="text-xs">
+                                            <button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
+                                                <v-icon color="pink">remove</v-icon>
+                                            </button>
+                                            <button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
+                                                <v-icon color="green">add</v-icon>
+                                            </button>
+                                        </td>*@
 
                                 </template>
                             </v-data-table>
@@ -128,8 +127,23 @@
         </v-container>
 
     </v-app>
+    <div>
+        <b-button id="show-btn" v-on:click="showModal">Open Modal</b-button>
+        <b-button id="toggle-btn" v-on:click="toggleModal">Toggle Modal</b-button>
 
+        <b-modal ref="my-modal" hide-footer title="Using Component Methods">
+            <div class="d-block text-center">
+                <h3>Hello From My Modal!</h3>
+            </div>
+            <b-button class="mt-3" variant="outline-danger" block v-on:click="hideModal">Close Me</b-button>
+            <b-button class="mt-2" variant="outline-warning" block v-on:click="toggleModal">Toggle Me</b-button>
+        </b-modal>
+    </div>
 </div>
+<template>
+    
+</template>
+
 
 
 <script src="~/Scripts/ViewLabs.js"></script>

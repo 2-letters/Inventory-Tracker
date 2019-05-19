@@ -291,6 +291,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="bootstrap">
+      <Version>4.3.1</Version>
+    </PackageReference>
     <PackageReference Include="Google.Cloud.Firestore">
       <Version>1.0.0-beta20</Version>
     </PackageReference>
