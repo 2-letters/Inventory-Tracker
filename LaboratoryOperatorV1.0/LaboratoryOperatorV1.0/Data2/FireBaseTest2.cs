@@ -35,7 +35,7 @@ namespace LaboratoryOperatorV1._0.Data
             //from work desktop => @"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json"
             //from home desktop => @"C:\Users\rjvar\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json"
             GoogleCredential credential = GoogleCredential
-            .FromFile(@"C:\Users\rjvarona\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
+            .FromFile(@"C:\Users\rjvar\Documents\GitHub\Laboratory.MVC\LaboratoryOperatorV1.0\Laboratory-836fc4d08141.json");
             ChannelCredentials channelCredentials = credential.ToChannelCredentials();
             Channel channel = new Channel(FirestoreClient.DefaultEndpoint.ToString(), channelCredentials);
             FirestoreClient firestoreClient = FirestoreClient.Create(channel);
@@ -137,6 +137,14 @@ namespace LaboratoryOperatorV1._0.Data
 
             return LabsForUser;
         }
+
+        /// <summary>
+        /// this pushes a new lab assignment with added items
+        /// </summary>
+        /// <param name="labName"></param>
+        /// <param name="labDescription"></param>
+        /// <param name="itemsInLab"></param>
+        /// <returns></returns>
         public async Task pushNewLabAsync(string labName, string labDescription, List<labItems> itemsInLab)
         {
             //get id of Rudson Varona
@@ -148,11 +156,46 @@ namespace LaboratoryOperatorV1._0.Data
 
 
             Dictionary<string, object> labs = new Dictionary<string, object>
-            {   
+            {
                   { "description", labDescription },
                   { "labName", labName }
             };
+            //this posts it up
             DocumentReference addedDocRef = await db.Collection("users").Document(id).Collection("labs").AddAsync(labs);
+
+
+
+
+
+
+            //getting the id of the second application
+            Query query2 = db.Collection("users").Document(id).Collection("labs").WhereEqualTo("labName", labName);
+
+            QuerySnapshot querySnapshot2 = await query2.GetSnapshotAsync();
+            var id2 = querySnapshot2.Documents[0].Id.ToString();
+
+            //creatging the collection reference here
+
+            //bad method since we are posting several times this is very bad
+            foreach (var item in itemsInLab)
+            {
+                Dictionary<string, object> itemsInDocument = new Dictionary<string, object>
+                {
+                  { "itemName", item.itemName },
+                  { "Qty", item.quantity }
+                };
+
+                DocumentReference addedDocRef2 = await db.Collection("users").Document(id).Collection("labs").Document(id2)
+                    .Collection("items").AddAsync(itemsInDocument);
+
+            }
+            //getting the id of the third to store items
+            Query query3 = db.Collection("users").Document(id).Collection("labs").Document(id2).
+                Collection("items").WhereEqualTo("labName", labName);
+
+            QuerySnapshot querySnapshot3 = await query3.GetSnapshotAsync();
+            var id3 = querySnapshot3.Documents[0].Id.ToString();
+
 
 
         }

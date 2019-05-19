@@ -99,17 +99,17 @@
                                           expand
                                           class="elevation-1">
                                 <template slot="items" scope="props">
-                                    <td class="text-xs">{{props.item.equipmentAdded}}</td>
-                                    <td class="text-xs">{{props.item.locationAdded}}</td>
-                                    <td class="text-xs">{{props.item.qtyAdded}}  </td>
-                                    <td class="text-xs">
+                                    <td class="text-xs">{{props.item.itemName}}</td>
+                                    <td class="text-xs">{{props.item.location}}</td>
+                                    <td class="text-xs">{{props.item.quantity}}  </td>
+                                    @*<td class="text-xs">
                                         <button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
                                             <v-icon color="pink">remove</v-icon>
                                         </button>
                                         <button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
                                             <v-icon color="green">add</v-icon>
                                         </button>
-                                    </td>
+                                    </td>*@
 
                                 </template>
                             </v-data-table>

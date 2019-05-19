@@ -16,9 +16,9 @@ new Vue({
                 { text: 'Add or Remove', value: 'addo', sortable: false, disabled: true }
             ],
             HeadersAdded: [
-                { text: 'Equipment', value: 'equipmentAdded' },
-                { text: 'Location', value: 'locationAdded' },
-                { text: 'Qty', value: 'qtyAdded' },
+                { text: 'Equipment', value: 'itemName' },
+                { text: 'Location', value: 'location' },
+                { text: 'Qty', value: 'quantity' },
                 { text: 'Add or Remove', value: 'addo', sortable: false, disabled: true }
             ],
             items: [],
@@ -47,12 +47,12 @@ new Vue({
             
             if (isAdded === false) {
 
-                this.itemsAdded.push({ equipmentAdded: result[0].equipment, locationAdded: result[0].location, qtyAdded: 1, id: result[0].id });
+                this.itemsAdded.push({ itemName: result[0].equipment, location: result[0].location, quantity: 1, id: result[0].id });
                 this.items[result[0].i].qty--;
             }
             else {
                 var index = this.itemsAdded.map(function (e) { return e.id; }).indexOf(id);
-                this.itemsAdded[index].qtyAdded++;
+                this.itemsAdded[index].quantity++;
                 this.items[result[0].i].qty--;
             }
             
@@ -81,13 +81,13 @@ new Vue({
             else {
 
                 var index = this.itemsAdded.map(function (e) { return e.id; }).indexOf(id);
-                this.itemsAdded[index].qtyAdded--;
+                this.itemsAdded[index].quantity--;
                 this.items[result[0].i].qty++;
             }
 
 
 
-            if (this.itemsAdded[index].qtyAdded <= 0) {
+            if (this.itemsAdded[index].quantity <= 0) {
                 this.disabled = id;
                 this.itemsAdded.splice(index, 1);
             }
