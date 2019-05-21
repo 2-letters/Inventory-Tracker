@@ -1,4 +1,35 @@
 ﻿
+Vue.component("modal", {
+    props: ['name'],
+    template: `
+		<div class="modal fade in modal-active">
+			<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button"  v-on:click="$emit('close')" class="close"><span >&times;</span></button>
+							<h4 class="modal-title">
+								{{name}}
+							</h4>
+						</div>
+						<div class="modal-body">
+								<slot></slot>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" v-on:click="$emit('close')">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+				</div>
+			</div>
+		</div>`
+})
+
+new Vue({
+	el:"#root",
+	data:{
+		showModal:false
+	}
+});
+
 
 
 new Vue({
@@ -13,7 +44,7 @@ new Vue({
                 { text: 'Equipment', value: 'equipment' },
                 { text: 'Location', value: 'location' },
                 { text: 'Qty', value: 'qty' },
-                { text: 'Picture', value: 'pictureUrl',  sortable: false, disabled: true },
+                { text: 'MoreInfo', value: 'pictureUrl',  sortable: false, disabled: true },
                 { text: 'Add or Remove', value: 'addo', sortable: false, disabled: true }
             ],
             HeadersAdded: [
