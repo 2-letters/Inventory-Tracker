@@ -34,7 +34,7 @@
                 <v-flex xs12 sm6 md4 lg3 v-for="lab in filteredList" :key="n" :search="search">
 
 
-                    <v-card  class="text-md-center ma-3">
+                    <v-card class="text-md-center ma-3">
 
                         <v-card-actions>
 
@@ -44,7 +44,7 @@
                             <v-spacer></v-spacer>
                             <v-btn flat color="purple">View</v-btn>
                         </v-card-actions>
-                       
+
                         <div class="sub-heading"> {{ lab.Description }} </div>
 
 
@@ -56,7 +56,11 @@
             </v-layout>
         </v-container>
     </v-app>
+   
 </div>
+
+
+
 
 @Scripts.Render("~/Scripts/LabIndex.js")
 
