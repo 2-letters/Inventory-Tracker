@@ -273,6 +273,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\IndexAsync.cshtml" />
     <Content Include="Views\Home\ViewLabsAsync.cshtml" />
+    <Content Include="Views\Home\ViewInventory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -48,6 +48,20 @@ namespace LaboratoryOperatorV1._0.Controllers
         }
 
 
+        public async System.Threading.Tasks.Task<ActionResult> ViewInventory()
+        {
+            //await _client.FireBaseConnectAsync();
+
+            var model = new listIndex
+            {
+                IndexList = await _client.GetAllItemsMethod2()
+            };
+
+            return View(model);
+        }
+
+
+
 
 
 
