@@ -23,6 +23,7 @@ new Vue({
             dialog: false,
             notifications: false,
             sound: true,
+            test: true,
             widgets: false,
             search: '',
             Headers: [

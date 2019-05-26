@@ -51,34 +51,21 @@
                                 <td class="text-xs">{{ props.item.qty }}  </td>
                                 <td>
                                     @*<a v-bind:href="props.item.pictureUrl">
-        <i class="fa fa-info-circle fa-2x" style="color: rgb(159, 212, 172);"></i></a>*@
-
-                                    <i v-on="on" v-on:click.stop="dialog = true" class="fa fa-info-circle fa-2x" style="color: rgb(159, 212, 172);"></i>
-
-                                    <v-dialog v-model="dialog" transition="dialog-bottom-transition" width="80%">
+                                        <i class="fa fa-info-circle fa-2x" style="color: rgb(159, 212, 172);"></i></a>*@
+                                    <v-dialog v-model="dialog" lazy absolute>
+                                        <i class="fa fa-info-circle fa-2x" style="color: rgb(159, 212, 172);" slot="activator"></i>
                                         <v-card>
-                                            <v-toolbar dark class="primary">
-                                                <v-btn icon v-on:click.native="dialog = false" dark>
-                                                    <v-icon>close</v-icon>
-                                                </v-btn>
-
-                                                <v-toolbar-title>Settings</v-toolbar-title>
-                                                <v-spacer></v-spacer>
-                                                <v-toolbar-items>
-                                                    <v-btn dark flat v-on:click.native="dialog = false">Save</v-btn>
-                                                </v-toolbar-items>
-                                            </v-toolbar>
-                                            <v-card-media src="https://vuetifyjs.com/static/doc-images/cards/desert.jpg" height="200px">
-                                            </v-card-media>
-                                            <v-card-title primary-title>
-                                                <div>
-                                                    <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-                                                    <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-                                                </div>
+                                            <v-card-title class="justify-center">
+                                                <p class="headline">More Info  for '{{ props.item.equipment }}'</p>
                                             </v-card-title>
+                                            <v-card-text>
+                                                @*<v-img src="{{props.item.pictureUrl}}"
+                                                       aspect-ratio="2.75"></v-img>*@ {{props.item.location}}
+                                            </v-card-text>
                                             <v-card-actions>
-                                                <v-btn flat class="orange--text">Share</v-btn>
-                                                <v-btn flat class="orange--text">Explore</v-btn>
+                                                <v-spacer></v-spacer>
+                                                <v-btn class="blue--text darken-1" flat="flat" v-on:click.native="dialog = false">No</v-btn>
+                                                <v-btn class="blue--text darken-1" flat="flat" v-on:click.native="deleteRow(props.item)">Yes</v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </v-dialog>
@@ -104,22 +91,30 @@
 
 
                         <div>
-                            <div>
-                                <label class="name">Name:</label>
-                                <br />
-                                <input type="text" id="labName" placeholder="name">
-                            </div>
 
-                            <div>
-                                <label for="review">Description:</label>
+                            <v-layout row wrap>
+                                <v-flex xs12 >
+                                    <v-text-field label="Lab Name" id="labName"></v-text-field>
+                                </v-flex>
+
+
                                 <br />
-                                <textarea id="labDescription" placeholder="description"></textarea>
-                            </div>
-                            <div>
+                               
+                                <v-flex xs12>
+                                    <v-textarea name="input-7-1"
+                                              
+                                                placeholder ="Please Enter the description for this lab"
+                                                id="labDescription"  ></v-textarea>
+                                </v-flex>
+
+
+
+
                                 <br />
                                 <v-btn flat color="purple" v-on:click="submitData()">Submit Lab</v-btn>
                                 @*<input type="submit" style="background-color:#22d015;" v-on:click="submitData()" value="Submit">*@
-                            </div>
+
+                            </v-layout>
 
                         </div>
                         <div>
@@ -140,6 +135,7 @@
                                                 <v-layout>
                                                     <v-flex xs4>
                                                         item Name: {{item.itemName}}
+
                                                     </v-flex>
                                                     <v-flex xs4 xs4>
                                                         quantity: {{item.quantity}}
@@ -159,93 +155,13 @@
                 </v-flex>
             </v-layout>
             <br />
-            @*<form>
-                    <v-layout>
 
-                        <v-flex xs8>
-                            <v-card>
-                                <v-card-title>
-                                    Added Lab Equipment
-                                    <v-spacer></v-spacer>
-                                    <v-text-field v-model="searchAdded"
-                                                  append-icon="search"
-                                                  label="Search"
-                                                  single-line
-                                                  hide-details></v-text-field>
-                                </v-card-title>
-                                <v-data-table :headers="HeadersAdded"
-                                              :items="itemsAdded"
-                                              :search="searchAdded"
-                                              item-key="equipmentAdded"
-                                              hide-actions
-                                              expand
-                                              class="elevation-1">
-                                    <template slot="items" scope="props">
-                                        <td class="text-xs">{{props.item.itemName}}</td>
-                                        <td class="text-xs">{{props.item.location}}</td>
-                                        <td class="text-xs">{{props.item.quantity}}  </td>
-                                        <td class="text-xs">
-                                                <button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
-                                                    <v-icon color="pink">remove</v-icon>
-                                                </button>
-                                                <button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
-                                                    <v-icon color="green">add</v-icon>
-                                                </button>
-                                            </td>
-
-                                    </template>
-                                </v-data-table>
-                            </v-card>
-
-                        </v-flex>
-
-                    </v-layout>
-                </form>*@
 
 
 
         </v-container>
-        @*<div id="root">
-                <button class="btn" v-on:click="showModal=true">Show</button>
-                <modal v-if="showModal" @close="showModal = false" name="Umesh">
-                    <p>dsfkdskf</p>
-                </modal>
 
-            </div>*@
 
-</div>
-<div id="root">
-    <v-app id="inspire">
-        <i v-on="on"v-on:click.stop="dialog = true" class="fa fa-info-circle fa-2x" style="color: rgb(159, 212, 172);"></i>
-  
-        <v-dialog v-model="dialog" transition="dialog-bottom-transition" width="80%">
-            <v-card>
-                <v-toolbar dark class="primary">
-                    <v-btn icon v-on:click.native="dialog = false" dark>
-                        <v-icon>close</v-icon>
-                    </v-btn>
-
-                    <v-toolbar-title>Settings</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-toolbar-items>
-                        <v-btn dark flat v-on:click.native="dialog = false">Save</v-btn>
-                    </v-toolbar-items>
-                </v-toolbar>
-                <v-card-media src="https://vuetifyjs.com/static/doc-images/cards/desert.jpg" height="200px">
-                </v-card-media>
-                <v-card-title primary-title>
-                    <div>
-                        <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-                        <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-                    </div>
-                </v-card-title>
-                <v-card-actions>
-                    <v-btn flat class="orange--text">Share</v-btn>
-                    <v-btn flat class="orange--text">Explore</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-    </v-app>
 </div>
 
 <script src="~/Scripts/ViewLabs.js"></script>
