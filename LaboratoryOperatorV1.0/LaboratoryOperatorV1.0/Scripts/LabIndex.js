@@ -18,7 +18,8 @@ y = jsObjects[0].a;
 z = model.LabsForUsers[0].id
 modelArray = x[0];
 
-new Vue({
+
+ new Vue({
     el: '#app',
     data: {
         search: '',
@@ -40,18 +41,20 @@ new Vue({
         }
     },
     computed: {
-       
+
         filteredList() {
-           
 
 
-            return this.AssignmentList.filter(post  => {
+
+            return this.AssignmentList.filter(post => {
                 return post.LabName.toLowerCase().includes(this.search.toLowerCase())
             })
         }
     }
-    
-})
+
+});
+
+
 
 
 

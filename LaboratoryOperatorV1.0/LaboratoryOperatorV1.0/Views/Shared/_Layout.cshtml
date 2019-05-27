@@ -36,32 +36,36 @@
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CMutationObserver" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
-    
+
     <!-- Load Vue followed by BootstrapVue -->
 
 
 
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                </div>
-            </div>
-        </div>*@
+    @*<div id="navbar">
+        <v-app id="inspire">
+            <v-card>
+                <v-card-title>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="purple" href="/Home/ViewLabsAsync">Add New Lab</v-btn>
+                        <v-btn flat color="purple" href="/Home/ViewInventory">Inventory</v-btn>
+                    </v-card-actions>
+
+                    <v-spacer></v-spacer>
+                    @*<v-text-field v-model="search "
+                                  append-icon="search"
+                                  label="search labs"
+                                  single-line
+                                  hide-details>
+
+                    </v-text-field>
+                </v-card-title>
+
+            </v-card>
+        </v-app>
+    </div>*@
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -79,3 +83,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script src="~/Scripts/_Layout.js"></script>

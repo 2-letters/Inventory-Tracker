@@ -1,1 +1,64 @@
 ﻿
+
+<script>
+        var model =  @Html.Raw(Json.Encode(Model))
+</script>
+
+
+<div id="app">
+
+    <v-app id="inspire">
+        <v-card>
+            <v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn flat color="purple" href="/Home">Home</v-btn>
+                    <v-btn flat color="purple">Inventory</v-btn>
+                </v-card-actions>
+
+                <v-spacer></v-spacer>
+
+            </v-card-title>
+
+        </v-card>
+        <br />
+        <div v-for="(list, index) in equipment">
+            <v-layout>
+                <v-flex xs12 sm10 offset-sm1>
+                    <v-card>
+                        <v-form v-model="valid">
+                            <v-container>
+                                <v-layout>
+                                    <template>
+                                        <v-flex xs12
+                                                md6>
+
+                                            <v-text-field v-model="list.name"
+                                                          :rules="nameRules"
+                                                          :counter="10"
+                                                          label="Equipment name"
+                                                          required>   </v-text-field>
+                                        </v-flex>
+
+                                        <v-flex xs12
+                                                md6>
+                                            <v-text-field v-model="list.description"
+                                                          :rules="nameRules"
+                                                          :counter="10"
+                                                          label="Description"
+                                                          required></v-text-field>
+                                        </v-flex>
+                                    </template>
+
+                                </v-layout>
+                            </v-container>
+                        </v-form>
+                    </v-card>
+                </v-flex>
+
+            </v-layout>
+            <br />
+        </div>
+    </v-app>
+</div>
+<script src="~/Scripts/ViewInventory.js"></script>
