@@ -51,7 +51,7 @@
                                 <td class="text-xs">{{ props.item.location }}</td>
                                 <td class="text-xs">{{ props.item.qty }}  </td>
                                 <td>
-                                    <v-dialog v-model="dialog[props.item.equipment]" lazy absolute>
+                                    <v-dialog v-model="dialog[props.item.equipment]" lazy absolute  width="500">
                                         <v-btn flat icon color="blue lighten-2"
                                                v-on:click.stop="$set(dialog, props.item.equipment, true)" slot="activator">
                                             <v-icon>info</v-icon>
@@ -61,15 +61,17 @@
                                                 <div class="headline">More Info for '{{ props.item.equipment }}'</div>
                                             </v-card-title>
                                             <v-card-text>
-                                                <v-img :src="props.item.pictureUrl" aspect-ratio="2.75"></v-img>
-                                                {{props.item.location}}
+                                                <v-img :src="props.item.pictureUrl" aspect-ratio="1"
+                                                       ></v-img>
+                                                <b> Description:</b> {{props.item.description}}
+                                                <br />
+                                                <b>location:</b> {{props.item.location}}
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
                                                 <v-btn class="blue--text darken-1" flat="flat"
-                                                       v-on:click.stop="$set(dialog, props.item.equipment, false)">No</v-btn>
-                                                <v-btn class="blue--text darken-1" flat="flat"
-                                                       v-on:click.native="deleteRow(props.item)">Yes</v-btn>
+                                                       v-on:click.stop="$set(dialog, props.item.equipment, false)">Close</v-btn>
+                                                
                                             </v-card-actions>
                                         </v-card>
                                     </v-dialog>

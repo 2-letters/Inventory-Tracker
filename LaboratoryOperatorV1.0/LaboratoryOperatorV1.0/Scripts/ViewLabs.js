@@ -36,7 +36,7 @@ new Vue({
 
     mounted() {
         for (var i = 0; i < model.IndexList.length; i++) {
-            this.items.push({ equipment: model.IndexList[i].itemName, location: model.IndexList[i].location, qty: model.IndexList[i].quantity, id: model.IndexList[i].id, i: i, pictureUrl: model.IndexList[i].pictureUrl })
+            this.items.push({ equipment: model.IndexList[i].itemName, location: model.IndexList[i].location, qty: model.IndexList[i].quantity, id: model.IndexList[i].id, i: i, pictureUrl: model.IndexList[i].pictureUrl, description: model.IndexList[i].description })
             //this.itemsAdded.push({ equipmentAdded: model.IndexList[i].itemName, locationAdded: model.IndexList[i].location, qtyAdded: model.IndexList[i].quantity, id: model.IndexList[i].id })
 
         }
