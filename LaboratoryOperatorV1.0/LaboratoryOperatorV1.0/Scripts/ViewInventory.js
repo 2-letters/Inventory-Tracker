@@ -1,7 +1,8 @@
 ﻿class Equipment {
-    constructor(name, description) {
+    constructor(name, description, location) {
         this.name = name;
         this.description = description;
+        this.location = location;
     }
 }
 
@@ -26,9 +27,9 @@ new Vue({
     }, 
     mounted() {
 
-        for (i = 0; i < 10; i++)
+        for (i = 0; i < 2; i++)
         {
-            this.equipment.push(new Equipment('beaker', 'asdf'))
+            this.equipment.push(new Equipment('beaker', 'asdf', 'paradise'))
 
         }
         this.x = this.equipment.length;
