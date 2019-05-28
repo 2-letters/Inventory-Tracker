@@ -51,26 +51,28 @@
                                 <td class="text-xs">{{ props.item.location }}</td>
                                 <td class="text-xs">{{ props.item.qty }}  </td>
                                 <td>
-                                    @*<a v-bind:href="props.item.pictureUrl">
-                                        <i class="fa fa-info-circle fa-2x" style="color: rgb(159, 212, 172);"></i></a>*@
-                                    <v-dialog v-model="dialog" lazy absolute>
-                                        <i class="fa fa-info-circle fa-2x" style="color: rgb(159, 212, 172);" slot="activator"></i>
+                                    <v-dialog v-model="dialog[props.item.equipment]" lazy absolute>
+                                        <v-btn flat icon color="blue lighten-2"
+                                               v-on:click.stop="$set(dialog, props.item.equipment, true)" slot="activator">
+                                            <v-icon>info</v-icon>
+                                        </v-btn>
                                         <v-card>
-                                            <v-card-title class="justify-center">
-                                                <p class="headline">More Info  for '{{ props.item.equipment }}'</p>
+                                            <v-card-title>
+                                                <div class="headline">More Info for '{{ props.item.equipment }}'</div>
                                             </v-card-title>
                                             <v-card-text>
-                                                @*<v-img src="{{props.item.pictureUrl}}"
-                                                    aspect-ratio="2.75"></v-img>*@ {{props.item.location}}
+                                                <v-img :src="props.item.pictureUrl" aspect-ratio="2.75"></v-img>
+                                                {{props.item.location}}
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
-                                                <v-btn class="blue--text darken-1" flat="flat" v-on:click.native="dialog = false">No</v-btn>
-                                                <v-btn class="blue--text darken-1" flat="flat" v-on:click.native="deleteRow(props.item)">Yes</v-btn>
+                                                <v-btn class="blue--text darken-1" flat="flat"
+                                                       v-on:click.stop="$set(dialog, props.item.equipment, false)">No</v-btn>
+                                                <v-btn class="blue--text darken-1" flat="flat"
+                                                       v-on:click.native="deleteRow(props.item)">Yes</v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </v-dialog>
-
                                 </td>
                                 <td class="text-xs">
                                     <button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
@@ -86,7 +88,74 @@
                         </v-data-table>
                     </v-card>
                 </v-flex>
+                <v-flex xs4>
 
+                    <v-card>
+
+
+                        <div>
+
+                            <v-layout row wrap>
+                                <v-flex xs12 >
+                                    <v-text-field label="Lab Name" id="labName"></v-text-field>
+                                </v-flex>
+
+
+                                <br />
+                               
+                                <v-flex xs12>
+                                    <v-textarea name="input-7-1"
+                                                label="Please Enter the description for this lab"
+                                             
+                                              id="labDescription"  ></v-textarea>
+                                </v-flex>
+
+
+
+
+                                <br />
+                                <v-btn flat color="purple" v-on:click="submitData()">Submit Lab</v-btn>
+                                @*<input type="submit" style="background-color:#22d015;" v-on:click="submitData()" value="Submit">*@
+
+                            </v-layout>
+
+                        </div>
+                        <div>
+                            <v-list two-line>
+                                <v-subheader>
+                                    items added
+                                </v-subheader>
+                                <template v-for="(item, index) in itemsAdded">
+
+
+                                    <v-divider></v-divider>
+
+                                    <v-list-tile>
+
+                                        <v-list-tile-content>
+
+                                            <v-list-tile-title>
+                                                <v-layout>
+                                                    <v-flex xs4>
+                                                        item Name: {{item.itemName}}
+
+                                                    </v-flex>
+                                                    <v-flex xs4 xs4>
+                                                        quantity: {{item.quantity}}
+                                                    </v-flex>
+                                                </v-layout>
+                                            </v-list-tile-title>
+
+
+
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                </template>
+                            </v-list>
+                        </div>
+
+                    </v-card>
+                </v-flex>
             </v-layout>
             <br />
 
@@ -99,72 +168,3 @@
 </div>
 
 <script src="~/Scripts/ViewLabs.js"></script>
-
-
-@*<v-flex xs4>
-
-        <v-card>
-
-
-            <div>
-
-                <v-layout row wrap>
-                    <v-flex xs12 >
-                        <v-text-field label="Lab Name" id="labName"></v-text-field>
-                    </v-flex>
-
-
-                    <br />
-
-                    <v-flex xs12>
-                        <v-textarea name="input-7-1"
-                                    label="Please Enter the description for this lab"
-
-                                  id="labDescription"  ></v-textarea>
-                    </v-flex>
-
-
-
-
-                    <br />
-                    <v-btn flat color="purple" v-on:click="submitData()">Submit Lab</v-btn>
-
-                </v-layout>
-
-            </div>
-            <div>
-                <v-list two-line>
-                    <v-subheader>
-                        items added
-                    </v-subheader>
-                    <template v-for="(item, index) in itemsAdded">
-
-
-                        <v-divider></v-divider>
-
-                        <v-list-tile>
-
-                            <v-list-tile-content>
-
-                                <v-list-tile-title>
-                                    <v-layout>
-                                        <v-flex xs4>
-                                            item Name: {{item.itemName}}
-
-                                        </v-flex>
-                                        <v-flex xs4 xs4>
-                                            quantity: {{item.quantity}}
-                                        </v-flex>
-                                    </v-layout>
-                                </v-list-tile-title>
-
-
-
-                            </v-list-tile-content>
-                        </v-list-tile>
-                    </template>
-                </v-list>
-            </div>
-
-        </v-card>
-    </v-flex>*@

@@ -1,8 +1,9 @@
 ﻿class Equipment {
-    constructor(name, description, location) {
+    constructor(name, description, location, index) {
         this.name = name;
         this.description = description;
         this.location = location;
+        this.index = index;
     }
 }
 
@@ -13,7 +14,7 @@ new Vue({
         startingNumber: 6,
         equipmentName: '',
         description: '',
-        x: 1,
+        index: 0,
         equipment: [],
         nameRules: [
             v => !!v || 'Name is required',
@@ -29,9 +30,20 @@ new Vue({
 
         for (i = 0; i < 2; i++)
         {
-            this.equipment.push(new Equipment('beaker', 'asdf', 'paradise'))
+            this.index++;
+            this.equipment.push(new Equipment('beaker', 'asdf', 'paradise', this.index))
 
         }
         this.x = this.equipment.length;
+    },
+    methods: {
+        addItem: function () {
+            this.index++;
+            this.equipment.push(new Equipment('','','',this.index))
+        },
+
+        deleteItem: function (index) {
+
+        }
     }
 })

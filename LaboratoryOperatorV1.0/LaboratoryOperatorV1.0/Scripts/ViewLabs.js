@@ -9,7 +9,7 @@ new Vue({
             disabled: "",
             searchAdded: '',
             message: 'omae wa moo shindeiruu',
-            dialog: false,
+            dialog: {},
             notifications: false,
             sound: true,
             test: true,
@@ -18,7 +18,7 @@ new Vue({
             Headers: [
                 { text: 'Equipment', value: 'equipment' },
                 { text: 'Location', value: 'location' },
-                { text: 'Qty', value: 'qty' },
+                { text: 'Available', value: 'qty' },
                 { text: 'MoreInfo', value: 'pictureUrl',  sortable: false, disabled: true },
                 { text: 'Add or Remove', value: 'addo', sortable: false, disabled: true }
             ],
