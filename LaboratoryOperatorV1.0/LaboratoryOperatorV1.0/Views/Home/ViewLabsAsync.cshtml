@@ -51,7 +51,7 @@
                                 <td class="text-xs">{{ props.item.location }}</td>
                                 <td class="text-xs">{{ props.item.qty }}  </td>
                                 <td>
-                                    <v-dialog v-model="dialog[props.item.equipment]" lazy absolute  width="500">
+                                    <v-dialog v-model="dialog[props.item.equipment]" lazy absolute width="500">
                                         <v-btn flat icon color="blue lighten-2"
                                                v-on:click.stop="$set(dialog, props.item.equipment, true)" slot="activator">
                                             <v-icon>info</v-icon>
@@ -61,8 +61,7 @@
                                                 <div class="headline">More Info for '{{ props.item.equipment }}'</div>
                                             </v-card-title>
                                             <v-card-text>
-                                                <v-img :src="props.item.pictureUrl" aspect-ratio="1"
-                                                       ></v-img>
+                                                <v-img :src="props.item.pictureUrl" aspect-ratio="1"></v-img>
                                                 <b> Description:</b> {{props.item.description}}
                                                 <br />
                                                 <b>location:</b> {{props.item.location}}
@@ -71,18 +70,29 @@
                                                 <v-spacer></v-spacer>
                                                 <v-btn class="blue--text darken-1" flat="flat"
                                                        v-on:click.stop="$set(dialog, props.item.equipment, false)">Close</v-btn>
-                                                
+
                                             </v-card-actions>
                                         </v-card>
                                     </v-dialog>
                                 </td>
                                 <td class="text-xs">
-                                    <button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
-                                        <v-icon color="pink">remove</v-icon>
-                                    </button>
-                                    <button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
-                                        <v-icon color="green">add</v-icon>
-                                    </button>
+                                    @*<button v-on:click="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
+                                            <v-icon color="pink">remove</v-icon>
+                                        </button>*@
+
+                                    <v-content>
+                                        <v-container>
+                                            <v-text-field v-model="foo" type="number" label="Number" 
+                                                          append-outer-icon="add" v-on:click:append-outer="increment(props.item.id)" :disabled="disabled == props.item.id + '2' ? true : false"
+                                                          prepend-icon="remove" v-on:click:prepend="decrement(props.item.id)" :disabled="disabled == props.item.id ? true : false">
+
+                                            </v-text-field>
+                                        </v-container>
+                                    </v-content>
+
+                                    @*<button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
+                                            <v-icon color="green">add</v-icon>
+                                        </button>*@
                                 </td>
 
 
@@ -98,18 +108,17 @@
                         <div>
 
                             <v-layout row wrap>
-                                <v-flex xs12 >
+                                <v-flex xs12>
                                     <v-text-field label="Lab Name" id="labName"></v-text-field>
                                 </v-flex>
 
 
                                 <br />
-                               
+
                                 <v-flex xs12>
                                     <v-textarea name="input-7-1"
                                                 label="Please Enter the description for this lab"
-                                             
-                                              id="labDescription"  ></v-textarea>
+                                                id="labDescription"></v-textarea>
                                 </v-flex>
 
 

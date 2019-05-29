@@ -15,6 +15,7 @@ new Vue({
             test: true,
             widgets: false,
             search: '',
+            foo: 0,
             Headers: [
                 { text: 'Equipment', value: 'equipment' },
                 { text: 'Location', value: 'location' },
