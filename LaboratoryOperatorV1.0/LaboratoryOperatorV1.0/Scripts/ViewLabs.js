@@ -10,6 +10,7 @@ new Vue({
             searchAdded: '',
             message: 'omae wa moo shindeiruu',
             dialog: {},
+            addTransition: {},
             notifications: false,
             sound: true,
             test: true,
