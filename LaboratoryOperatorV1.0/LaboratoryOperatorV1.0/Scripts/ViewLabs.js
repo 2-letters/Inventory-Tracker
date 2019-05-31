@@ -42,7 +42,41 @@
     },
 
     methods: {
+        addNew: function (id) {
+            var isAdded = this.itemsAdded.some(e => e.id === id);
 
+            var result = this.items.filter(obj => { return obj.id === id; });
+
+            var index = this.itemsAdded.map(function (e) { return e.id; }).indexOf(id);
+
+            if ((this.items[result[0].i].foo > this.items[result[0].i].original) || (this.items[result[0].i].foo <= -1)) {
+                this.items[result[0].i].foo = this.items[result[0].i].prevFoo;
+                return;
+            }
+            else {
+                if (isAdded) {
+                    index = this.itemsAdded.map(function (e) { return e.id; }).indexOf(id);
+                    this.itemsAdded[index].quantity = this.items[result[0].i].foo;
+                    this.items[result[0].i].qty = this.items[result[0].i].original - this.items[result[0].i].foo;
+                }
+                else {
+
+                    this.itemsAdded.push({ itemName: result[0].equipment, location: result[0].location, quantity: this.items[result[0].i].foo, id: result[0].id });
+                    this.items[result[0].i].qty = this.items[result[0].i].original - this.items[result[0].i].foo;
+                }
+            }
+            index = this.itemsAdded.map(function (e) { return e.id; }).indexOf(id);
+            if (this.items[result[0].i].foo === "0") {
+                this.itemsAdded.splice(index, 1);
+                this.items[result[0].i].foo = 0;
+            }
+
+            this.items[result[0].i].foo = this.itemsAdded[index].quantity;
+
+
+
+            this.items[result[0].i].prevFoo = this.items[result[0].i].foo;
+        },
         //increment onto next app if not found and decrement current index of object
         increment: function (id) {
 
@@ -51,10 +85,9 @@
 
             var result = this.items.filter(obj => { return obj.id === id; });
 
-
+            var index = this.itemsAdded.map(function (e) { return e.id; }).indexOf(id);
             if (isAdded) {
-
-                var index = this.itemsAdded.map(function (e) { return e.id; }).indexOf(id);
+                index = this.itemsAdded.map(function (e) { return e.id; }).indexOf(id);
                 if (this.items[result[0].i].foo !== this.items[result[0].i].prevFoo) {
                     if ((this.items[result[0].i].foo > this.items[result[0].i].original)) {
                         this.items[result[0].i].foo = this.items[result[0].i].prevFoo;
@@ -65,26 +98,22 @@
                         this.items[result[0].i].qty = this.items[result[0].i].original - this.itemsAdded[index].quantity;
                     }
                 }
-                else
-                {
+                else {
                     this.itemsAdded[index].quantity++;
                     this.items[result[0].i].qty--;
                 }
 
-              
+
             }
-            else
-            {
+            else {
                 var x = this.items[result[0].i].foo;
-                if (this.items[result[0].i].foo !== this.items[result[0].i].prevFoo)
-                {
+                if (this.items[result[0].i].foo !== this.items[result[0].i].prevFoo) {
                     if ((this.items[result[0].i].foo > this.items[result[0].i].original) || (this.items[result[0].i].foo < -1)) {
                         this.items[result[0].i].foo = this.items[result[0].i].prevFoo;
                         return;
                     }
-                    else
-                    {
-                        
+                    else {
+
                         this.itemsAdded.push({ itemName: result[0].equipment, location: result[0].location, quantity: this.items[result[0].i].foo, id: result[0].id });
                         this.items[result[0].i].qty = this.items[result[0].i].qty - this.items[result[0].i].foo;
                     }
@@ -130,6 +159,13 @@
 
 
             }
+
+
+            if ((isAdded === true) && (this.items[result[0].i].foo === "0")) {
+                this.itemsAdded.splice(index, 1);
+                this.items[result[0].i].foo = 0;
+            }
+            index = this.itemsAdded.map(function (e) { return e.id; }).indexOf(id);
             this.items[result[0].i].foo = this.itemsAdded[index].quantity;
 
 
@@ -168,6 +204,9 @@
                 this.items[result[0].i].foo = this.itemsAdded[index].quantity;
             }
 
+        },
+        changeNumber: function () {
+            var x = 2;
         },
 
         submitData: function () {

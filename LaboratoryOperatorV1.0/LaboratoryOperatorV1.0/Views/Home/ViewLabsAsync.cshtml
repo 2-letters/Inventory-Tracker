@@ -88,23 +88,29 @@
                                             </v-card-title>
                                             <v-card-text>
                                                 <div class="row">
-                                                    <v-flex xs5>
-                                                        <v-layout justify-end>
-                                                            <button v-on:click="decrement(props.item.id)" id="decrementButton" :disabled="disabled == props.item.id ? true : false">
-                                                                <v-icon color="red">remove</v-icon>
-                                                            </button>
-                                                        </v-layout>
-                                                    </v-flex>
-                                                    <v-flex xs3>
-                                                        <v-text-field v-model="props.item.foo" type="number" >
+                                                    @*<v-flex xs5>
+                                                            <v-layout justify-end>
+                                                                <button v-on:click="decrement(props.item.id)" id="decrementButton" :disabled="disabled == props.item.id ? true : false">
+                                                                    <v-icon color="red">remove</v-icon>
+                                                                </button>
+                                                            </v-layout>
+                                                        </v-flex>*@
+                                                        <v-flex xs6 offset-xs3>
+                                                            <v-text-field v-model="props.item.foo" type="number">
 
-                                                        </v-text-field>
-                                                    </v-flex>
-                                                    <v-flex xs4>
-                                                        <button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
-                                                            <v-icon color="green">add</v-icon>
-                                                        </button>
-                                                    </v-flex>
+                                                            </v-text-field>
+                                                        </v-flex>
+                                                        <v-flex xs6 offset-xs5>
+                                                            <v-btn v-on:click="addNew(props.item.id)" id="addButton" flat color="purple">
+                                                                Add items
+                                                            </v-btn>
+                                                        </v-flex>
+                                                        @*<v-flex xs4>
+                                                            <button v-on:click="increment(props.item.id)" id="incrementButton" :disabled="disabled == props.item.id + '2' ? true : false">
+                                                                <v-icon color="green">add</v-icon>
+                                                            </button>
+                                                        </v-flex>*@
+                                                   
                                                 </div>
 
                                             </v-card-text>
