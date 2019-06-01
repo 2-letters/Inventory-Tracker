@@ -43,7 +43,7 @@
                                 <div class=" heading "><h3>{{ lab.LabName }}</h3></div>
                             </v-card-title>
                             <v-spacer></v-spacer>
-                            <v-btn flat color="purple">View</v-btn>
+                            <v-btn flat color="purple" v-on:click ="viewLab(lab.id)">View</v-btn>
                         </v-card-actions>
 
                         <div class="sub-heading"> {{ lab.Description }} </div>

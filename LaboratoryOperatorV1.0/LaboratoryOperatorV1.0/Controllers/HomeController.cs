@@ -24,15 +24,23 @@ namespace LaboratoryOperatorV1._0.Controllers
             return View(model);
         }
 
-
-        public async System.Threading.Tasks.Task<ActionResult> ViewLabsAsync()
+        
+        public async System.Threading.Tasks.Task<ActionResult> ViewLabsAsync(string id)
         {
             //await _client.FireBaseConnectAsync();
-
-            var model = new listIndex
+            id = "b8qypoYQVIy24AZO2cvp";
+            var model = new ViewLab();
+            if (id != null)
             {
-                IndexList = await _client.GetAllItemsMethod2()
-            };
+                model.ItemsAdded = await _client.GetItemsForLabs(id);
+                model.labDetails = await _client.GetLabDetails(id);
+                model.LabItems = await _client.GetAllItemsMethod2();
+            }
+            else
+            {
+                model.LabItems = await _client.GetAllItemsMethod2();
+            }
+
 
             return View(model);
         }

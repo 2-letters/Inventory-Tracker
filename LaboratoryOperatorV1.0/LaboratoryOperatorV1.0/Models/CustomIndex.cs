@@ -28,6 +28,12 @@ namespace LaboratoryOperatorV1._0.Models
         public IReadOnlyList<DocumentSnapshot> documentSnapshot { get; set; }
     }
 
+    public class labs
+    {
+        public string labName { get; set; }
+        public string description { get; set; }
+    }
+
 
 }
 

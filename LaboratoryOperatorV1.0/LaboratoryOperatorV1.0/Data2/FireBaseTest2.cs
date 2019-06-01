@@ -58,6 +58,8 @@ namespace LaboratoryOperatorV1._0.Data
             return querySnapshot;
         }
 
+       
+
 
         /// <summary>
         /// get all items
@@ -89,6 +91,52 @@ namespace LaboratoryOperatorV1._0.Data
             }
             return Brotherhood;
         }
+
+
+        public async Task<string> GetUserID()
+        {
+            Query query = db.Collection("users").WhereEqualTo("FirstName", "Rudson");
+            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+            var userID = querySnapshot.Documents[0].Id.ToString();
+
+            return userID;
+        }
+
+        public async Task <List<labItems>> GetItemsForLabs(string id)
+        {
+
+            string userID = await  GetUserID();
+
+            var model = new ViewLab();
+           
+
+            //here i am getting the list of equipments in the labs
+            DocumentReference document = db.Collection("users").Document(userID).Collection("labs").Document(id);
+            CollectionReference collection = db.Collection("users").Document(userID).Collection("labs").Document(id).Collection("equipments");
+            Query query2 = collection;
+            QuerySnapshot equipmentSanpshot = await query2.GetSnapshotAsync();
+            List<labItems> labItemsAdded = new List<labItems>();
+            foreach (DocumentSnapshot queryResult in equipmentSanpshot)
+            {
+                labItemsAdded.Add(new labItems
+                {
+                    itemName = queryResult.GetValue<string>("equipme"),
+                    description = queryResult.GetValue<string>("description"),
+                    id = queryResult.Id,
+                    location = queryResult.GetValue<string>("location"),
+                    pictureUrl = queryResult.GetValue<string>("pictureUrl"),
+                    quantity = queryResult.GetValue<int>("quantity")
+                });
+            }
+
+            model.LabItems = labItemsAdded;
+
+
+            return model.LabItems;
+
+        }
+
+
 
 
         /// <summary>
@@ -183,16 +231,18 @@ namespace LaboratoryOperatorV1._0.Data
                 {
                   { "itemName", item.itemName },
                   { "location", item.location},
-                  { "Qty", item.quantity }
+                  { "quantity", item.quantity },
+                  {"description", item.description },
+                  {"pictureUrl", item.pictureUrl}
                 };
 
                 DocumentReference addedDocRef2 = await db.Collection("users").Document(id).Collection("labs").Document(id2)
-                    .Collection("items").AddAsync(itemsInDocument);
+                    .Collection("equipments").AddAsync(itemsInDocument);
 
             }
             //getting the id of the third to store items
             Query query3 = db.Collection("users").Document(id).Collection("labs").Document(id2).
-                Collection("items").WhereEqualTo("labName", labName);
+                Collection("equipments").WhereEqualTo("labName", labName);
 
             QuerySnapshot querySnapshot3 = await query3.GetSnapshotAsync();
             var id3 = querySnapshot3.Documents[0].Id.ToString();
@@ -202,7 +252,31 @@ namespace LaboratoryOperatorV1._0.Data
         }
 
 
+        public async Task<labs> GetLabDetails(string id)
+        {
+            string userID = await GetUserID();
 
+            var model = new labs();
+
+
+            //here i am getting the list
+            DocumentReference document = db.Collection("users").Document(userID).Collection("labs").Document(id);
+            DocumentSnapshot snapshot = await document.GetSnapshotAsync();
+            if (snapshot.Exists)
+            {
+                model.labName = snapshot.GetValue<string>("labName");
+                model.description = snapshot.GetValue<string>("description");
+            }
+            else
+            {
+                Console.WriteLine("Document {0} does not exist!", snapshot.Id);
+            }
+
+
+            return model;
+
+         
+        }
 
 
 

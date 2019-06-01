@@ -1,9 +1,10 @@
 ﻿var x = model;
 
 class Assignment {
-    constructor(LabName, Description) {
+    constructor(LabName, Description, id) {
         this.LabName = LabName;
         this.Description = Description;
+        this.id = id;
     }
 }
 
@@ -37,7 +38,7 @@ modelArray = x[0];
     },
     mounted() {
         for (var i = 0; i < model.LabsForUsers.length; i++) {
-            this.AssignmentList.push(new Assignment(model.LabsForUsers[i].labName, model.LabsForUsers[i].description))
+            this.AssignmentList.push(new Assignment(model.LabsForUsers[i].labName, model.LabsForUsers[i].description, model.LabsForUsers[i].id))
         }
     },
     computed: {
@@ -50,7 +51,23 @@ modelArray = x[0];
                 return post.LabName.toLowerCase().includes(this.search.toLowerCase())
             })
         }
-    }
+     },
+     methods:{
+         viewLab: function(id) {
+             $.ajax({
+                 url: '/Home/ViewLabsAsync',
+                 data: {
+                     id: id
+                 },
+                 success: function (data) {
+                     $('#results').html(data)
+                 },
+                 error: function (data) {
+                     console.log('Error, please report to a developer')
+                 }
+             });
+         }
+     }
 
 });
 

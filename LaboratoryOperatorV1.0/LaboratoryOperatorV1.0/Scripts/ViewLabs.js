@@ -11,6 +11,7 @@
             notifications: false,
             sound: true,
             test: true,
+            labRules: [v => !!v || "The input is required"],
             widgets: false,
             search: '',
             foo: 0,
@@ -34,8 +35,8 @@
     },
 
     mounted() {
-        for (var i = 0; i < model.IndexList.length; i++) {
-            this.items.push({ equipment: model.IndexList[i].itemName, location: model.IndexList[i].location, qty: model.IndexList[i].quantity, id: model.IndexList[i].id, i: i, pictureUrl: model.IndexList[i].pictureUrl, description: model.IndexList[i].description, foo: 0, prevFoo: 0, original: model.IndexList[i].quantity })
+        for (var i = 0; i < model.LabItems.length; i++) {
+            this.items.push({ equipment: model.LabItems[i].itemName, location: model.LabItems[i].location, qty: model.LabItems[i].quantity, id: model.LabItems[i].id, i: i, pictureUrl: model.LabItems[i].pictureUrl, description: model.LabItems[i].description, foo: 0, prevFoo: 0, original: model.LabItems[i].quantity })
             //this.itemsAdded.push({ equipmentAdded: model.IndexList[i].itemName, locationAdded: model.IndexList[i].location, qtyAdded: model.IndexList[i].quantity, id: model.IndexList[i].id })
 
         }
@@ -61,7 +62,7 @@
                 }
                 else {
 
-                    this.itemsAdded.push({ itemName: result[0].equipment, location: result[0].location, quantity: this.items[result[0].i].foo, id: result[0].id });
+                    this.itemsAdded.push({ itemName: result[0].equipment, location: result[0].location, quantity: this.items[result[0].i].foo, pictureUrl: this.items[result[0].i].pictureUrl, id: result[0].id, description: this.items[result[0].i].description });
                     this.items[result[0].i].qty = this.items[result[0].i].original - this.items[result[0].i].foo;
                 }
             }
@@ -210,6 +211,14 @@
         },
 
         submitData: function () {
+
+            if (($("#labName").val() === "") || ($("#labDescription").val())=== "") {
+                return;
+            }
+
+
+
+
             $.ajax({
                 type: 'POST',
                 url: '/Home/PushNewLab',
