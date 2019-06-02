@@ -50,19 +50,17 @@ namespace LaboratoryOperatorV1._0.Controllers
         }
         public ActionResult PreviewLab(string id)
         {
-            //await _client.FireBaseConnectAsync();
-            //id = "b8qypoYQVIy24AZO2cvp";
-            //var model = new ViewLab();
-            //if (id != null)
-            //{
-            //    model.ItemsAdded = _client.GetItemsForLabs(id);
-            //    model.labDetails = _client.GetLabDetails(id);
-            //    model.LabItems = _client.GetAllItemsMethod2();
-            //}
-            //else
-            //{
-            //    model.LabItems = _client.GetAllItemsMethod2();
-            //}
+            id = "b8qypoYQVIy24AZO2cvp";
+            var model = new ViewLab();
+            if (id != null)
+            {
+                model.ItemsAdded = _client.GetItemsForLabs(id);
+                model.labDetails = _client.GetLabDetails(id);
+            }
+            else
+            {
+                model.LabItems = _client.GetAllItemsMethod2();
+            }
 
 
             return View();
@@ -84,7 +82,10 @@ namespace LaboratoryOperatorV1._0.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// change viewInventory to EditInventory
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ViewInventory()
         {
             //await _client.FireBaseConnectAsync();

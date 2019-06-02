@@ -1,9 +1,11 @@
 ﻿class Equipment {
-    constructor(name, description, location, index) {
+    constructor(name, description, location, index, pictureUrl, quantity) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.index = index;
+        this.pictureUrl = pictureUrl;
+        this.quantity = quantity
     }
 }
 
@@ -13,12 +15,13 @@ new Vue({
         valid: false,
         startingNumber: 6,
         equipmentName: '',
+        model: model,
         description: '',
         index: 0,
         equipment: [],
         nameRules: [
             v => !!v || 'Name is required',
-            v => v.length <= 10 || 'Name must be less than 10 characters'
+            v => v.length <= 500 || 'Name must be less than 10 characters'
         ],
         email: '',
         emailRules: [
@@ -27,11 +30,11 @@ new Vue({
         ]
     }, 
     mounted() {
-
-        for (i = 0; i < 2; i++)
+        
+        for (i = 0; i < model.IndexList.length; i++)
         {
             this.index++;
-            this.equipment.push(new Equipment('beaker', 'asdf', 'paradise', this.index))
+            this.equipment.push(new Equipment(model.IndexList[i].itemName, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity))
 
         }
         this.x = this.equipment.length;
