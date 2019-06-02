@@ -1,0 +1,203 @@
+﻿@*@model LaboratoryOperatorV1._0.Models.ViewLab
+
+
+<script>
+        var model =  @Html.Raw(Json.Encode(Model))
+</script>
+
+
+
+<div id="app">
+    <v-app id="inspire">
+        <v-card>
+            <v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn flat color="purple" href="/Home">Home</v-btn>
+                    <v-btn flat color="purple">Inventory</v-btn>
+                </v-card-actions>
+
+                <v-spacer></v-spacer>
+
+            </v-card-title>
+
+        </v-card>
+
+
+        <v-container grid-list-md text-xs-center>
+            <v-layout>
+                <v-flex xs8>
+
+                    <v-card>
+
+                        <v-card-title>
+                            Un Added Lab Equipment
+                            <v-spacer></v-spacer>
+                            <v-text-field v-model="search"
+                                          append-icon="search"
+                                          label="Search"
+                                          single-line
+                                          hide-details></v-text-field>
+                        </v-card-title>
+                        <v-data-table :headers="Headers"
+                                      :items="items"
+                                      :search="search"
+                                      item-key="equipment"
+                                      hide-actions
+                                      expand
+                                      class="elevation-1">
+                            <template slot="items" scope="props">
+                                <td class="text-xs">{{ props.item.equipment }}</td>
+                                <td class="text-xs">{{ props.item.location }}</td>
+                                <td class="text-xs">{{ props.item.qty }}  </td>
+                                <td>
+                                    <v-dialog v-model="dialog[props.item.equipment]" lazy absolute width="500">
+                                        <v-btn flat icon color="blue lighten-2"
+                                               v-on:click.stop="$set(dialog, props.item.equipment, true)" slot="activator">
+                                            <v-icon>info</v-icon>
+                                        </v-btn>
+                                        <v-card>
+                                            <v-card-title>
+                                                <div class="headline">More Info for '{{ props.item.equipment }}'</div>
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <v-img :src="props.item.pictureUrl" aspect-ratio="1"></v-img>
+                                                <b> Description:</b> {{props.item.description}}
+                                                <br />
+                                                <b>location:</b> {{props.item.location}}
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn class="blue--text darken-1" flat="flat"
+                                                       v-on:click.stop="$set(dialog, props.item.equipment, false)">Close</v-btn>
+
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+                                </td>
+                                <td class="text-xs">
+                                    <v-dialog v-model="addTransition[props.item.equipment]" lazy absolute width="500">
+                                        <v-btn flat icon color="blue lighten-2"
+                                               v-on:click.stop="$set(addTransition, props.item.equipment, true)" slot="activator">
+                                            Add Items
+
+                                        </v-btn>
+                                        <v-card>
+                                            <v-card-title>
+                                                <div class="headline">Add Items For '{{ props.item.equipment }}'</div>
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <div class="row">
+
+                                                    <v-flex xs6 offset-xs3>
+                                                        <v-text-field v-model="props.item.foo" type="number">
+
+                                                        </v-text-field>
+                                                    </v-flex>
+                                                    <v-flex xs6 offset-xs5>
+                                                        <v-btn v-on:click="addNew(props.item.id)" id="addButton" flat color="purple">
+                                                            Add items
+                                                        </v-btn>
+                                                    </v-flex>
+
+                                                </div>
+
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+
+
+                                </td>
+
+
+                            </template>
+                        </v-data-table>
+                    </v-card>
+                </v-flex>
+                <v-flex xs4>
+
+                    <v-card>
+
+
+                        <div>
+
+                            <v-layout row wrap>
+                                <v-flex xs12>
+                                    <v-text-field label="Lab Name" id="labName"
+                                                  :rules='labRules'
+                                                  required></v-text-field>
+                                </v-flex>
+
+
+                                <br />
+
+                                <v-flex xs12>
+                                    <v-textarea name="input-7-1"
+                                                label="Please Enter the description for this lab"
+                                                id="labDescription"
+                                                :rules='labRules'></v-textarea>
+                                </v-flex>
+
+
+
+
+                                <br />
+                                <v-btn flat color="purple" v-on:click="submitData()">Submit Lab</v-btn>
+
+                            </v-layout>
+
+                        </div>
+                        <div>
+                            <v-list two-line>
+                                <v-subheader>
+                                    items added
+                                </v-subheader>
+                                <template v-for="(item, index) in itemsAdded">
+
+
+                                    <v-divider></v-divider>
+
+                                    <v-list-tile>
+
+                                        <v-list-tile-content>
+
+                                            <v-list-tile-title>
+                                                <v-layout>
+                                                    <v-flex xs4>
+                                                        item Name: {{item.itemName}}
+
+                                                    </v-flex>
+                                                    <v-flex xs4 xs4>
+                                                        quantity: {{item.quantity}}
+                                                    </v-flex>
+                                                </v-layout>
+                                            </v-list-tile-title>
+
+
+
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                </template>
+                            </v-list>
+                        </div>
+
+                    </v-card>
+                </v-flex>
+            </v-layout>
+            <br />
+
+
+
+
+        </v-container>
+
+
+</div>
+
+<script src="~/Scripts/ViewLabs.js"></script>*@
+
+<h1>hello</h1>

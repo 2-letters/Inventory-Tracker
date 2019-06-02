@@ -45,14 +45,14 @@ namespace LaboratoryOperatorV1._0.Data
         /// returning the query snpshot and using that as the model to read data from
         /// </summary>
         /// <returns></returns>
-        public async Task<IReadOnlyList<DocumentSnapshot>> GetSnapshotInstance()
+        public IReadOnlyList<DocumentSnapshot> GetSnapshotInstance()
         {
             // Create a document with a random ID in the "users" collection.
             CollectionReference collection = db.Collection("labItems");
 
             // Query the collection for all documents where doc.Born < 1900.
             Query query = collection;
-            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+            QuerySnapshot querySnapshot =  query.GetSnapshotAsync().GetAwaiter().GetResult();
 
 
             return querySnapshot;
@@ -65,15 +65,16 @@ namespace LaboratoryOperatorV1._0.Data
         /// get all items
         /// </summary>
         /// <returns></returns>
-        public async Task<List<labItems>> GetAllItemsMethod2()
+        public List<labItems> GetAllItemsMethod2()
         {
 
             CollectionReference collection = db.Collection("labItems");
 
 
             Query query = collection;
-            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
-
+            QuerySnapshot querySnapshot =  query.GetSnapshotAsync().GetAwaiter().GetResult();
+            
+       
             List<labItems> Brotherhood = new List<labItems>();
 
             foreach (DocumentSnapshot queryResult in querySnapshot)
@@ -93,19 +94,19 @@ namespace LaboratoryOperatorV1._0.Data
         }
 
 
-        public async Task<string> GetUserID()
+        public string GetUserID()
         {
             Query query = db.Collection("users").WhereEqualTo("FirstName", "Rudson");
-            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+            QuerySnapshot querySnapshot =  query.GetSnapshotAsync().GetAwaiter().GetResult();
             var userID = querySnapshot.Documents[0].Id.ToString();
 
             return userID;
         }
 
-        public async Task <List<labItems>> GetItemsForLabs(string id)
+        public List<labItems>GetItemsForLabs(string id)
         {
 
-            string userID = await  GetUserID();
+            string userID =   GetUserID();
 
             var model = new ViewLab();
            
@@ -114,13 +115,13 @@ namespace LaboratoryOperatorV1._0.Data
             DocumentReference document = db.Collection("users").Document(userID).Collection("labs").Document(id);
             CollectionReference collection = db.Collection("users").Document(userID).Collection("labs").Document(id).Collection("equipments");
             Query query2 = collection;
-            QuerySnapshot equipmentSanpshot = await query2.GetSnapshotAsync();
+            QuerySnapshot equipmentSanpshot =  query2.GetSnapshotAsync().GetAwaiter().GetResult();
             List<labItems> labItemsAdded = new List<labItems>();
             foreach (DocumentSnapshot queryResult in equipmentSanpshot)
             {
                 labItemsAdded.Add(new labItems
                 {
-                    itemName = queryResult.GetValue<string>("equipme"),
+                    itemName = queryResult.GetValue<string>("equipmentName"),
                     description = queryResult.GetValue<string>("description"),
                     id = queryResult.Id,
                     location = queryResult.GetValue<string>("location"),
@@ -144,7 +145,7 @@ namespace LaboratoryOperatorV1._0.Data
         /// for now we are Using Rudson Varona
         /// </summary>
         /// <returns></returns>
-        public async Task<List<LabsForUsers>> GetAllLabsForUsersAsync()
+        public List<LabsForUsers> GetAllLabsForUsersAsync()
         {
 
             //CollectionReference collection = db.Collection("users").WhereEqualTo("FirstName","Rudson");
@@ -156,7 +157,7 @@ namespace LaboratoryOperatorV1._0.Data
             //Query query = collection;
 
 
-            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+            QuerySnapshot querySnapshot =  query.GetSnapshotAsync().GetAwaiter().GetResult();
             var id = querySnapshot.Documents[0].Id.ToString();
 
 
@@ -165,7 +166,7 @@ namespace LaboratoryOperatorV1._0.Data
 
             CollectionReference collection = db.Collection("users").Document(id).Collection("labs");
             Query query2 = collection;
-            QuerySnapshot labsSnapshot = await query2.GetSnapshotAsync();
+            QuerySnapshot labsSnapshot =  query2.GetSnapshotAsync().GetAwaiter().GetResult();
 
             List<LabsForUsers> LabsForUser = new List<LabsForUsers>();
 
@@ -193,12 +194,12 @@ namespace LaboratoryOperatorV1._0.Data
         /// <param name="labDescription"></param>
         /// <param name="itemsInLab"></param>
         /// <returns></returns>
-        public async Task pushNewLabAsync(string labName, string labDescription, List<labItems> itemsInLab)
+        public void pushNewLabAsync(string labName, string labDescription, List<labItems> itemsInLab)
         {
             //get id of Rudson Varona
             Query query = db.Collection("users").WhereEqualTo("FirstName", "Rudson");
 
-            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+            QuerySnapshot querySnapshot =  query.GetSnapshotAsync().GetAwaiter().GetResult();
             var id = querySnapshot.Documents[0].Id.ToString();
 
 
@@ -209,7 +210,7 @@ namespace LaboratoryOperatorV1._0.Data
                   { "labName", labName }
             };
             //this posts it up
-            DocumentReference addedDocRef = await db.Collection("users").Document(id).Collection("labs").AddAsync(labs);
+            DocumentReference addedDocRef =  db.Collection("users").Document(id).Collection("labs").AddAsync(labs).GetAwaiter().GetResult();
 
 
 
@@ -219,7 +220,7 @@ namespace LaboratoryOperatorV1._0.Data
             //getting the id of the second application
             Query query2 = db.Collection("users").Document(id).Collection("labs").WhereEqualTo("labName", labName);
 
-            QuerySnapshot querySnapshot2 = await query2.GetSnapshotAsync();
+            QuerySnapshot querySnapshot2 =  query2.GetSnapshotAsync().GetAwaiter().GetResult();
             var id2 = querySnapshot2.Documents[0].Id.ToString();
 
             //creatging the collection reference here
@@ -236,15 +237,15 @@ namespace LaboratoryOperatorV1._0.Data
                   {"pictureUrl", item.pictureUrl}
                 };
 
-                DocumentReference addedDocRef2 = await db.Collection("users").Document(id).Collection("labs").Document(id2)
-                    .Collection("equipments").AddAsync(itemsInDocument);
+                DocumentReference addedDocRef2 =  db.Collection("users").Document(id).Collection("labs").Document(id2)
+                    .Collection("equipments").AddAsync(itemsInDocument).GetAwaiter().GetResult();
 
             }
             //getting the id of the third to store items
             Query query3 = db.Collection("users").Document(id).Collection("labs").Document(id2).
                 Collection("equipments").WhereEqualTo("labName", labName);
 
-            QuerySnapshot querySnapshot3 = await query3.GetSnapshotAsync();
+            QuerySnapshot querySnapshot3 =  query3.GetSnapshotAsync().GetAwaiter().GetResult();
             var id3 = querySnapshot3.Documents[0].Id.ToString();
 
 
@@ -252,16 +253,16 @@ namespace LaboratoryOperatorV1._0.Data
         }
 
 
-        public async Task<labs> GetLabDetails(string id)
+        public  labs GetLabDetails(string id)
         {
-            string userID = await GetUserID();
+            string userID =  GetUserID();
 
             var model = new labs();
 
 
             //here i am getting the list
             DocumentReference document = db.Collection("users").Document(userID).Collection("labs").Document(id);
-            DocumentSnapshot snapshot = await document.GetSnapshotAsync();
+            DocumentSnapshot snapshot =  document.GetSnapshotAsync().GetAwaiter().GetResult();
             if (snapshot.Exists)
             {
                 model.labName = snapshot.GetValue<string>("labName");

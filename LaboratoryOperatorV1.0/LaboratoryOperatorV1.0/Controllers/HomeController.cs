@@ -14,55 +14,84 @@ namespace LaboratoryOperatorV1._0.Controllers
 
         private readonly firebaseTest _client = new firebaseTest();
 
-        public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
+        public ActionResult IndexAsync()
         {
             var model = new LabsForUsersList
             {
-                LabsForUsers = await _client.GetAllLabsForUsersAsync()
+                LabsForUsers =  _client.GetAllLabsForUsersAsync()
             };
             
             return View(model);
         }
 
-        
-        public async System.Threading.Tasks.Task<ActionResult> ViewLabsAsync(string id)
+        /// <summary>
+        /// change this later to edit and add new lab
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult ViewLabsAsync(string id)
         {
             //await _client.FireBaseConnectAsync();
-            id = "b8qypoYQVIy24AZO2cvp";
+            //id = "b8qypoYQVIy24AZO2cvp";
             var model = new ViewLab();
             if (id != null)
             {
-                model.ItemsAdded = await _client.GetItemsForLabs(id);
-                model.labDetails = await _client.GetLabDetails(id);
-                model.LabItems = await _client.GetAllItemsMethod2();
+                model.ItemsAdded =  _client.GetItemsForLabs(id);
+                model.labDetails =  _client.GetLabDetails(id);
+                model.LabItems =  _client.GetAllItemsMethod2();
             }
             else
             {
-                model.LabItems = await _client.GetAllItemsMethod2();
+                model.LabItems =  _client.GetAllItemsMethod2();
             }
 
 
             return View(model);
         }
-
-        [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> PushNewLab(string labName, string labDescription, List<labItems> itemsInLab)
+        public ActionResult PreviewLab(string id)
         {
             //await _client.FireBaseConnectAsync();
+            //id = "b8qypoYQVIy24AZO2cvp";
+            //var model = new ViewLab();
+            //if (id != null)
+            //{
+            //    model.ItemsAdded = _client.GetItemsForLabs(id);
+            //    model.labDetails = _client.GetLabDetails(id);
+            //    model.LabItems = _client.GetAllItemsMethod2();
+            //}
+            //else
+            //{
+            //    model.LabItems = _client.GetAllItemsMethod2();
+            //}
 
-            await _client.pushNewLabAsync(labName, labDescription, itemsInLab);
 
             return View();
         }
 
 
-        public async System.Threading.Tasks.Task<ActionResult> ViewInventory()
+
+
+
+
+
+        [HttpPost]
+        public ActionResult PushNewLab(string labName, string labDescription, List<labItems> itemsInLab)
+        {
+            //await _client.FireBaseConnectAsync();
+
+             _client.pushNewLabAsync(labName, labDescription, itemsInLab);
+
+            return View();
+        }
+
+
+        public ActionResult ViewInventory()
         {
             //await _client.FireBaseConnectAsync();
 
             var model = new listIndex
             {
-                IndexList = await _client.GetAllItemsMethod2()
+                IndexList =  _client.GetAllItemsMethod2()
             };
 
             return View(model);

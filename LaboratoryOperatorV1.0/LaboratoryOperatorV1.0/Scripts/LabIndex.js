@@ -54,18 +54,8 @@ modelArray = x[0];
      },
      methods:{
          viewLab: function(id) {
-             $.ajax({
-                 url: '/Home/ViewLabsAsync',
-                 data: {
-                     id: id
-                 },
-                 success: function (data) {
-                     $('#results').html(data)
-                 },
-                 error: function (data) {
-                     console.log('Error, please report to a developer')
-                 }
-             });
+             var url = '/Home/PreviewLab/__id__';
+             window.location.href = url.replace('__id__', id);
          }
      }
 

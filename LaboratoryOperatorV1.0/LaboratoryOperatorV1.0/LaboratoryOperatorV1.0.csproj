@@ -277,6 +277,7 @@
     <Content Include="Views\Home\IndexAsync.cshtml" />
     <Content Include="Views\Home\ViewLabsAsync.cshtml" />
     <Content Include="Views\Home\ViewInventory.cshtml" />
+    <Content Include="Views\Home\PreviewLab.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

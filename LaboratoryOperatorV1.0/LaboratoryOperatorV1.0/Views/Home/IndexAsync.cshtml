@@ -15,7 +15,7 @@
             <v-card-title>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn flat color="purple" href="/Home/ViewLabsAsync">Add New Lab</v-btn>
+                    <v-btn flat color="purple" href="/Home/previewLab">Add New Lab</v-btn>
                     <v-btn flat color="purple">Inventory</v-btn>
                 </v-card-actions>
 
@@ -44,6 +44,7 @@
                             </v-card-title>
                             <v-spacer></v-spacer>
                             <v-btn flat color="purple" v-on:click ="viewLab(lab.id)">View</v-btn>
+                         
                         </v-card-actions>
 
                         <div class="sub-heading"> {{ lab.Description }} </div>
