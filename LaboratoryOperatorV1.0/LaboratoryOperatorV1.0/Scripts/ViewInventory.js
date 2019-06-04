@@ -19,6 +19,9 @@ new Vue({
         description: '',
         index: 0,
         equipment: [],
+        action: 'View',
+        switch1: true,
+        show: true,
         nameRules: [
             v => !!v || 'Name is required',
             v => v.length <= 500 || 'Name must be less than 10 characters'
@@ -48,5 +51,18 @@ new Vue({
         deleteItem: function (index) {
 
         }
+    },
+    watch: {
+        switch1(newValue) {
+            if (newValue === true) {
+                this.action = 'edit';
+                this.show = false;
+            }
+            else {
+                this.action = 'view';
+                this.show = true;
+            }
+        }
     }
+
 })
