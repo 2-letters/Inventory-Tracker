@@ -39,6 +39,7 @@
                             <v-card>
                                 <v-container>
                                     <v-layout row>
+                                        <div>{{list.index}}</div>
                                         <v-flex xs12
                                                 md2 offset-md1>
                                             <div>
@@ -78,6 +79,7 @@
                                 <v-form v-model="valid">
                                     <v-container>
                                         <v-layout row>
+                                            <div>{{list.index}}</div>
                                             <v-flex xs12
                                                     md6 lg6>
 
@@ -132,7 +134,7 @@
             </div>
 
         </v-flex>
-        <v-flex xs12 sm10 offset-sm1 id="actioncard" style="visibility: hidden;">
+        <v-flex xs12 sm10 offset-sm1 id="actioncard" v-if="actBtn">
             <v-card>
                 <v-container>
                     <v-layout row>

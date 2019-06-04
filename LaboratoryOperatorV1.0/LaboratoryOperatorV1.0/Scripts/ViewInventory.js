@@ -22,6 +22,7 @@ new Vue({
         action: 'View',
         switch1: true,
         show: true,
+        actBtn: false,
         nameRules: [
             v => !!v || 'Name is required',
             v => v.length <= 500 || 'Name must be less than 10 characters'
@@ -57,13 +58,14 @@ new Vue({
         switch1(newValue) {
             if (newValue === true) {
                 this.action = 'edit';
-                document.getElementById('actioncard').style.visibility = 'visible'
                 this.show = false;
+                this.actBtn = true;
             }
             else {
-                document.getElementById('actioncard').style.visibility = 'hidden'
+
                 this.action = 'view';
                 this.show = true;
+                this.actBtn = false;
             }
         }
     }
