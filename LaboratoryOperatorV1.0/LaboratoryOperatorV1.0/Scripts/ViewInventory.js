@@ -50,15 +50,18 @@ new Vue({
 
         deleteItem: function (index) {
 
-        }
+        },
+        
     },
     watch: {
         switch1(newValue) {
             if (newValue === true) {
                 this.action = 'edit';
+                document.getElementById('actioncard').style.visibility = 'visible'
                 this.show = false;
             }
             else {
+                document.getElementById('actioncard').style.visibility = 'hidden'
                 this.action = 'view';
                 this.show = true;
             }
