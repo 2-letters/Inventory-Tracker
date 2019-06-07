@@ -90,14 +90,14 @@
                                                     md6 lg6>
 
                                                 <v-text-field v-model="list.name"
-                                                              :rules="nameRules"
+                                                   
                                                               label="Equipment name"
                                                               required></v-text-field>
                                             </v-flex>
                                             <v-flex xs12
                                                     md6 lg6>
                                                 <v-text-field v-model="list.location"
-                                                              :rules="nameRules"
+                                                     
                                                               label="Location"
                                                               required></v-text-field>
                                             </v-flex>
@@ -108,7 +108,7 @@
                                             <v-flex xs12
                                                     md6>
                                                 <v-textarea v-model="list.description"
-                                                            :rules="nameRules"
+                              
                                                             label="Description"
                                                             required></v-textarea>
                                             </v-flex>
@@ -126,9 +126,9 @@
                                                         <v-icon color="blue">camera_alt</v-icon>
                                                     </button>
 
-                                                    <button>
+                                                    <v-btn flat icon  v-on:click="deleteItem(list.id, list.index)">
                                                         <v-icon color="red">delete</v-icon>
-                                                    </button>
+                                                    </v-btn>
 
                                                 </v-layout>
                                             </v-flex>

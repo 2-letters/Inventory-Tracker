@@ -22,6 +22,7 @@ new Vue({
         description: '',
         index: 0,
         original: [],
+        itemsToDelete: [],
         equipment: [],
         action: 'View',
         switch1: true,
@@ -37,11 +38,10 @@ new Vue({
             v => /.+@.+/.test(v) || 'E-mail must be valid'
         ],
         NewEquipmentToSave: []
-    }, 
+    },
     mounted() {
-        
-        for (i = 0; i < model.IndexList.length; i++)
-        {
+
+        for (i = 0; i < model.IndexList.length; i++) {
             this.index++;
             this.equipment.push(new Equipment(model.IndexList[i].itemName, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
             this.original.push(new Equipment(model.IndexList[i].itemName, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
@@ -53,7 +53,7 @@ new Vue({
         addItem: function () {
             this.index++;
             this.equipment.push(new Equipment('', '', '', this.index, '', '', true))
-       
+
         },
         getWhereToSplit: function () {
             for (var i = 0; i < this.equipment.length; i++) {
@@ -84,9 +84,15 @@ new Vue({
                 }
             }
             return finalEdit;
+        },
+        deleteItem: function (id, i) {
+            this.itemsToDelete.push(id);
+            var index = this.equipment.map(function (e) { return e.id; }).indexOf(id);
+            this.equipment.splice(index, index + 1);
+            return;
         }
 
-        
+
     },
     watch: {
         switch1(newValue) {
