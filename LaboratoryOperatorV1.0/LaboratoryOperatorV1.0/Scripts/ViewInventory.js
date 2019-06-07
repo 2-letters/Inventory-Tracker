@@ -28,8 +28,8 @@ new Vue({
         show: true,
         actBtn: false,
         nameRules: [
-            v => !!v || 'Name is required',
-            v => v.length <= 500 || 'Name must be less than 10 characters'
+            v => !!v || 'Value is required',
+            v => v > 0 || 'The Value can not be less a negative number or 0'
         ],
         email: '',
         emailRules: [

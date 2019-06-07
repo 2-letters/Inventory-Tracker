@@ -55,6 +55,12 @@
                                         <v-flex xs12
                                                 md3>
                                             <div>
+                                                {{list.quantity}}
+                                            </div>
+                                        </v-flex>
+                                        <v-flex xs12
+                                                md3>
+                                            <div>
                                                 <v-icon>info</v-icon>
                                             </div>
                                         </v-flex>
@@ -106,7 +112,14 @@
                                                             label="Description"
                                                             required></v-textarea>
                                             </v-flex>
-                                            <v-flex xs12 md6 offset-md1>
+                                            <v-flex xs12
+                                                    md4 offset-md1>
+                                                <v-text-field type="number" v-model="list.quantity"
+                                                            :rules="nameRules"
+                                                            label="Quantity"
+                                                            required></v-text-field>
+                                            </v-flex>
+                                            <v-flex xs12 md2>
                                                 <v-layout row>
 
                                                     <button>
