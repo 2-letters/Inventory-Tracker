@@ -86,7 +86,15 @@ new Vue({
             this.itemsToDelete.push(id);
             var index = this.equipment.map(function (e) { return e.id; }).indexOf(id);
             delete this.equipment.splice(index, 1);
+            this.updateIndex();
             return;
+        },
+        updateIndex: function () {
+            for (var i = 0; i <= this.equipment.length; i++) {
+                var index = this.equipment.map(function (e) { return e.id; }).indexOf(this.equipment[i].id);
+                this.equipment[i].index = index + 1;
+
+            }
         }
 
 
