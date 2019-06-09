@@ -28,6 +28,7 @@ new Vue({
         switch1: true,
         show: true,
         actBtn: false,
+        search: '',
         nameRules: [
             v => !!v || 'Value is required',
             v => v > 0 || 'The Value can not be less a negative number or 0'
@@ -48,6 +49,15 @@ new Vue({
 
         }
         this.x = this.equipment.length;
+    },
+
+    computed: {
+        filteredEquipment() {
+
+            return this.equipment.filter(post => {
+                return post.name.toLowerCase().includes(this.search.toLowerCase())
+            })
+        }
     },
     methods: {
         addItem: function () {
@@ -114,5 +124,6 @@ new Vue({
             }
         }
     }
+
 
 })

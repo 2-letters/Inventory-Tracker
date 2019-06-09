@@ -22,6 +22,13 @@
                 </v-card-actions>
 
                 <v-spacer></v-spacer>
+                <v-text-field v-model="search "
+                              append-icon="search"
+                              label="search inventory"
+                              single-line
+                              hide-details>
+
+                </v-text-field>
 
             </v-card-title>
 
@@ -31,7 +38,7 @@
                       :label="`${action}`"></v-switch>
         </v-flex>
         <v-flex>
-            <div v-for="(list, index) in equipment">
+            <v-flex v-for="list in filteredEquipment" :key="n" :search="search">  
 
                 <div v-if="show">
                     <v-layout>
@@ -90,14 +97,12 @@
                                                     md6 lg6>
 
                                                 <v-text-field v-model="list.name"
-                                                   
                                                               label="Equipment name"
                                                               required></v-text-field>
                                             </v-flex>
                                             <v-flex xs12
                                                     md6 lg6>
                                                 <v-text-field v-model="list.location"
-                                                     
                                                               label="Location"
                                                               required></v-text-field>
                                             </v-flex>
@@ -108,16 +113,15 @@
                                             <v-flex xs12
                                                     md6>
                                                 <v-textarea v-model="list.description"
-                              
                                                             label="Description"
                                                             required></v-textarea>
                                             </v-flex>
                                             <v-flex xs12
                                                     md4 offset-md1>
                                                 <v-text-field type="number" v-model="list.quantity"
-                                                            :rules="nameRules"
-                                                            label="Quantity"
-                                                            required></v-text-field>
+                                                              :rules="nameRules"
+                                                              label="Quantity"
+                                                              required></v-text-field>
                                             </v-flex>
                                             <v-flex xs12 md2>
                                                 <v-layout row>
@@ -126,7 +130,7 @@
                                                         <v-icon color="blue">camera_alt</v-icon>
                                                     </button>
 
-                                                    <v-btn flat icon  v-on:click="deleteItem(list.id, list.index)">
+                                                    <v-btn flat icon v-on:click="deleteItem(list.id, list.index)">
                                                         <v-icon color="red">delete</v-icon>
                                                     </v-btn>
 
@@ -144,7 +148,7 @@
                     </v-layout>
 
                 </div>
-            </div>
+            </v-flex>
 
         </v-flex>
         <v-flex xs12 sm10 offset-sm1 id="actioncard" v-if="actBtn">
