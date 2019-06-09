@@ -62,9 +62,6 @@ new Vue({
                 }
             }
         },
-        deleteItem: function (index) {
-
-        },
         save: function () {
             var whereToSplit = this.getWhereToSplit();
             this.NewEquipmentToSave = this.equipment.slice(whereToSplit);
@@ -88,7 +85,7 @@ new Vue({
         deleteItem: function (id, i) {
             this.itemsToDelete.push(id);
             var index = this.equipment.map(function (e) { return e.id; }).indexOf(id);
-            this.equipment.splice(index, index + 1);
+            delete this.equipment.splice(index, 1);
             return;
         }
 
