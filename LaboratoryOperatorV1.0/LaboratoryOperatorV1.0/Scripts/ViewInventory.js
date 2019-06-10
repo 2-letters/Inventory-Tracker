@@ -26,6 +26,7 @@ new Vue({
         equipment: [],
         action: 'View',
         switch1: true,
+        dialog: {},
         show: true,
         actBtn: false,
         search: '',
