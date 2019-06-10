@@ -21,6 +21,7 @@ new Vue({
         model: model,
         description: '',
         index: 0,
+        modulo: 0,
         original: [],
         itemsToDelete: [],
         equipment: [],
@@ -30,6 +31,9 @@ new Vue({
         show: true,
         actBtn: false,
         search: '',
+        sortName: '',
+        prevSorkey: '',
+ 
         nameRules: [
             v => !!v || 'Value is required',
             v => v > 0 || 'The Value can not be less a negative number or 0'
@@ -39,7 +43,15 @@ new Vue({
             v => !!v || 'E-mail is required',
             v => /.+@.+/.test(v) || 'E-mail must be valid'
         ],
-        NewEquipmentToSave: []
+        sortkey: '',
+        NewEquipmentToSave: [],
+        sortSettings: [
+            { 'name': true },
+            { 'location': true },
+            { 'quantity': true }
+        ],
+        orderHow: '',
+        desc: true
     },
     mounted() {
 
@@ -54,13 +66,33 @@ new Vue({
 
     computed: {
         filteredEquipment() {
+            
+            return _.orderBy(this.equipment.filter(post => {
+                var x = post.name.toLowerCase().includes(this.search.toLowerCase())
 
-            return this.equipment.filter(post => {
-                return post.name.toLowerCase().includes(this.search.toLowerCase())
-            })
+                return x;
+            }), this.sortName, this.orderHow)
         }
     },
     methods: {
+        orderBy: function (sorKey) {
+            if (this.prevSorkey !== sorKey) {
+                this.modulo = 0;
+            }
+
+            this.sortName = sorKey;
+
+            if (this.modulo % 2 === 0) {
+                this.orderHow = 'desc';
+            }
+            else {
+                this.orderHow = 'asc';
+            }
+            this.modulo++;
+
+            this.prevSorkey = sorKey;
+
+        },
         addItem: function () {
             this.index++;
             this.equipment.push(new Equipment('', '', '', this.index, '', '', true))
