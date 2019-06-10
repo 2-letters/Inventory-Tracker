@@ -58,13 +58,18 @@
                                     </v-flex>
                                     <v-flex xs12
                                             md3>
-                                        <div v-on:click= "orderBy('quantity')">
+                                        <div v-on:click="orderBy('quantity')">
                                             quantity
                                         </div>
                                     </v-flex>
                                     <v-flex xs12
-                                            md3>
-                                        <div > more info</div>
+                                            md2>
+                                        <div> more info</div>
+                                    </v-flex>
+                                    <v-flex xs12
+                                            md1>
+                                        <div flat color="purple"
+                                               v-on:click="orderBy('re-order')"> re-order</div>
                                     </v-flex>
                                 </v-layout>
                             </v-container>

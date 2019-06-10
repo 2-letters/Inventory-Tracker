@@ -76,6 +76,10 @@ new Vue({
     },
     methods: {
         orderBy: function (sorKey) {
+            if (sorKey === 're-order') {
+                this.orderHow = '';
+                this.sortName = '';
+            }
             if (this.prevSorkey !== sorKey) {
                 this.modulo = 0;
             }
@@ -88,6 +92,8 @@ new Vue({
             else {
                 this.orderHow = 'asc';
             }
+
+
             this.modulo++;
 
             this.prevSorkey = sorKey;
