@@ -27,6 +27,7 @@
                 { text: 'Qty', value: 'quantity' }
             ],
             items: [],
+            details: [],
             itemsAdded: []
         }
 
@@ -38,6 +39,9 @@
             //this.itemsAdded.push({ equipmentAdded: model.IndexList[i].itemName, locationAdded: model.IndexList[i].location, qtyAdded: model.IndexList[i].quantity, id: model.IndexList[i].id })
 
         }
+        this.details.push({ labName: model.labDetails.labName, description: model.labDetails.description })
+    
+
     },
 
     methods: {

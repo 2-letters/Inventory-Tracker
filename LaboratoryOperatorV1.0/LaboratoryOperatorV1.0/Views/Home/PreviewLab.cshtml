@@ -32,6 +32,15 @@
                 <v-card height="1000px">
                     <v-navigation-drawer stateless
                                          value="true">
+                        <div v-for="item in details">
+                            <h1>  {{item.labName}}</h1>
+                              
+                                <v-divider></v-divider>
+
+                                {{item.description}}
+                          
+
+                        </div>
 
                     </v-navigation-drawer>
 
