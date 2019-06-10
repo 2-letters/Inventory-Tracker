@@ -50,7 +50,6 @@ namespace LaboratoryOperatorV1._0.Controllers
         }
         public ActionResult PreviewLab(string id)
         {
-            id = "b8qypoYQVIy24AZO2cvp";
             var model = new ViewLab();
             if (id != null)
             {

@@ -121,7 +121,7 @@ namespace LaboratoryOperatorV1._0.Data
             {
                 labItemsAdded.Add(new labItems
                 {
-                    itemName = queryResult.GetValue<string>("equipmentName"),
+                    itemName = queryResult.GetValue<string>("itemName"),
                     description = queryResult.GetValue<string>("description"),
                     id = queryResult.Id,
                     location = queryResult.GetValue<string>("location"),
