@@ -62,7 +62,7 @@ namespace LaboratoryOperatorV1._0.Controllers
             }
 
 
-            return View();
+            return View(model);
         }
 
 

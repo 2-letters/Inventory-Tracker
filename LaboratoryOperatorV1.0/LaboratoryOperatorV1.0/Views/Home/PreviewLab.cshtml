@@ -45,7 +45,7 @@
                     <v-card>
 
                         <v-card-title>
-                            Un Added Lab Equipment
+                             Added Lab Equipment
                             <v-spacer></v-spacer>
                             <v-text-field v-model="search"
                                           append-icon="search"
@@ -89,43 +89,7 @@
                                         </v-card>
                                     </v-dialog>
                                 </td>
-                                <td class="text-xs">
-                                    <v-dialog v-model="addTransition[props.item.equipment]" lazy absolute width="500">
-                                        <v-btn flat icon color="blue lighten-2"
-                                               v-on:click.stop="$set(addTransition, props.item.equipment, true)" slot="activator">
-                                            Add Items
-
-                                        </v-btn>
-                                        <v-card>
-                                            <v-card-title>
-                                                <div class="headline">Add Items For '{{ props.item.equipment }}'</div>
-                                            </v-card-title>
-                                            <v-card-text>
-                                                <div class="row">
-
-                                                    <v-flex xs6 offset-xs3>
-                                                        <v-text-field v-model="props.item.foo" type="number">
-
-                                                        </v-text-field>
-                                                    </v-flex>
-                                                    <v-flex xs6 offset-xs5>
-                                                        <v-btn v-on:click="addNew(props.item.id)" id="addButton" flat color="purple">
-                                                            Add items
-                                                        </v-btn>
-                                                    </v-flex>
-
-                                                </div>
-
-                                            </v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
-
-
-                                </td>
+                   
 
 
                             </template>
@@ -141,6 +105,6 @@
 
 </div>
 
-<script src="~/Scripts/ViewLabs.js"></script>
+<script src="~/Scripts/PreviewLab.js"></script>
 
 
