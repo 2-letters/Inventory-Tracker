@@ -1,5 +1,5 @@
 ﻿class Equipment {
-    constructor(name, description, location, index, pictureUrl, quantity, isNew, id) {
+    constructor(name, description, location, index, pictureUrl, quantity, isNew, id, sublocation, room) {
         this.name = name;
         this.description = description;
         this.location = location;
@@ -8,6 +8,8 @@
         this.quantity = quantity;
         this.isNew = isNew;
         this.id = id;
+        this.sublocation = sublocation;
+        this.room = room;
     }
 }
 
@@ -21,10 +23,14 @@ new Vue({
         model: model,
         description: '',
         index: 0,
+        drawer: true,
+        clipped: false,
         modulo: 0,
+        pageNumbers: [1,2,3,4,5],
         original: [],
         itemsToDelete: [],
         equipment: [],
+        rooms: [],
         action: 'View',
         switch1: true,
         dialog: {},
@@ -33,7 +39,7 @@ new Vue({
         search: '',
         sortName: '',
         prevSorkey: '',
- 
+
         nameRules: [
             v => !!v || 'Value is required',
             v => v > 0 || 'The Value can not be less a negative number or 0'
@@ -51,22 +57,36 @@ new Vue({
             { 'quantity': true }
         ],
         orderHow: '',
-        desc: true
+        pageSize: 3,
+        desc: true,
+        headers: [
+         
+            { text: 'Equipment', value: 'name' },
+            { text: 'Room', value: 'room' },
+            { text: 'Location', value: 'location' },
+            { text: 'quantity', value: 'quantity' },
+            { text: 'More Info', sortable: false,}
+        ],
+        selectedRooms: [],
+        selectedLocations: [],
+        filteredRooms:[]
+
+
     },
     mounted() {
 
         for (i = 0; i < model.IndexList.length; i++) {
             this.index++;
-            this.equipment.push(new Equipment(model.IndexList[i].itemName, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
-            this.original.push(new Equipment(model.IndexList[i].itemName, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
-
+            this.equipment.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id, model.IndexList[i].sub_location, model.IndexList[i].room))
+            this.original.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
+            this.rooms.push({ room: model.IndexList[i].room, location: model.IndexList[i].location })
         }
         this.x = this.equipment.length;
     },
 
     computed: {
         filteredEquipment() {
-            
+
             return _.orderBy(this.equipment.filter(post => {
                 var x = post.name.toLowerCase().includes(this.search.toLowerCase())
 
@@ -106,7 +126,7 @@ new Vue({
         },
         getWhereToSplit: function () {
             for (var i = 0; i < this.equipment.length; i++) {
-                if (this.equipment[i].isNew == true) {
+                if (this.equipment[i].isNew === true) {
                     return this.equipment[i].index - 1;
                 }
             }
@@ -144,6 +164,12 @@ new Vue({
                 this.equipment[i].index = index + 1;
 
             }
+        },
+        prevPage: function () {
+            return;
+        },
+        nextPage: function () {
+            return;
         }
 
 

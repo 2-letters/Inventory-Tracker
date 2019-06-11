@@ -68,7 +68,7 @@ namespace LaboratoryOperatorV1._0.Data
         public List<labItems> GetAllItemsMethod2()
         {
 
-            CollectionReference collection = db.Collection("labItems");
+            CollectionReference collection = db.Collection("EquipmentsTestRJ");
 
 
             Query query = collection;
@@ -81,11 +81,13 @@ namespace LaboratoryOperatorV1._0.Data
             {
                 Brotherhood.Add(new labItems
                 {
-                    itemName = queryResult.GetValue<string>("itemName"),
+                    equipment = queryResult.GetValue<string>("equipment"),
                     description = queryResult.GetValue<string>("description"),
-                    pictureUrl = queryResult.GetValue<string>("pictureUrl"),
+                    //pictureUrl = queryResult.GetValue<string>("pictureUrl"),
                     quantity = queryResult.GetValue<int>("quantity"),
                     location = queryResult.GetValue<string>("location"),
+                    room = queryResult.GetValue<string>("room"),
+                    sub_location = queryResult.GetValue<string>("sub-location"),
                     id = queryResult.Id
                 });
 
@@ -121,7 +123,7 @@ namespace LaboratoryOperatorV1._0.Data
             {
                 labItemsAdded.Add(new labItems
                 {
-                    itemName = queryResult.GetValue<string>("itemName"),
+                    equipment = queryResult.GetValue<string>("itemName"),
                     description = queryResult.GetValue<string>("description"),
                     id = queryResult.Id,
                     location = queryResult.GetValue<string>("location"),
@@ -230,7 +232,7 @@ namespace LaboratoryOperatorV1._0.Data
             {
                 Dictionary<string, object> itemsInDocument = new Dictionary<string, object>
                 {
-                  { "itemName", item.itemName },
+                  { "itemName", item.equipment },
                   { "location", item.location},
                   { "quantity", item.quantity },
                   {"description", item.description },

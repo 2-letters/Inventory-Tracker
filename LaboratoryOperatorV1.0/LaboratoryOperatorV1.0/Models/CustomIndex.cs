@@ -9,12 +9,13 @@ namespace LaboratoryOperatorV1._0.Models
     public class labItems
     {
         public string pictureUrl { get; set; }
-        public string itemName { get; set; }
+        public string equipment { get; set; }
         public string description { get; set; }
         public string location { get; set; }
         public int quantity { get; set; }
         public string id { get; set; }
-
+        public string room { get; set; }
+        public string sub_location{get; set;}
     }
 
     public class listIndex
