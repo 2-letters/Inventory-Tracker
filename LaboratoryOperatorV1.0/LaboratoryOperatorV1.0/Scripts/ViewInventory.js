@@ -64,7 +64,7 @@ new Vue({
             { text: 'Equipment', value: 'name' },
             { text: 'Room', value: 'room' },
             { text: 'Location', value: 'location' },
-            { text: 'quantity', value: 'quantity' },
+            { text: 'quantity', value: 'quantity', sortable: false },
             { text: 'More Info', sortable: false,}
         ],
         selectedRooms: [],

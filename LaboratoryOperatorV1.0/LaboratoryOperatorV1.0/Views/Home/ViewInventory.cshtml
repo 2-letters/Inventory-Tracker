@@ -32,12 +32,17 @@
                 </v-list-tile>
                 <v-divider></v-divider>
                 <v-list-title-content>
+                    <v-list-tile-title class="text-center">Stanford University</v-list-tile-title>
+                </v-list-title-content>
+                <v-list-title-content>
                     <v-list-tile-title class="text-center">Nursing Department</v-list-tile-title>
                 </v-list-title-content>
                 <v-list-title-content class="text-right">
                     <v-spacer></v-spacer>
-                    <v-switch v-model="switch1"
-                              :label="`${action}`"></v-switch>
+                    <v-flex offset-md8>
+                        <v-switch v-model="switch1"
+                                  :label="`${action}`"></v-switch>
+                    </v-flex>
                 </v-list-title-content>
                 <v-list-title-content>
                     <v-select v-model="selectRooms"
@@ -59,12 +64,12 @@
                 </v-list-title-content>
                 <v-list-title-content v-if="actBtn">
                     <v-btn color="#7cf190" v-on:click="addItem()">
-                                <v-icon>add</v-icon>
-                            </v-btn>
+                        <v-icon>add</v-icon>
+                    </v-btn>
 
-                            <v-btn color="#7cf190" v-on:click="save()">
-                                Save
-                            </v-btn>
+                    <v-btn color="#7cf190" v-on:click="save()">
+                        Save
+                    </v-btn>
                 </v-list-title-content>
 
             </v-list>
