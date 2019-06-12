@@ -16,6 +16,12 @@
 new Vue({
     el: '#app',
     data: {
+        inputName: '',
+        inputLocation: '',
+        inputSublocation: '',
+        inputRoom: '',
+        inputDescription: '',
+        inputQuantity: 0,
         valid: false,
         whereToSplit: 0,
         startingNumber: 6,
@@ -26,11 +32,12 @@ new Vue({
         drawer: true,
         clipped: false,
         modulo: 0,
-        pageNumbers: [1,2,3,4,5],
+        pageNumbers: [1, 2, 3, 4, 5],
         original: [],
         itemsToDelete: [],
         equipment: [],
         rooms: [],
+        sublocations: [],
         action: 'View',
         switch1: true,
         dialog: {},
@@ -60,16 +67,16 @@ new Vue({
         pageSize: 3,
         desc: true,
         headers: [
-         
-            { text: 'Equipment', value: 'name' },
-            { text: 'Room', value: 'room' },
-            { text: 'Location', value: 'location' },
-            { text: 'quantity', value: 'quantity', sortable: false },
-            { text: 'More Info', sortable: false,}
+
+            { text: 'Equipment', value: 'name', sortable: true },
+            { text: 'Room', value: 'room', sortable: true },
+            { text: 'Location', value: 'location', sortable: true },
+            { text: 'quantity', value: 'quantity', sortable: true },
+            { text: 'More Info', sortable: false, }
         ],
         selectedRooms: [],
         selectedLocations: [],
-        filteredRooms:[]
+        filteredRooms: []
 
 
     },
@@ -80,8 +87,17 @@ new Vue({
             this.equipment.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id, model.IndexList[i].sub_location, model.IndexList[i].room))
             this.original.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
             this.rooms.push({ room: model.IndexList[i].room, location: model.IndexList[i].location })
+        
         }
+        var roomEdit = [];
+        $.each(this.rooms, function (i, el) {
+            if ($.inArray(el.room, roomEdit) === -1) roomEdit.push(el);
+        });
+
+        this.rooms = roomEdit;
+
         this.x = this.equipment.length;
+        this.headers[3].sortable = false;
     },
 
     computed: {
@@ -170,6 +186,10 @@ new Vue({
         },
         nextPage: function () {
             return;
+        },
+        add: function () {
+            this.equipment.push(new Equipment(this.inputName, this.inputDescription, this.inputLocation,'' ,'' , this.inputQuantity, false, '', this.inputSublocation, this.inputRoom))
+            return;
         }
 
 
@@ -180,12 +200,15 @@ new Vue({
                 this.action = 'edit';
                 this.show = false;
                 this.actBtn = true;
+      
+
             }
             else {
 
                 this.action = 'view';
                 this.show = true;
                 this.actBtn = false;
+
             }
         }
     }
