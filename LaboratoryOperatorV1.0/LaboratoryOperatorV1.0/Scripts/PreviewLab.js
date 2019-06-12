@@ -10,6 +10,8 @@
             addTransition: {},
             notifications: false,
             sound: true,
+            drawer: true,
+            clipped: false,
             test: true,
             labRules: [v => !!v || "The input is required"],
             widgets: false,
@@ -18,7 +20,7 @@
             Headers: [
                 { text: 'Equipment', value: 'equipment' },
                 { text: 'Location', value: 'location' },
-                { text: 'Available', value: 'qty' },
+                { text: 'Quantity to use', value: 'qty' },
                 { text: 'MoreInfo', value: 'pictureUrl', sortable: false, disabled: true }
             ],
             HeadersAdded: [

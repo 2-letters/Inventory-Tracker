@@ -9,7 +9,7 @@
 
 <div id="app">
     <v-app id="inspire">
-        <v-layout row>
+        @*<v-layout row>
             <v-flex lg12>
                 <v-card>
                     <v-card-title>
@@ -34,11 +34,11 @@
                                          value="true">
                         <div v-for="item in details">
                             <h1>  {{item.labName}}</h1>
-                              
+
                                 <v-divider></v-divider>
 
                                 {{item.description}}
-                          
+
 
                         </div>
 
@@ -46,71 +46,171 @@
 
 
                 </v-card>
+            </v-flex>*@
+
+
+        <v-navigation-drawer :clipped="clipped" v-model="drawer" enable-resize-watcher app
+                             style="background-color: white;">
+            <v-list class="pa-0">
+                <v-list-tile avatar>
+                    <v-list-tile-avatar>
+                        <img src="https://randomuser.me/api/portraits/men/85.jpg">
+                    </v-list-tile-avatar>
+
+                    <v-list-tile-content>
+                        <v-list-tile-title>RJ Varona</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile avatar>
+                    <v-list-tile-avatar>
+                        <img src="http://www.southern.edu/_resources/img/default/mobile-logo2x.png" />
+                    </v-list-tile-avatar>
+                    <v-list-title-content>
+                        <v-list-tile-title class="text-center">Stanford Adventist University</v-list-tile-title>
+                    </v-list-title-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+
+                <v-list-title-content>
+                    <v-list-tile-title class="text-center">Nursing Department</v-list-tile-title>
+                </v-list-title-content>
+                <v-divider></v-divider>
+                <div v-for="item in details">
+                    <v-list-title-content>
+                        <v-list-tile-title class="text-center"><b>Lab Name: </b>  {{item.labName}}</v-list-tile-title>
+                    </v-list-title-content>
+                    <v-divider></v-divider>
+                    <v-list-title-content>
+                        <v-list-tile-title class="text-center"> <b>Description:</b> {{item.description}}</v-list-tile-title>
+                    </v-list-title-content>
+                </div>
+
+                <v-divider></v-divider>
+                @*<v-list-title-content class="text-right">
+            <v-spacer></v-spacer>
+            <v-flex offset-md8>
+                <v-switch v-model="switch1"
+                          :label="`${action}`"></v-switch>
             </v-flex>
-            <v-flex xs8 md8 lg8>
+        </v-list-title-content>*@
+                <v-list-title-content>
+                    <v-text-field v-model="search "
+                                  append-icon="search"
+                                  label="search inventory"
+                                  single-line
+                                  hide-details>
 
-  
+                    </v-text-field>
+                </v-list-title-content>
+                @*<v-list-title-content>
+            <v-select v-model="selectRooms"
+                      :items="rooms"
+                      item-text="room"
+                      label="Rooms"
+                      persistent-hint
+                      return-object
+                      single-line></v-select>
+        </v-list-title-content>
+        <v-list-title-content>
+            <v-select v-model="selectLocation"
+                      :items="filteredRooms"
+                      item-text="room"
+                      label="Location"
+                      return-object
+                      single-line></v-select>
+        </v-list-title-content>*@
+                @*<v-list-title-content v-if="actBtn">
+            <v-btn color="#7cf190" v-on:click="addItem()">
+                <v-icon>add</v-icon>
+            </v-btn>
 
-                    <v-card>
+            <v-btn color="#7cf190" v-on:click="save()">
+                Save
+            </v-btn>
+        </v-list-title-content>*@
 
-                        <v-card-title>
-                             Added Lab Equipment
-                            <v-spacer></v-spacer>
-                            <v-text-field v-model="search"
-                                          append-icon="search"
-                                          label="Search"
-                                          single-line
-                                          hide-details></v-text-field>
-                        </v-card-title>
-                        <v-data-table :headers="Headers"
-                                      :items="items"
-                                      :search="search"
-                                      item-key="equipment"
-                                      hide-actions
-                                      expand
-                                      class="elevation-1">
-                            <template slot="items" scope="props">
-                                <td class="text-xs">{{ props.item.equipment }}</td>
-                                <td class="text-xs">{{ props.item.location }}</td>
-                                <td class="text-xs">{{ props.item.qty }}  </td>
-                                <td>
-                                    <v-dialog v-model="dialog[props.item.equipment]" lazy absolute width="500">
-                                        <v-btn flat icon color="blue lighten-2"
-                                               v-on:click.stop="$set(dialog, props.item.equipment, true)" slot="activator">
-                                            <v-icon>info</v-icon>
-                                        </v-btn>
-                                        <v-card>
-                                            <v-card-title>
-                                                <div class="headline">More Info for '{{ props.item.equipment }}'</div>
-                                            </v-card-title>
-                                            <v-card-text>
-                                                <v-img :src="props.item.pictureUrl" aspect-ratio="1"></v-img>
-                                                <b> Description:</b> {{props.item.description}}
-                                                <br />
-                                                <b>location:</b> {{props.item.location}}
-                                            </v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn class="blue--text darken-1" flat="flat"
-                                                       v-on:click.stop="$set(dialog, props.item.equipment, false)">Close</v-btn>
-
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
-                                </td>
-                   
+            </v-list>
 
 
-                            </template>
-                        </v-data-table>
-                    </v-card>
+        </v-navigation-drawer>
+        <v-toolbar fixed app :clipped-left="clipped" style="color:white;">
+            <v-toolbar-side-icon v-on:click.stop="drawer = !drawer">
+
+            </v-toolbar-side-icon>
+            <v-btn flat color="purple" href="/Home">Home</v-btn>
+            <v-btn flat color="purple">Inventory</v-btn>
+            <v-spacer></v-spacer>
+
+        </v-toolbar>
+
+        <v-content>
+            <v-flex xs12 md12 lg12>
+
+
+
+                <v-card>
+
+                    <v-card-title>
+                         Lab Equipment
+                        <v-spacer></v-spacer>
+                        <v-text-field v-model="search"
+                                      append-icon="search"
+                                      label="Search"
+                                      single-line
+                                      hide-details></v-text-field>
+                    </v-card-title>
+                    <v-data-table :headers="Headers"
+                                  :items="items"
+                                  :search="search"
+                                  item-key="equipment"
+                                  hide-actions
+                                  expand
+                                  class="elevation-1">
+                        <template slot="items" scope="props">
+                            <td class="text-xs">{{ props.item.equipment }}</td>
+                            <td class="text-xs">{{ props.item.location }}</td>
+                            <td class="text-xs">{{ props.item.qty }}  </td>
+                            <td>
+                                <v-dialog v-model="dialog[props.item.equipment]" lazy absolute width="500">
+                                    <v-btn flat icon color="blue lighten-2"
+                                           v-on:click.stop="$set(dialog, props.item.equipment, true)" slot="activator">
+                                        <v-icon>info</v-icon>
+                                    </v-btn>
+                                    <v-card>
+                                        <v-card-title>
+                                            <div class="headline">More Info for '{{ props.item.equipment }}'</div>
+                                        </v-card-title>
+                                        <v-card-text>
+                                            <v-img :src="props.item.pictureUrl" aspect-ratio="1"></v-img>
+                                            <b> Description:</b> {{props.item.description}}
+                                            <br />
+                                            <b>location:</b> {{props.item.location}}
+                                        </v-card-text>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn class="blue--text darken-1" flat="flat"
+                                                   v-on:click.stop="$set(dialog, props.item.equipment, false)">Close</v-btn>
+
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
+                            </td>
+
+
+
+                        </template>
+                    </v-data-table>
+                </v-card>
 
 
                 <br />
 
 
             </v-flex>
-        </v-layout>
+
+        </v-content>
+
 
 </div>
 
