@@ -19,6 +19,7 @@
             foo: 0,
             Headers: [
                 { text: 'Equipment', value: 'equipment' },
+                { text: 'Room', value: 'room'},
                 { text: 'Location', value: 'location' },
                 { text: 'Quantity to use', value: 'qty' },
                 { text: 'MoreInfo', value: 'pictureUrl', sortable: false, disabled: true }
@@ -37,7 +38,7 @@
 
     mounted() {
         for (var i = 0; i < model.ItemsAdded.length; i++) {
-            this.items.push({ equipment: model.ItemsAdded[i].itemName, location: model.ItemsAdded[i].location, qty: model.ItemsAdded[i].quantity, id: model.ItemsAdded[i].id, i: i, pictureUrl: model.ItemsAdded[i].pictureUrl, description: model.ItemsAdded[i].description, foo: 0, prevFoo: 0, original: model.ItemsAdded[i].quantity })
+            this.items.push({ equipment: model.ItemsAdded[i].equipment, room: model.ItemsAdded[i].room, location: model.ItemsAdded[i].location, qty: model.ItemsAdded[i].quantity, id: model.ItemsAdded[i].id, i: i, pictureUrl: model.ItemsAdded[i].pictureUrl, description: model.ItemsAdded[i].description, foo: 0, prevFoo: 0, original: model.ItemsAdded[i].quantity, sublocation: model.ItemsAdded[i].sub_location })
             //this.itemsAdded.push({ equipmentAdded: model.IndexList[i].itemName, locationAdded: model.IndexList[i].location, qtyAdded: model.IndexList[i].quantity, id: model.IndexList[i].id })
 
         }

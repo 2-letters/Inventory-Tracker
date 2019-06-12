@@ -94,15 +94,7 @@
                           :label="`${action}`"></v-switch>
             </v-flex>
         </v-list-title-content>*@
-                <v-list-title-content>
-                    <v-text-field v-model="search "
-                                  append-icon="search"
-                                  label="search inventory"
-                                  single-line
-                                  hide-details>
-
-                    </v-text-field>
-                </v-list-title-content>
+               
                 @*<v-list-title-content>
             <v-select v-model="selectRooms"
                       :items="rooms"
@@ -169,7 +161,13 @@
                                   class="elevation-1">
                         <template slot="items" scope="props">
                             <td class="text-xs">{{ props.item.equipment }}</td>
-                            <td class="text-xs">{{ props.item.location }}</td>
+                            <td class="text-xs">{{ props.item.room }}</td>
+
+                            <td class="text-xs">
+                                {{ props.item.location }}
+
+                                <p style="color: dimgrey; font-size: 12px;"> {{props.item.sublocation}}</p>
+                            </td>
                             <td class="text-xs">{{ props.item.qty }}  </td>
                             <td>
                                 <v-dialog v-model="dialog[props.item.equipment]" lazy absolute width="500">

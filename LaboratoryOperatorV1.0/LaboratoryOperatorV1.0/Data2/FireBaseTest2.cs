@@ -125,7 +125,9 @@ namespace LaboratoryOperatorV1._0.Data
                 {
                     equipment = queryResult.GetValue<string>("itemName"),
                     description = queryResult.GetValue<string>("description"),
+                    room = queryResult.GetValue<string>("room"),
                     id = queryResult.Id,
+                    sub_location = queryResult.GetValue<string>("sublocation"),
                     location = queryResult.GetValue<string>("location"),
                     pictureUrl = queryResult.GetValue<string>("pictureUrl"),
                     quantity = queryResult.GetValue<int>("quantity")
@@ -233,6 +235,8 @@ namespace LaboratoryOperatorV1._0.Data
                 Dictionary<string, object> itemsInDocument = new Dictionary<string, object>
                 {
                   { "itemName", item.equipment },
+                    { "room", item.room},
+                    { "sublocation", item.sub_location},
                   { "location", item.location},
                   { "quantity", item.quantity },
                   {"description", item.description },
@@ -244,11 +248,11 @@ namespace LaboratoryOperatorV1._0.Data
 
             }
             //getting the id of the third to store items
-            Query query3 = db.Collection("users").Document(id).Collection("labs").Document(id2).
-                Collection("equipments").WhereEqualTo("labName", labName);
+            //Query query3 = db.Collection("users").Document(id).Collection("labs").Document(id2).
+            //    Collection("equipments").WhereEqualTo("labName", labName);
 
-            QuerySnapshot querySnapshot3 =  query3.GetSnapshotAsync().GetAwaiter().GetResult();
-            var id3 = querySnapshot3.Documents[0].Id.ToString();
+            //QuerySnapshot querySnapshot3 =  query3.GetSnapshotAsync().GetAwaiter().GetResult();
+            //var id3 = querySnapshot3.Documents[0].Id.ToString();
 
 
 

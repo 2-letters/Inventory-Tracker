@@ -66,7 +66,7 @@
                 }
                 else {
 
-                    this.itemsAdded.push({ equipment: result[0].equipment, location: result[0].location, room: result[0].sublocation, sublocation: result[0].sublocation, quantity: this.items[result[0].i].foo, pictureUrl: this.items[result[0].i].pictureUrl, id: result[0].id, description: this.items[result[0].i].description });
+                    this.itemsAdded.push({ equipment: result[0].equipment, location: result[0].location, room: result[0].room, sub_location: result[0].sublocation, quantity: this.items[result[0].i].foo, pictureUrl: this.items[result[0].i].pictureUrl, id: result[0].id, description: this.items[result[0].i].description });
                     this.items[result[0].i].qty = this.items[result[0].i].original - this.items[result[0].i].foo;
                 }
             }
