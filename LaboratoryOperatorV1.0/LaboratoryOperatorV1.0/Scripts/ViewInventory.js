@@ -35,6 +35,7 @@ new Vue({
         modulo: 0,
         pageNumbers: [1, 2, 3, 4, 5],
         original: [],
+        original2: [],
         itemsToDelete: [],
         equipment: [],
         rooms: [],
@@ -88,7 +89,7 @@ new Vue({
         for (i = 0; i < model.IndexList.length; i++) {
             this.index++;
             this.equipment.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id, model.IndexList[i].sub_location, model.IndexList[i].room))
-            //this.original.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
+            this.original2.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id, model.IndexList[i].sub_location, model.IndexList[i].room))
             this.rooms.push({ room: model.IndexList[i].room, location: model.IndexList[i].location })
 
         }
@@ -169,12 +170,25 @@ new Vue({
         },
         checkIfEditedQuips: function (editedEquips) {
             var finalEdit = [];
-            for (var i = 0; i < this.original.length; i++) {
-                if ((editedEquips[i].name !== this.original[i].name) || (editedEquips[i].description !== this.original[i].description)
-                    || (editedEquips[i].location !== this.original[i].location) || (editedEquips[i].pictureUrl !== this.original[i].pictureUrl)
-                    || (editedEquips[i].quantity !== this.original[i].quantity)) {
-                    finalEdit.push(new Equipment(editedEquips[i].name, editedEquips[i].description, editedEquips[i].location, editedEquips[i].index, editedEquips[i].pictureUrl, editedEquips[i].quantity, false, editedEquips[i].id))
+            for (var i = 0; i < editedEquips.length; i++) {
+                if (editedEquips[i].name !== this.original2[i].name) {
+                    finalEdit.push({ name: editedEquips[i].name, id: editedEquips[i].id });
 
+                }
+                if (editedEquips[i].description !== this.original2[i].description) {
+                    finalEdit.push({ name: editedEquips[i].description, id: editedEquips[i].id });
+                }
+                if (editedEquips[i].location !== this.original2[i].location) {
+                    finalEdit.push({ name: editedEquips[i].location, id: editedEquips[i].id });
+                }
+                if (editedEquips[i].room !== this.original2[i].room) {
+                    finalEdit.push({ name: editedEquips[i].room, id: editedEquips[i].id });
+                }
+                if (editedEquips[i].sublocation !== this.original2[i].sublocation) {
+                    finalEdit.push({ name: editedEquips[i].sublocation, id: editedEquips[i].id });
+                }
+                if (editedEquips[i].quantity !== this.original2[i].quantity) {
+                    finalEdit.push({ name: editedEquips[i].quantity, id: editedEquips[i].id });
                 }
             }
             return finalEdit;
@@ -200,7 +214,8 @@ new Vue({
             return;
         },
         add: function () {
-            this.equipment.push(new Equipment(this.inputName, this.inputDescription, this.inputLocation, '', '', this.inputQuantity, false, '', this.inputSublocation, this.inputRoom))
+            this.index++;
+            this.equipment.push(new Equipment(this.inputName, this.inputDescription, this.inputLocation, this.index, '', this.inputQuantity, true, '', this.inputSublocation, this.inputRoom))
             this.updateRooms();
             return;
         },
@@ -250,6 +265,9 @@ new Vue({
             this.equipment = this.original;
             this.equipment = this.equipment.filter(x => x.sublocation == val);
             return;
+        },
+        reset: function () {
+            this.equipment = this.original;
         }
 
 

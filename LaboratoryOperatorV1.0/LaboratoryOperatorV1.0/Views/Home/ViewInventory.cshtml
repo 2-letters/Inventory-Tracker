@@ -90,15 +90,24 @@
                               return-object
                               single-line></v-select>
                 </v-list-title-content>
+                <v-list-title-content>
+                    <v-btn color="rgb(226, 226, 226);" v-on:click="reset()">
+                        Reset
+                    </v-btn>
+                    <v-btn color="rgb(226, 226, 226);" v-on:click="save()">
+                        Save Inventory
+                    </v-btn>
+                </v-list-title-content>
+              
                 @*<v-list-title-content v-if="actBtn">
-                        <v-btn color="#7cf190" v-on:click="addItem()">
-                            <v-icon>add</v-icon>
-                        </v-btn>
+                <v-btn color="#7cf190" v-on:click="addItem()">
+                <v-icon>add</v-icon>
+                </v-btn>
 
-                        <v-btn color="#7cf190" v-on:click="save()">
-                            Save
-                        </v-btn>
-                    </v-list-title-content>*@
+                <v-btn color="#7cf190" v-on:click="save()">
+                Save
+                </v-btn>
+                </v-list-title-content>*@
 
             </v-list>
 
