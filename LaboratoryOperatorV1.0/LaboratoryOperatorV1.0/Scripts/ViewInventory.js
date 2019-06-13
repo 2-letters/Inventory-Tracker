@@ -16,6 +16,7 @@
 new Vue({
     el: '#app',
     data: {
+        select: null,
         inputName: '',
         inputLocation: '',
         inputSublocation: '',
@@ -46,6 +47,7 @@ new Vue({
         search: '',
         sortName: '',
         prevSorkey: '',
+        searchRoom: '',
 
         nameRules: [
             v => !!v || 'Value is required',
@@ -76,7 +78,8 @@ new Vue({
         ],
         selectedRooms: [],
         selectedLocations: [],
-        filteredRooms: []
+        filteredRooms: [],
+        sublocations: []
 
 
     },
@@ -87,30 +90,38 @@ new Vue({
             this.equipment.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id, model.IndexList[i].sub_location, model.IndexList[i].room))
             this.original.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
             this.rooms.push({ room: model.IndexList[i].room, location: model.IndexList[i].location })
-        
+
         }
-        var roomEdit = [];
-        $.each(this.rooms, function (i, el) {
-            if ($.inArray(el.room, roomEdit) === -1) roomEdit.push(el);
-        });
+        //getting the rooms
+        this.updateRooms();
 
-        this.rooms = roomEdit;
-
-        this.x = this.equipment.length;
-        this.headers[3].sortable = false;
+      
     },
 
     computed: {
-        filteredEquipment() {
+        //filteredEquipment() {
 
-            return _.orderBy(this.equipment.filter(post => {
-                var x = post.name.toLowerCase().includes(this.search.toLowerCase())
+        //    return _.orderBy(this.equipment.filter(post => {
+        //        var x = post.name.toLowerCase().includes(this.search.toLowerCase())
 
-                return x;
-            }), this.sortName, this.orderHow)
-        }
+        //        return x;
+        //    }), this.sortName, this.orderHow)
+        //}
     },
     methods: {
+        updateRooms: function () {
+            var roomEdit = [];
+            this.rooms = [];
+            var locationEdit = [];
+            $.each(this.equipment, function (i, el) {
+                if ($.inArray(el.room, roomEdit) === -1) roomEdit.push(el.room);
+            });
+
+
+            this.rooms = roomEdit;
+
+            this.x = this.equipment.length;
+        },
         orderBy: function (sorKey) {
             if (sorKey === 're-order') {
                 this.orderHow = '';
@@ -188,8 +199,38 @@ new Vue({
             return;
         },
         add: function () {
-            this.equipment.push(new Equipment(this.inputName, this.inputDescription, this.inputLocation,'' ,'' , this.inputQuantity, false, '', this.inputSublocation, this.inputRoom))
+            this.equipment.push(new Equipment(this.inputName, this.inputDescription, this.inputLocation, '', '', this.inputQuantity, false, '', this.inputSublocation, this.inputRoom))
+            this.updateRooms();
             return;
+        },
+        getFilteredList: function (val) {
+            this.selectedLocations = [];
+            for (var i = 0; i < this.equipment.length; i++)
+            {
+                if (this.equipment[i].room === val) {
+                    this.selectedLocations.push(this.equipment[i].location)
+                }
+            }
+            return;
+        },
+        getFilteredSubLocations: function (val) {
+            this.sublocations = [];
+            for (var i = 0; i < this.equipment.length; i++) {
+                if (this.equipment[i].location === val) {
+                    this.sublocations.push(this.equipment[i].sublocation)
+                }
+            }
+            return;
+        },
+        querySelections(v) {
+            this.loading = true
+            // Simulated ajax query
+            setTimeout(() => {
+                this.rooms.room = this.rooms.room.filter(e => {
+                    return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+                })
+                this.loading = false
+            }, 500)
         }
 
 
@@ -200,7 +241,7 @@ new Vue({
                 this.action = 'edit';
                 this.show = false;
                 this.actBtn = true;
-      
+
 
             }
             else {
@@ -210,6 +251,10 @@ new Vue({
                 this.actBtn = false;
 
             }
+        },
+        searchRoom(val)
+        {
+            val && val !== this.inputRoom && this.querySelections(val)
         }
     }
 

@@ -44,7 +44,7 @@
                 <v-list-title-content>
                     <v-list-tile-title class="text-center">Nursing Department</v-list-tile-title>
                 </v-list-title-content>
-            
+
                 <v-divider></v-divider>
                 <v-list-title-content class="text-right">
                     <v-spacer></v-spacer>
@@ -69,25 +69,35 @@
                               label="Rooms"
                               persistent-hint
                               return-object
+                              v-on:change="getFilteredList(selectRooms)"
                               single-line></v-select>
                 </v-list-title-content>
                 <v-list-title-content>
                     <v-select v-model="selectLocation"
-                              :items="filteredRooms"
+                              :items="selectedLocations"
+                              v-on:change="getFilteredSubLocations(selectLocation)"
                               item-text="room"
                               label="Location"
                               return-object
                               single-line></v-select>
                 </v-list-title-content>
+                <v-list-title-content>
+                    <v-select v-model="inputSublocation"
+                              :items="sublocations"
+                              item-text="room"
+                              label="sub location"
+                              return-object
+                              single-line></v-select>
+                </v-list-title-content>
                 @*<v-list-title-content v-if="actBtn">
-            <v-btn color="#7cf190" v-on:click="addItem()">
-                <v-icon>add</v-icon>
-            </v-btn>
+                        <v-btn color="#7cf190" v-on:click="addItem()">
+                            <v-icon>add</v-icon>
+                        </v-btn>
 
-            <v-btn color="#7cf190" v-on:click="save()">
-                Save
-            </v-btn>
-        </v-list-title-content>*@
+                        <v-btn color="#7cf190" v-on:click="save()">
+                            Save
+                        </v-btn>
+                    </v-list-title-content>*@
 
             </v-list>
 
@@ -117,18 +127,30 @@
                                         <v-text-field label="Equipment name"
                                                       v-model="inputName"
                                                       required></v-text-field>
+
                                     </v-flex>
                                     <v-flex xs12
                                             md6 lg6>
-                                        <v-text-field label="Room"
-                                                      v-model="inputRoom"
-                                                      required></v-text-field>
+                                        @*<v-text-field label="Room"
+                                            v-model="inputRoom"
+
+                                            required></v-text-field>*@
+                                        <v-combobox v-model="inputRoom"
+                                                    :items="rooms"
+                                                    :search-input.sync="searchRoom"
+                                                    v-on:change="getFilteredList(inputRoom)"
+                                                    label="Select Room or Type to Add a new one"></v-combobox>
+
                                     </v-flex>
                                     <v-flex xs12
                                             md6 lg6>
-                                        <v-text-field label="Location"
-                                                      v-model="inputLocation"
-                                                      required></v-text-field>
+                                        <v-combobox v-model="inputLocation"
+                                                    :items="selectedLocations"
+                                                    v-on:change="getFilteredSubLocations(inputLocation)"
+                                                    label="Select Location or type to Add a new one"></v-combobox>
+                                        @*<v-text-field label="Location"
+                                            v-model="inputLocation"
+                                            required></v-text-field>*@
 
                                     </v-flex>
 
@@ -138,9 +160,11 @@
                                 <v-layout>
                                     <v-flex xs12
                                             md6 lg6>
-                                        <v-text-field label="SubLocation"
-                                                      v-model="inputSublocation"
-                                                      required></v-text-field>
+                                        <v-combobox label="SubLocation"
+                                                    :items="sublocations"
+                                                    v-model="inputSublocation"
+                                                    label="Select Location or type to Add a new one"
+                                                    required></v-combobox>
                                     </v-flex>
                                     <v-flex xs12
                                             md6 lg6>
