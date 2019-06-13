@@ -69,13 +69,13 @@
                               label="Rooms"
                               persistent-hint
                               return-object
-                              v-on:change="getFilteredList(selectRooms)"
+                              v-on:change="filterRooms(selectRooms)"
                               single-line></v-select>
                 </v-list-title-content>
                 <v-list-title-content>
                     <v-select v-model="selectLocation"
                               :items="selectedLocations"
-                              v-on:change="getFilteredSubLocations(selectLocation)"
+                              v-on:change="filterLocations(selectLocation)"
                               item-text="room"
                               label="Location"
                               return-object
@@ -85,6 +85,7 @@
                     <v-select v-model="inputSublocation"
                               :items="sublocations"
                               item-text="room"
+                              v-on:change="filterSubLocations(inputSublocation)"
                               label="sub location"
                               return-object
                               single-line></v-select>

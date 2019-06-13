@@ -88,10 +88,11 @@ new Vue({
         for (i = 0; i < model.IndexList.length; i++) {
             this.index++;
             this.equipment.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id, model.IndexList[i].sub_location, model.IndexList[i].room))
-            this.original.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
+            //this.original.push(new Equipment(model.IndexList[i].equipment, model.IndexList[i].description, model.IndexList[i].location, this.index, model.IndexList[i].pictureUrl, model.IndexList[i].quantity, false, model.IndexList[i].id))
             this.rooms.push({ room: model.IndexList[i].room, location: model.IndexList[i].location })
 
         }
+        this.original = this.equipment;
         //getting the rooms
         this.updateRooms();
 
@@ -231,7 +232,26 @@ new Vue({
                 })
                 this.loading = false
             }, 500)
+        }, 
+        filterRooms: function (val) {
+            this.equipment = this.original;
+            this.getFilteredList(val);
+            this.equipment = this.equipment.filter(x => x.room == val);
+            return;
+        }, 
+
+        filterLocations: function (val) {
+            this.equipment = this.original;
+            this.getFilteredSubLocations(val);
+            this.equipment = this.equipment.filter(x => x.location == val);
+            return;
+        },
+        filterSubLocations: function (val) {
+            this.equipment = this.original;
+            this.equipment = this.equipment.filter(x => x.sublocation == val);
+            return;
         }
+
 
 
     },
