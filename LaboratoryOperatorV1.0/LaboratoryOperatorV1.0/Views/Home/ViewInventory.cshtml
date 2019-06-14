@@ -98,16 +98,16 @@
                         Save Inventory
                     </v-btn>
                 </v-list-title-content>
-              
-                @*<v-list-title-content v-if="actBtn">
-                <v-btn color="#7cf190" v-on:click="addItem()">
-                <v-icon>add</v-icon>
-                </v-btn>
 
-                <v-btn color="#7cf190" v-on:click="save()">
-                Save
-                </v-btn>
-                </v-list-title-content>*@
+                @*<v-list-title-content v-if="actBtn">
+                    <v-btn color="#7cf190" v-on:click="addItem()">
+                    <v-icon>add</v-icon>
+                    </v-btn>
+
+                    <v-btn color="#7cf190" v-on:click="save()">
+                    Save
+                    </v-btn>
+                    </v-list-title-content>*@
 
             </v-list>
 
@@ -273,22 +273,40 @@
                     </td>
                     <td>
 
-                        <v-text-field v-model="props.item.room"
-                                      label="Room"
-                                      required></v-text-field>
+
+                      
+
+                            <v-combobox v-model="props.item.room"
+                                        :items="rooms"
+                                        :search-input.sync="searchRoom"
+                                        v-on:change="getFilteredList(inputRoom)"
+                                        label="Select Room or Type to Add a new one"></v-combobox>
+                            @*<v-text-field v-model="props.item.room"
+                                label="Room"
+                                required></v-text-field>*@
 
                     </td>
 
 
                     <td>
 
-                        <v-text-field v-model="props.item.location"
-                                      label="Location"
-                                      required></v-text-field>
+                        <v-combobox v-model="props.item.location"
+                                    :items="selectedLocations"
+                                    v-on:change="getFilteredSubLocations(inputLocation)"
+                                    label="Select Location or type to Add a new one"></v-combobox>
 
-                        <v-text-field v-model="props.item.sublocation"
+                        @*<v-text-field v-model="props.item.location"
+                            label="Location"
+                            required></v-text-field>*@
+                        <v-combobox label="SubLocation"
+                                    :items="sublocations"
+                                    v-model="props.item.sublocation"
+                                    label="Select Location or type to Add a new one"
+                                    required></v-combobox>
+
+                        @*<v-text-field v-model="props.item.sublocation"
                                       label="Sub Location"
-                                      required></v-text-field>
+                                      required></v-text-field>*@
                     </td>
                     <td>
                         <v-text-field type="number" v-model="props.item.quantity"
