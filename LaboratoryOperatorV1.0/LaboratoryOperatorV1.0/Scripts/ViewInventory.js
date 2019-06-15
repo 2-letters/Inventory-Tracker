@@ -248,22 +248,32 @@ new Vue({
                 this.loading = false
             }, 500)
         }, 
-        filterRooms: function (val) {
+        filterRooms: function (val, index) {
+            
             this.equipment = this.original;
             this.getFilteredList(val);
-            this.equipment = this.equipment.filter(x => x.room == val);
+            if (index !== null) {
+                this.equipment[index].room = val;
+            }
+            this.equipment = this.equipment.filter(x => x.room === val);
             return;
         }, 
 
-        filterLocations: function (val) {
+        filterLocations: function (val, index) {
             this.equipment = this.original;
             this.getFilteredSubLocations(val);
-            this.equipment = this.equipment.filter(x => x.location == val);
+            if (index !== null) {
+                this.equipment[index].location = val;
+            }
+            this.equipment = this.equipment.filter(x => x.location === val);
             return;
         },
-        filterSubLocations: function (val) {
+        filterSubLocations: function (val, index) {
             this.equipment = this.original;
-            this.equipment = this.equipment.filter(x => x.sublocation == val);
+            if (index !== null) {
+                this.equipment[index].sublocation = val;
+            }
+            this.equipment = this.equipment.filter(x => x.sublocation === val);
             return;
         },
         reset: function () {

@@ -279,7 +279,7 @@
                             <v-combobox v-model="props.item.room"
                                         :items="rooms"
                                         :search-input.sync="searchRoom"
-                                        v-on:change="getFilteredList(inputRoom)"
+                                        v-on:change="filterRooms(props.item.room,  props.item.index)"
                                         label="Select Room or Type to Add a new one"></v-combobox>
                             @*<v-text-field v-model="props.item.room"
                                 label="Room"
@@ -292,17 +292,17 @@
 
                         <v-combobox v-model="props.item.location"
                                     :items="selectedLocations"
-                                    v-on:change="getFilteredSubLocations(inputLocation)"
+                                    v-on:change="getFilteredSubLocations(inputLocation, props.item.index)"
                                     label="Select Location or type to Add a new one"></v-combobox>
 
                         @*<v-text-field v-model="props.item.location"
                             label="Location"
                             required></v-text-field>*@
-                        <v-combobox label="SubLocation"
+                        <v-combobxox label="SubLocation"
                                     :items="sublocations"
                                     v-model="props.item.sublocation"
-                                    label="Select Location or type to Add a new one"
-                                    required></v-combobox>
+                                   
+                                    ></v-combobxox>
 
                         @*<v-text-field v-model="props.item.sublocation"
                                       label="Sub Location"
