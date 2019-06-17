@@ -252,7 +252,7 @@ new Vue({
             
             this.equipment = this.original;
             this.getFilteredList(val);
-            if (index !== null) {
+            if (index !== 'searchmode') {
                 this.equipment[index].room = val;
             }
             this.equipment = this.equipment.filter(x => x.room === val);
@@ -262,7 +262,7 @@ new Vue({
         filterLocations: function (val, index) {
             this.equipment = this.original;
             this.getFilteredSubLocations(val);
-            if (index !== null) {
+            if (index !== 'searchmode') {
                 this.equipment[index].location = val;
             }
             this.equipment = this.equipment.filter(x => x.location === val);
@@ -270,7 +270,7 @@ new Vue({
         },
         filterSubLocations: function (val, index) {
             this.equipment = this.original;
-            if (index !== null) {
+            if (index !== 'searchmode') {
                 this.equipment[index].sublocation = val;
             }
             this.equipment = this.equipment.filter(x => x.sublocation === val);

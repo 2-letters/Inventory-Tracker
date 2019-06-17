@@ -69,13 +69,13 @@
                               label="Rooms"
                               persistent-hint
                               return-object
-                              v-on:change="filterRooms(selectRooms)"
+                              v-on:change="filterRooms(selectRooms, 'searchmode')"
                               single-line></v-select>
                 </v-list-title-content>
                 <v-list-title-content>
                     <v-select v-model="selectLocation"
                               :items="selectedLocations"
-                              v-on:change="filterLocations(selectLocation)"
+                              v-on:change="filterLocations(selectLocation,'searchmode')"
                               item-text="room"
                               label="Location"
                               return-object
@@ -85,7 +85,7 @@
                     <v-select v-model="inputSublocation"
                               :items="sublocations"
                               item-text="room"
-                              v-on:change="filterSubLocations(inputSublocation)"
+                              v-on:change="filterSubLocations(inputSublocation, 'searchmode')"
                               label="sub location"
                               return-object
                               single-line></v-select>
@@ -290,23 +290,23 @@
 
                     <td>
 
-                        <v-combobox v-model="props.item.location"
+                        @*<v-combobox v-model="props.item.location"
                                     :items="selectedLocations"
                                     v-on:change="getFilteredSubLocations(inputLocation, props.item.index)"
-                                    label="Select Location or type to Add a new one"></v-combobox>
+                                    label="Select Location or type to Add a new one"></v-combobox>*@
 
-                        @*<v-text-field v-model="props.item.location"
+                        <v-text-field v-model="props.item.location"
                             label="Location"
-                            required></v-text-field>*@
-                        <v-combobxox label="SubLocation"
+                            required></v-text-field>
+                        @*<v-combobxox label="SubLocation"
                                     :items="sublocations"
                                     v-model="props.item.sublocation"
                                    
-                                    ></v-combobxox>
+                                    ></v-combobxox>*@
 
-                        @*<v-text-field v-model="props.item.sublocation"
+                        <v-text-field v-model="props.item.sublocation"
                                       label="Sub Location"
-                                      required></v-text-field>*@
+                                      required></v-text-field>
                     </td>
                     <td>
                         <v-text-field type="number" v-model="props.item.quantity"
