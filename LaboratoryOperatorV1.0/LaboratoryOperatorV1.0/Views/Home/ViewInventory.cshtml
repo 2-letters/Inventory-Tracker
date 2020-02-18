@@ -1,0 +1,794 @@
+﻿
+
+<script>
+        var model =  @Html.Raw(Json.Encode(Model))
+</script>
+
+<style>
+    .flex {
+        flex: 0;
+    }
+
+    .v-textarea textarea {
+        line-height: 10px;
+    }
+</style>
+
+<div id="app">
+
+    <v-app id="inspire">
+
+        <v-navigation-drawer :clipped="clipped" v-model="drawer" enable-resize-watcher app
+                             style="background-color: white;">
+            <v-list class="pa-0">
+                <v-list-tile avatar>
+                    <v-list-tile-avatar>
+                        <img src="https://randomuser.me/api/portraits/men/85.jpg">
+                    </v-list-tile-avatar>
+
+                    <v-list-tile-content>
+                        <v-list-tile-title>RJ Varona</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile avatar>
+                    <v-list-tile-avatar>
+                        <img src="http://www.southern.edu/_resources/img/default/mobile-logo2x.png" />
+                    </v-list-tile-avatar>
+                    <v-list-title-content>
+                        <v-list-tile-title class="text-center">Stanford Adventist University</v-list-tile-title>
+                    </v-list-title-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+
+                <v-list-title-content>
+                    <v-list-tile-title class="text-center">Nursing Department</v-list-tile-title>
+                </v-list-title-content>
+
+                <v-divider></v-divider>
+                <v-list-title-content class="text-right">
+                    <v-spacer></v-spacer>
+                    <v-flex offset-md8>
+                        <v-switch v-model="switch1"
+                                  :label="`${action}`"></v-switch>
+                    </v-flex>
+                </v-list-title-content>
+                <v-list-title-content>
+                    <v-text-field v-model="search "
+                                  append-icon="search"
+                                  label="search inventory"
+                                  single-line
+                                  hide-details>
+
+                    </v-text-field>
+                </v-list-title-content>
+                <v-list-title-content>
+                    <v-select v-model="selectRooms"
+                              :items="rooms"
+                              item-text="room"
+                              label="Rooms"
+                              persistent-hint
+                              return-object
+                              v-on:change="filterRooms(selectRooms, 'searchmode')"
+                              single-line></v-select>
+                </v-list-title-content>
+                <v-list-title-content>
+                    <v-select v-model="selectLocation"
+                              :items="selectedLocations"
+                              v-on:change="filterLocations(selectLocation,'searchmode')"
+                              item-text="room"
+                              label="Location"
+                              return-object
+                              single-line></v-select>
+                </v-list-title-content>
+                <v-list-title-content>
+                    <v-select v-model="inputSublocation"
+                              :items="sublocations"
+                              item-text="room"
+                              v-on:change="filterSubLocations(inputSublocation, 'searchmode')"
+                              label="sub location"
+                              return-object
+                              single-line></v-select>
+                </v-list-title-content>
+                <v-list-title-content>
+                    <v-btn color="rgb(226, 226, 226);" v-on:click="reset()">
+                        Reset
+                    </v-btn>
+                    <v-btn color="rgb(226, 226, 226);" v-on:click="save()">
+                        Save Inventory
+                    </v-btn>
+                </v-list-title-content>
+
+                @*<v-list-title-content v-if="actBtn">
+                    <v-btn color="#7cf190" v-on:click="addItem()">
+                    <v-icon>add</v-icon>
+                    </v-btn>
+
+                    <v-btn color="#7cf190" v-on:click="save()">
+                    Save
+                    </v-btn>
+                    </v-list-title-content>*@
+
+            </v-list>
+
+
+        </v-navigation-drawer>
+        <v-toolbar fixed app :clipped-left="clipped" style="color:white;">
+            <v-toolbar-side-icon v-on:click.stop="drawer = !drawer">
+
+            </v-toolbar-side-icon>
+            <v-btn flat color="purple" href="/Home">Home</v-btn>
+            <v-btn flat color="purple">Inventory</v-btn>
+            <v-spacer></v-spacer>
+
+        </v-toolbar>
+
+
+        <v-content>
+            <v-layout v-if="!show">
+                <v-flex xs12 sm12 lg12>
+                    <v-card>
+                        <v-form v-model="valid">
+                            <v-container>
+                                <v-layout row>
+                                    <v-flex xs12
+                                            md6 lg6>
+
+                                        <v-text-field label="Equipment name"
+                                                      v-model="inputName"
+                                                      required></v-text-field>
+
+                                    </v-flex>
+                                    <v-flex xs12
+                                            md6 lg6>
+                                        @*<v-text-field label="Room"
+                                            v-model="inputRoom"
+
+                                            required></v-text-field>*@
+                                        <v-combobox v-model="inputRoom"
+                                                    :items="rooms"
+                                                    :search-input.sync="searchRoom"
+                                                    v-on:change="getFilteredList(inputRoom)"
+                                                    label="Select Room or Type to Add a new one"></v-combobox>
+
+                                    </v-flex>
+                                    <v-flex xs12
+                                            md6 lg6>
+                                        <v-combobox v-model="inputLocation"
+                                                    :items="selectedLocations"
+                                                    v-on:change="getFilteredSubLocations(inputLocation)"
+                                                    label="Select Location or type to Add a new one"></v-combobox>
+                                        @*<v-text-field label="Location"
+                                            v-model="inputLocation"
+                                            required></v-text-field>*@
+
+                                    </v-flex>
+
+
+                                </v-layout>
+
+                                <v-layout>
+                                    <v-flex xs12
+                                            md6 lg6>
+                                        <v-combobox label="SubLocation"
+                                                    :items="sublocations"
+                                                    v-model="inputSublocation"
+                                                    label="Select Location or type to Add a new one"
+                                                    required></v-combobox>
+                                    </v-flex>
+                                    <v-flex xs12
+                                            md6 lg6>
+                                        <v-textarea label="Description"
+                                                    v-model="inputDescription"
+                                                    required
+                                                    style="line-height:5px;"></v-textarea>
+                                    </v-flex>
+
+
+                                </v-layout>
+                                <v-layout>
+                                    <v-flex xs12
+                                            md6 lg6>
+                                        <v-text-field type="number"
+                                                      v-model="inputQuantity"
+                                                      :rules="nameRules"
+                                                      label="Quantity"
+                                                      required></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12
+                                            md6 lg6>
+                                        <v-btn color="rgb(226, 226, 226);" v-on:click="add()">
+                                            Save
+                                        </v-btn>
+                                    </v-flex>
+                                </v-layout>
+
+                            </v-container>
+                        </v-form>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+            @*<v-flex
+                <v-card v-if="actBtn">
+                    <v-container>
+                        <v-layout row>
+                            <v-flex xs12 md6 offset-md4 id="sbmBtn">
+
+
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card>*@
+
+
+
+            <v-data-table :headers="headers"
+                          :items="equipment"
+                          :search="search">
+
+                <template v-slot:items="props" v-if="show">
+                    <td>{{ props.item.name }}</td>
+                    <td>{{ props.item.room }}</td>
+                    <td>
+                        {{ props.item.location }}
+
+                        <p style="color: dimgrey; font-size: 12px;"> {{props.item.sublocation}}</p>
+
+                    </td>
+                    <td>{{ props.item.quantity }}</td>
+                    <td>
+                        <v-dialog v-model="dialog[props.item.name]" lazy absolute width="500">
+                            <v-btn flat icon color="blue lighten-2"
+                                   v-on:click.stop="$set(dialog, props.item.name, true)" slot="activator">
+                                <v-icon>info</v-icon>
+                            </v-btn>
+                            <v-card>
+                                <v-card-title>
+                                    <div class="headline">More Info for '{{ props.item.name }}'</div>
+                                </v-card-title>
+                                <v-card-text>
+                                    <b> Description:</b> {{props.item.description}}
+                                    <br />
+                                    <b>location:</b> {{props.item.location}}
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn class="purple--text" flat="flat"
+                                           v-on:click.stop="$set(dialog, props.item.name, false)">Close</v-btn>
+
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+
+
+                    </td>
+
+                </template>
+                <template v-slot:items="props" v-else>
+
+                    <td>
+                        <v-text-field v-model="props.item.name"
+                                      label="Equipment name"
+                                      required></v-text-field>
+                    </td>
+                    <td>
+
+
+                      
+
+                            <v-combobox v-model="props.item.room"
+                                        :items="rooms"
+                                        :search-input.sync="searchRoom"
+                                        v-on:change="filterRooms(props.item.room,  props.item.index)"
+                                        label="Select Room or Type to Add a new one"></v-combobox>
+                            @*<v-text-field v-model="props.item.room"
+                                label="Room"
+                                required></v-text-field>*@
+
+                    </td>
+
+
+                    <td>
+
+                        @*<v-combobox v-model="props.item.location"
+                                    :items="selectedLocations"
+                                    v-on:change="getFilteredSubLocations(inputLocation, props.item.index)"
+                                    label="Select Location or type to Add a new one"></v-combobox>*@
+
+                        <v-text-field v-model="props.item.location"
+                            label="Location"
+                            required></v-text-field>
+                        @*<v-combobxox label="SubLocation"
+                                    :items="sublocations"
+                                    v-model="props.item.sublocation"
+                                   
+                                    ></v-combobxox>*@
+
+                        <v-text-field v-model="props.item.sublocation"
+                                      label="Sub Location"
+                                      required></v-text-field>
+                    </td>
+                    <td>
+                        <v-text-field type="number" v-model="props.item.quantity"
+                                      :rules="nameRules"
+                                      label="Quantity"
+                                      required></v-text-field>
+
+                    </td>
+                    <td>
+                        <v-btn flat icon>
+                            <v-icon color="green">add </v-icon>
+                        </v-btn>
+                        <v-btn flat icon v-on:click="deleteItem(props.item.id, props.item.index)">
+                            <v-icon color="red">delete</v-icon>
+                        </v-btn>
+                    </td>
+
+                </template>
+
+            </v-data-table>
+
+
+
+
+
+
+            @*<table>
+                    <tr>
+                        <v-flex xs12 sm10 offset-sm1>
+                            <th style="min-width: 1200px;">
+
+                                <v-card>
+                                    <v-container>
+                                        <v-layout row>
+                                            <v-flex xs12
+                                                    md2 offset-md1>
+                                                <div v-on:click="orderBy('name')">
+                                                    name
+                                                </div>
+                                            </v-flex>
+                                            <v-flex xs12
+                                                    md3>
+                                                <div v-on:click="orderBy('room')">
+                                                    Room
+                                                </div>
+                                            </v-flex>
+                                            <v-flex xs12
+                                                    md3>
+                                                <div v-on:click="orderBy('location')">
+                                                    location
+                                                </div>
+                                            </v-flex>
+                                            <v-flex xs12
+                                                    md3>
+                                                <div v-on:click="orderBy('quantity')">
+                                                    quantity
+                                                </div>
+                                            </v-flex>
+                                            <v-flex xs12
+                                                    md2>
+                                                <div> more info</div>
+                                            </v-flex>
+                                            <v-flex xs12
+                                                    md1>
+                                                <div flat color="purple"
+                                                     v-on:click="orderBy('re-order')">re-order</div>
+                                            </v-flex>
+                                        </v-layout>
+                                    </v-container>
+                                </v-card>
+
+                            </th>
+                        </v-flex>
+                    </tr>
+                    <tr v-for="list in filteredEquipment">
+                        <td>
+                            <v-flex :search="search">
+
+                                <div v-if="show">
+                                    <v-layout>
+                                        <v-flex xs12 sm10 offset-sm1>
+                                            <v-card>
+                                                <v-container>
+
+                                                    <v-layout row>
+                                                        <div>{{list.index}}</div>
+                                                        <v-flex xs12
+                                                                md2 offset-md1>
+                                                            <div>
+                                                                {{list.name}}
+                                                            </div>
+                                                        </v-flex>
+                                                        <v-flex xs12
+                                                                md3>
+                                                            <div>
+                                                                <p> {{list.room}}</p>
+                                                            </div>
+                                                        </v-flex>
+                                                        <v-flex xs12
+                                                                md3>
+                                                            <div>
+                                                                <p> {{list.location}}</p>
+                                                                <p style="color: dimgrey; font-size: 12px;"> {{list.sublocation}}</p>
+                                                            </div>
+                                                        </v-flex>
+                                                        <v-flex xs12
+                                                                md3>
+                                                            <div>
+                                                                {{list.quantity}}
+                                                            </div>
+                                                        </v-flex>
+                                                        <v-flex xs12
+                                                                md3>
+                                                            <v-dialog v-model="dialog[list.name]" lazy absolute width="500">
+                                                                <v-btn flat icon color="blue lighten-2"
+                                                                       v-on:click.stop="$set(dialog, list.name, true)" slot="activator">
+                                                                    <v-icon>info</v-icon>
+                                                                </v-btn>
+                                                                <v-card>
+                                                                    <v-card-title>
+                                                                        <div class="headline">More Info for '{{ list.name }}'</div>
+                                                                    </v-card-title>
+                                                                    <v-card-text>
+                                                                        <v-img :src="list.pictureUrl" aspect-ratio="1"></v-img>
+                                                                        <b> Description:</b> {{list.description}}
+                                                                        <br />
+                                                                        <b>location:</b> {{list.location}}
+                                                                    </v-card-text>
+                                                                    <v-card-actions>
+                                                                        <v-spacer></v-spacer>
+                                                                        <v-btn class="purple--text" flat="flat"
+                                                                               v-on:click.stop="$set(dialog, list.name, false)">Close</v-btn>
+
+                                                                    </v-card-actions>
+                                                                </v-card>
+                                                            </v-dialog>
+                                                        </v-flex>
+
+
+                                                    </v-layout>
+
+
+                                                </v-container>
+
+                                            </v-card>
+                                        </v-flex>
+
+                                    </v-layout>
+
+                                </div>
+
+                                <div v-else>
+                                    <v-layout>
+                                        <v-flex xs12 sm10 offset-sm1>
+                                            <v-card>
+                                                <v-form v-model="valid">
+                                                    <v-container>
+                                                        <v-layout row>
+                                                            <div>{{list.index}}</div>
+                                                            <v-flex xs12
+                                                                    md6 lg6>
+
+                                                                <v-text-field v-model="list.name"
+                                                                              label="Equipment name"
+                                                                              required></v-text-field>
+                                                            </v-flex>
+                                                            <v-flex xs12
+                                                                    md6 lg6>
+                                                                <v-text-field v-model="list.location"
+                                                                              label="Location"
+                                                                              required></v-text-field>
+                                                            </v-flex>
+
+
+                                                        </v-layout>
+                                                        <v-layout>
+                                                            <v-flex xs12
+                                                                    md6>
+                                                                <v-textarea v-model="list.description"
+                                                                            label="Description"
+                                                                            required></v-textarea>
+                                                            </v-flex>
+                                                            <v-flex xs12
+                                                                    md4 offset-md1>
+                                                                <v-text-field type="number" v-model="list.quantity"
+                                                                              :rules="nameRules"
+                                                                              label="Quantity"
+                                                                              required></v-text-field>
+                                                            </v-flex>
+                                                            <v-flex xs12 md2>
+                                                                <v-layout row>
+
+                                                                    <button>
+                                                                        <v-icon color="blue">camera_alt</v-icon>
+                                                                    </button>
+
+                                                                    <v-btn flat icon v-on:click="deleteItem(list.id, list.index)">
+                                                                        <v-icon color="red">delete</v-icon>
+                                                                    </v-btn>
+
+                                                                </v-layout>
+                                                            </v-flex>
+                                                            <v-flex>
+
+                                                            </v-flex>
+                                                        </v-layout>
+
+                                                    </v-container>
+                                                </v-form>
+                                            </v-card>
+                                        </v-flex>
+                                    </v-layout>
+
+                                </div>
+                            </v-flex>
+
+                        </td>
+                    </tr>
+                </table>*@
+
+
+            @*<v-flex xs12 sm10 offset-sm1>
+                    <v-card>
+                        <v-container>
+                            <v-layout row>
+                                <v-flex xs12
+                                        md2 offset-md1>
+                                    <div>
+                                        name
+                                    </div>
+                                </v-flex>
+                                <v-flex xs12
+                                        md3>
+                                    <div>
+                                        location
+                                    </div>
+                                </v-flex>
+                                <v-flex xs12
+                                        md3>
+                                    <div>
+                                        quantity
+                                    </div>
+                                </v-flex>
+                                <v-flex xs12
+                                        md3>
+                                    <div> more info</div>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
+                    </v-card>
+                </v-flex>*@
+            @*<br />*@
+
+
+
+
+            @*<v-flex v-for="list in filteredEquipment" :key="n" :search="search">
+
+                    <div v-if="show">
+                        <v-layout>
+                            <v-flex xs12 sm10 offset-sm1>
+                                <v-card>
+                                    <v-container>
+
+                                        <v-layout row>
+                                            <div>{{list.index}}</div>
+                                            <v-flex xs12
+                                                    md2 offset-md1>
+                                                <div>
+                                                    {{list.name}}
+                                                </div>
+                                            </v-flex>
+                                            <v-flex xs12
+                                                    md3>
+                                                <div>
+                                                    {{list.location}}
+                                                </div>
+                                            </v-flex>
+                                            <v-flex xs12
+                                                    md3>
+                                                <div>
+                                                    {{list.quantity}}
+                                                </div>
+                                            </v-flex>
+                                            <v-flex xs12
+                                                    md3>
+                                                <v-dialog v-model="dialog[list.name]" lazy absolute width="500">
+                                                    <v-btn flat icon color="blue lighten-2"
+                                                           v-on:click.stop="$set(dialog, list.name, true)" slot="activator">
+                                                        <v-icon>info</v-icon>
+                                                    </v-btn>
+                                                    <v-card>
+                                                        <v-card-title>
+                                                            <div class="headline">More Info for '{{ list.name }}'</div>
+                                                        </v-card-title>
+                                                        <v-card-text>
+                                                            <v-img :src="list.pictureUrl" aspect-ratio="1"></v-img>
+                                                            <b> Description:</b> {{list.description}}
+                                                            <br />
+                                                            <b>location:</b> {{list.location}}
+                                                        </v-card-text>
+                                                        <v-card-actions>
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn class="purple--text" flat="flat"
+                                                                   v-on:click.stop="$set(dialog, list.name, false)">Close</v-btn>
+
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-dialog>
+                                            </v-flex>
+
+
+                                        </v-layout>
+
+
+                                    </v-container>
+
+                                </v-card>
+                            </v-flex>
+
+                        </v-layout>
+                        <br />
+                    </div>
+
+                    <div v-else>
+                        <v-layout>
+                            <v-flex xs12 sm10 offset-sm1>
+                                <v-card>
+                                    <v-form v-model="valid">
+                                        <v-container>
+                                            <v-layout row>
+                                                <div>{{list.index}}</div>
+                                                <v-flex xs12
+                                                        md6 lg6>
+
+                                                    <v-text-field v-model="list.name"
+                                                                  label="Equipment name"
+                                                                  required></v-text-field>
+                                                </v-flex>
+                                                <v-flex xs12
+                                                        md6 lg6>
+                                                    <v-text-field v-model="list.location"
+                                                                  label="Location"
+                                                                  required></v-text-field>
+                                                </v-flex>
+
+
+                                            </v-layout>
+                                            <v-layout>
+                                                <v-flex xs12
+                                                        md6>
+                                                    <v-textarea v-model="list.description"
+                                                                label="Description"
+                                                                required></v-textarea>
+                                                </v-flex>
+                                                <v-flex xs12
+                                                        md4 offset-md1>
+                                                    <v-text-field type="number" v-model="list.quantity"
+                                                                  :rules="nameRules"
+                                                                  label="Quantity"
+                                                                  required></v-text-field>
+                                                </v-flex>
+                                                <v-flex xs12 md2>
+                                                    <v-layout row>
+
+                                                        <button>
+                                                            <v-icon color="blue">camera_alt</v-icon>
+                                                        </button>
+
+                                                        <v-btn flat icon v-on:click="deleteItem(list.id, list.index)">
+                                                            <v-icon color="red">delete</v-icon>
+                                                        </v-btn>
+
+                                                    </v-layout>
+                                                </v-flex>
+                                                <v-flex>
+
+                                                </v-flex>
+                                            </v-layout>
+
+                                        </v-container>
+                                    </v-form>
+                                </v-card>
+                            </v-flex>
+                        </v-layout>
+
+                    </div>
+                </v-flex>*@
+
+
+            @*<v-flex xs12 sm10 offset-sm1 id="actioncard" v-if="actBtn">
+                    <v-card>
+                        <v-container>
+                            <v-layout row>
+                                <v-flex xs12 md6 offset-md4 id="sbmBtn">
+
+                                    <v-btn color="#7cf190" v-on:click="addItem()">
+                                        <v-icon>add</v-icon>
+                                    </v-btn>
+
+                                    <v-btn color="#7cf190" v-on:click="save()">
+                                        Save
+                                    </v-btn>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
+                    </v-card>
+                </v-flex>*@
+            @*<v-flex xs12 sm10 offset-sm1>
+                    <v-layout>
+                        <v-card>
+                            <v-container>
+                                <v-layout row>
+                                    <v-select :items="pageNumbers"
+                                              label="items on page"
+                                              solo></v-select>
+                                    <v-btn v-on:click="prevPage()">Previous</v-btn>
+                                    <v-btn v-on:click="nextPage()">Next</v-btn>
+                                </v-layout>
+                            </v-container>
+
+
+                        </v-card>
+                    </v-layout>
+                </v-flex>*@
+
+        </v-content>
+
+    </v-app>
+</div>
+
+<script src="~/Scripts/ViewInventory.js"></script>
+
+
+@*<v-card>
+        <v-form v-model="valid">
+            <v-container>
+                <v-layout row>
+                    <v-flex xs12
+                            md6>
+
+                        <v-text-field v-model="list.name"
+                                      :rules="nameRules"
+                                      label="Equipment name"
+                                      required></v-text-field>
+                    </v-flex>
+                    <v-flex xs12
+                            md6>
+                        <v-text-field v-model="list.location"
+                                      :rules="nameRules"
+                                      label="Location"
+                                      required></v-text-field>
+                    </v-flex>
+
+
+                </v-layout>
+                <v-layout>
+                    <v-flex xs12
+                            md6>
+                        <v-text-field v-model="list.description"
+                                      :rules="nameRules"
+                                      label="Description"
+                                      required></v-text-field>
+                    </v-flex>
+
+                    <v-flex>
+
+                        <button>
+                            <v-icon color="blue">camera_alt</v-icon>
+                        </button>
+
+                        <button>
+                            <v-icon color="red">delete</v-icon>
+                        </button>
+
+                    </v-flex>
+                    <v-flex>
+
+                    </v-flex>
+                </v-layout>
+
+
+            </v-container>
+        </v-form>
+    </v-card>*@
