@@ -224,6 +224,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomIndex.cs" />
+    <Compile Include="Models\ViewLab.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LabsForUsers.cs" />
     <Compile Include="ViewModels\Users.cs" />
@@ -253,6 +254,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\LabIndex.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\PreviewLab.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ViewInventory.js" />
@@ -276,6 +278,7 @@
     <Content Include="Views\Home\IndexAsync.cshtml" />
     <Content Include="Views\Home\ViewLabsAsync.cshtml" />
     <Content Include="Views\Home\ViewInventory.cshtml" />
+    <Content Include="Views\Home\PreviewLab.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

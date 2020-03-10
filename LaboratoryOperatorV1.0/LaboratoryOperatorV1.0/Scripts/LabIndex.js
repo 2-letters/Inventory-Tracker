@@ -1,22 +1,14 @@
 ﻿var x = model;
 
 class Assignment {
-    constructor(LabName, Description) {
+    constructor(LabName, Description, id, expand) {
         this.LabName = LabName;
         this.Description = Description;
+        this.id = id;
+        this.expand = expand;
     }
 }
 
-var jsObjects = [
-    { a: 1, b: 2 },
-    { a: 3, b: 4 },
-    { a: 5, b: 6 },
-    { a: 7, b: 8 }
-];
-
-y = jsObjects[0].a;
-z = model.LabsForUsers[0].id
-modelArray = x[0];
 
 
  new Vue({
@@ -24,8 +16,8 @@ modelArray = x[0];
     data: {
         search: '',
         model: model,
-        test: model.LabsForUsers[0].id,
-
+        //test: model.LabsForUsers[0].id,
+        expand: false,
         AssignmentList: [
             //new Assignment('Lab 1: introduction', 'This is an introductory course'),
             //new Assignment('Lab 2: Krichoffs law', 'Here we will test Kirchoff'),
@@ -36,8 +28,10 @@ modelArray = x[0];
 
     },
     mounted() {
+        if (model.LabsForUsers.length !== 0) {
         for (var i = 0; i < model.LabsForUsers.length; i++) {
-            this.AssignmentList.push(new Assignment(model.LabsForUsers[i].labName, model.LabsForUsers[i].description))
+            this.AssignmentList.push(new Assignment(model.LabsForUsers[i].labName, model.LabsForUsers[i].description, model.LabsForUsers[i].id, false))
+            }
         }
     },
     computed: {
@@ -50,7 +44,13 @@ modelArray = x[0];
                 return post.LabName.toLowerCase().includes(this.search.toLowerCase())
             })
         }
-    }
+     },
+     methods:{
+         viewLab: function(id) {
+             var url = '/Home/PreviewLab/__id__';
+             window.location.href = url.replace('__id__', id);
+         }
+     }
 
 });
 

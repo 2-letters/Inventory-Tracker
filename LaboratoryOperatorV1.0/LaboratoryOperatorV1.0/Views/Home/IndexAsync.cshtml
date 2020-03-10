@@ -16,7 +16,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn flat color="purple" href="/Home/ViewLabsAsync">Add New Lab</v-btn>
-                    <v-btn flat color="purple">Inventory</v-btn>
+                    <v-btn flat color="purple" href="/Home/ViewInventory">Inventory</v-btn>
                 </v-card-actions>
 
                 <v-spacer></v-spacer>
@@ -32,7 +32,7 @@
         </v-card>
         <v-container>
             <v-layout row wrap>
-                <v-flex xs12 sm6 md4 lg3 v-for="lab in filteredList" :key="n" :search="search">
+                <v-flex xs12 sm6 md4 lg4 v-for="lab in filteredList" :key="n" :search="search">
 
 
                     <v-card class="text-md-center ma-3">
@@ -43,10 +43,24 @@
                                 <div class=" heading "><h3>{{ lab.LabName }}</h3></div>
                             </v-card-title>
                             <v-spacer></v-spacer>
-                            <v-btn flat color="purple">View</v-btn>
-                        </v-card-actions>
+                            <v-btn flat color="purple" v-on:click="viewLab(lab.id)">View</v-btn>
 
-                        <div class="sub-heading"> {{ lab.Description }} </div>
+                        </v-card-actions>
+                        <v-flex shrink>
+                            <v-expand-y-transition>
+                                <div v-show="lab.expand" >
+                                    <div class="sub-heading"> {{ lab.Description }} </div>
+                                </div>
+                            </v-expand-y-transition>
+                        </v-flex>
+
+                        <v-btn dark flat
+                               color="purple"
+                               V-on:click="lab.expand = !lab.expand">View More</v-btn>
+
+
+
+
 
 
 
@@ -57,7 +71,7 @@
             </v-layout>
         </v-container>
     </v-app>
-   
+
 </div>
 
 

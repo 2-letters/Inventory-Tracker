@@ -14,47 +14,84 @@ namespace LaboratoryOperatorV1._0.Controllers
 
         private readonly firebaseTest _client = new firebaseTest();
 
-        public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
+        public ActionResult IndexAsync()
         {
             var model = new LabsForUsersList
             {
-                LabsForUsers = await _client.GetAllLabsForUsersAsync()
+                LabsForUsers =  _client.GetAllLabsForUsersAsync()
             };
             
             return View(model);
         }
 
-
-        public async System.Threading.Tasks.Task<ActionResult> ViewLabsAsync()
+        /// <summary>
+        /// change this later to edit and add new lab
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult ViewLabsAsync(string id)
         {
             //await _client.FireBaseConnectAsync();
-
-            var model = new listIndex
+            //id = "b8qypoYQVIy24AZO2cvp";
+            var model = new ViewLab();
+            if (id != null)
             {
-                IndexList = await _client.GetAllItemsMethod2()
-            };
+                model.ItemsAdded =  _client.GetItemsForLabs(id);
+                model.labDetails =  _client.GetLabDetails(id);
+                model.LabItems =  _client.GetAllItemsMethod2();
+            }
+            else
+            {
+                model.LabItems =  _client.GetAllItemsMethod2();
+            }
+
+
+            return View(model);
+        }
+        public ActionResult PreviewLab(string id)
+        {
+            var model = new ViewLab();
+            if (id != null)
+            {
+                model.ItemsAdded = _client.GetItemsForLabs(id);
+                model.labDetails = _client.GetLabDetails(id);
+            }
+            else
+            {
+                model.LabItems = _client.GetAllItemsMethod2();
+            }
+
 
             return View(model);
         }
 
+
+
+
+
+
+
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> PushNewLab(string labName, string labDescription, List<labItems> itemsInLab)
+        public ActionResult PushNewLab(string labName, string labDescription, List<labItems> itemsInLab)
         {
             //await _client.FireBaseConnectAsync();
 
-            await _client.pushNewLabAsync(labName, labDescription, itemsInLab);
+             _client.pushNewLabAsync(labName, labDescription, itemsInLab);
 
             return View();
         }
 
-
-        public async System.Threading.Tasks.Task<ActionResult> ViewInventory()
+        /// <summary>
+        /// change viewInventory to EditInventory
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ViewInventory()
         {
             //await _client.FireBaseConnectAsync();
 
             var model = new listIndex
             {
-                IndexList = await _client.GetAllItemsMethod2()
+                IndexList =  _client.GetAllItemsMethod2()
             };
 
             return View(model);
