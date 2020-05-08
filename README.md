@@ -10,4 +10,4 @@ A personalized Web Inventory Tracker :)
 ![](giphy.gif)
 
 # Technologies
-ASP.NET, Node.js, Vue, Modernizr, JQuery, Antlr, Google Firebase SDKs.
+ASP.NET, Vue.js, jQuery, Google Firebase SDKs.
