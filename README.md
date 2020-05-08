@@ -1,4 +1,4 @@
-# Laboratory.MVC
+![alt laboratory](cover1.png)
 
 A project
 
