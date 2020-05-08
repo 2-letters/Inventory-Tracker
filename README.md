@@ -8,3 +8,6 @@ A personalized Web Inventory Tracker :)
 ```
             
 ![](giphy.gif)
+
+# Technologies
+ASP.NET, Vuetify, Google Firebase SDKs.
