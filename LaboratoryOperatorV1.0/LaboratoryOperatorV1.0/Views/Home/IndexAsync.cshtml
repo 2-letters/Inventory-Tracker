@@ -1,0 +1,82 @@
+﻿@model LaboratoryOperatorV1._0.ViewModels.LabsForUsersList
+
+
+<script>
+        var model =  @Html.Raw(Json.Encode(Model))
+</script>
+
+
+
+
+<div id="app">
+    <v-app id="inspire">
+
+        <v-card>
+            <v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn flat color="purple" href="/Home/ViewLabsAsync">Add New Lab</v-btn>
+                    <v-btn flat color="purple" href="/Home/ViewInventory">Inventory</v-btn>
+                </v-card-actions>
+
+                <v-spacer></v-spacer>
+                <v-text-field v-model="search "
+                              append-icon="search"
+                              label="search labs"
+                              single-line
+                              hide-details>
+
+                </v-text-field>
+            </v-card-title>
+
+        </v-card>
+        <v-container>
+            <v-layout row wrap>
+                <v-flex xs12 sm6 md4 lg4 v-for="lab in filteredList" :key="n" :search="search">
+
+
+                    <v-card class="text-md-center ma-3">
+
+                        <v-card-actions>
+
+                            <v-card-title primary-title>
+                                <div class=" heading "><h3>{{ lab.LabName }}</h3></div>
+                            </v-card-title>
+                            <v-spacer></v-spacer>
+                            <v-btn flat color="purple" v-on:click="viewLab(lab.id)">View</v-btn>
+
+                        </v-card-actions>
+                        <v-flex shrink>
+                            <v-expand-y-transition>
+                                <div v-show="lab.expand" >
+                                    <div class="sub-heading"> {{ lab.Description }} </div>
+                                </div>
+                            </v-expand-y-transition>
+                        </v-flex>
+
+                        <v-btn dark flat
+                               color="purple"
+                               V-on:click="lab.expand = !lab.expand">View More</v-btn>
+
+
+
+
+
+
+
+                    </v-card>
+
+
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-app>
+
+</div>
+
+
+
+
+@Scripts.Render("~/Scripts/LabIndex.js")
+
+

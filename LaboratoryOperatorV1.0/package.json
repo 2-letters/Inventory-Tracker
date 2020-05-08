@@ -3,6 +3,7 @@
   "lockfileVersion": 1,
   "dependencies": {
     "vue": "^2.5.18",
+    "vue-router": "^3.0.7",
     "vuetify": "^1.5.14"
   }
 }

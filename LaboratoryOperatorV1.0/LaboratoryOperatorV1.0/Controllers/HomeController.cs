@@ -4,23 +4,111 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LaboratoryOperatorV1._0.Models;
-
+using LaboratoryOperatorV1._0.Data;
+using LaboratoryOperatorV1._0.ViewModels;
 
 namespace LaboratoryOperatorV1._0.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+
+        private readonly firebaseTest _client = new firebaseTest();
+
+        public ActionResult IndexAsync()
         {
-          
-            var model = new CustomIndex
+            var model = new LabsForUsersList
             {
-                description = "Lab 7 is about Kirchoff's rule Students will try to jump around",
-                Name = "Lab 7: Kirchoff's rule",
+                LabsForUsers =  _client.GetAllLabsForUsersAsync()
+            };
+            
+            return View(model);
+        }
+
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
+
+
+        /// <summary>
+        /// change this later to edit and add new lab
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult ViewLabsAsync(string id)
+        {
+            //await _client.FireBaseConnectAsync();
+            //id = "b8qypoYQVIy24AZO2cvp";
+            var model = new ViewLab();
+            if (id != null)
+            {
+                model.ItemsAdded =  _client.GetItemsForLabs(id);
+                model.labDetails =  _client.GetLabDetails(id);
+                model.LabItems =  _client.GetAllItemsMethod2();
+            }
+            else
+            {
+                model.LabItems =  _client.GetAllItemsMethod2();
+            }
+
+
+            return View(model);
+        }
+        public ActionResult PreviewLab(string id)
+        {
+            var model = new ViewLab();
+            if (id != null)
+            {
+                model.ItemsAdded = _client.GetItemsForLabs(id);
+                model.labDetails = _client.GetLabDetails(id);
+            }
+            else
+            {
+                model.LabItems = _client.GetAllItemsMethod2();
+            }
+
+
+            return View(model);
+        }
+
+
+
+
+
+
+
+        [HttpPost]
+        public ActionResult PushNewLab(string labName, string labDescription, List<labItems> itemsInLab)
+        {
+            //await _client.FireBaseConnectAsync();
+
+             _client.pushNewLabAsync(labName, labDescription, itemsInLab);
+
+            return View();
+        }
+
+        /// <summary>
+        /// change viewInventory to EditInventory
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ViewInventory()
+        {
+            //await _client.FireBaseConnectAsync();
+
+            var model = new listIndex
+            {
+                IndexList =  _client.GetAllItemsMethod2()
             };
 
             return View(model);
         }
+
+
+
+
+
+
 
         public ActionResult About()
         {
@@ -35,5 +123,13 @@ namespace LaboratoryOperatorV1._0.Controllers
 
             return View();
         }
+
+        public ActionResult PushNewInventory(List<labItems> newEquipment, List<labItems> editedEquipment)
+        {
+            _client.pushNewEquipments(newEquipment, editedEquipment);
+
+            return RedirectToAction("IndexAsync");
+        }
+
     }
 }
