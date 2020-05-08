@@ -18,9 +18,11 @@
 
 <h2>Demo</h2>
 <p>go to this link: https://www.youtube.com/watch?v=LFlfeeMVN0I&t=12s</p>
-
+<br/>
 <strong>adding inventory</strong>
+<br/>
 <img src="screenshots/newIndex.gif" />
 
 <strong>adding labs</strong>
+<br/>
 <img src="screenshots/bagofCHips.gif" />
