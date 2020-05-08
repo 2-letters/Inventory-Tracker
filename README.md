@@ -17,4 +17,5 @@
 <h2>Demo</h2>
 <p>go to this link: https://www.youtube.com/watch?v=LFlfeeMVN0I&t=12s</p>
 
-<img src="screenshots/index.gif" />
+<img src="screenshots/newIndex.gif" />
+<img src="screenshots/bagofCHips.gif" />
