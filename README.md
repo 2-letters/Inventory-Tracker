@@ -1,6 +1,5 @@
 ![alt laboratory](cover1.png)
 
-<br/>
 <h2>Key features:</h2>
 <ul>
     <li>Create Labs.</li>
